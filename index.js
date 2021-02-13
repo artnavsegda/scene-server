@@ -39,7 +39,7 @@ app.post('/setScen', (req, res) => {
 })
 
 app.get('/getScen', (req, res) => {
-    res.send(meetingScenarios);
+    res.send(Scenarios);
 })
     
 app.get('/getClimate', (req, res) => {
