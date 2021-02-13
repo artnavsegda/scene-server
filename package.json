@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/artnavsegda/scene-server/issues"
   },
-  "homepage": "https://github.com/artnavsegda/scene-server#readme"
+  "homepage": "https://github.com/artnavsegda/scene-server#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
