@@ -1,5 +1,14 @@
 const fs = require('fs');
 const express = require('express');
+const cipclient = require('crestron-cip');
+
+const  cip  = cipclient.connect({host:  "192.168.10.10",  ipid:  "\x03"},  ()  =>  {
+  console.log('CIP connected')
+})
+
+cip.subscribe((data)  =>  {
+  console.log("type:"  +  data.type  +  " join:"  +  data.join  +  " value:"  +  data.value)
+})
 
 const tryRead = (filename, template) => {
   try {
