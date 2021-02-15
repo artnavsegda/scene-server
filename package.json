@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/artnavsegda/scene-server#readme",
   "dependencies": {
+    "crestron-cip": "^1.0.0",
     "express": "^4.17.1"
   }
 }
