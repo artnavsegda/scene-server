@@ -198,15 +198,6 @@ const  cip  = cipclient.connect({host:  "192.168.10.10",  ipid:  "\x03"},  ()  =
   console.log('CIP connected')
 })
 
-cip.subscribe((data)  =>  {
-  console.log("type:"  +  data.type  +  " join:"  +  data.join  +  " value:"  +  data.value)
-  switch(data.type)
-  {
-    case "digital":
-      console.log("digital decode: " + feedbackDigitalMap.get(data.join))
-  }
-})
-
 const tryRead = (filename, template) => {
   try {
     return JSON.parse(fs.readFileSync(filename, 'utf8'));
@@ -231,11 +222,28 @@ let climateSchedule = tryRead('climate.json', {
   });
 let Scenarios = tryRead('scenes.json', []);
 
+function activateScene(scene)
+{
+	
+}
+
+cip.subscribe((data)  =>  {
+	console.log("type:"  +  data.type  +  " join:"  +  data.join  +  " value:"  +  data.value)
+	switch(data.type)
+	{
+	  case "digital":
+		console.log("digital decode: " + feedbackDigitalMap.get(data.join))
+		if (data.join == 228)
+		{
+			activateScene(Scenarios)
+		}
+	}
+  })
+
 const app = express();
 const port = 3000;
 
 app.use(express.json());
-
 
 app.post('/setScen', (req, res) => {
     console.log("data:" + JSON.stringify(req.body))
