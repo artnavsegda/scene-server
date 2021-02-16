@@ -224,7 +224,30 @@ let Scenarios = tryRead('scenes.json', []);
 
 function activateScene(scene)
 {
-	
+    scene.forEach(function(elementToActivate)
+    {
+        switch (elementToActivate.type)
+        {
+            case "rgblights"://color           
+                if (elementToActivate.hue)
+                    if (elementToActivate.set_Hue)
+                        IR.GetDevice("Crestron").Set(elementToActivate.set_Hue, elementToActivate.hue);
+            case "dimmerlights"://dimmer 
+            case "rgblights":
+                if (elementToActivate.brightness)
+                    if (elementToActivate.set_Brightness)
+                        IR.GetDevice("Crestron").Set(elementToActivate.set_Brightness, elementToActivate.brightness);
+            case "lights"://switch
+            case "dimmerlights":
+            case "rgblights":
+                if (elementToActivate.value == 1)
+                    if (elementToActivate.set_On)
+                        Pulse(elementToActivate.set_On);
+                if (elementToActivate.value == 0)
+                    if (elementToActivate.set_Off)
+                        Pulse(elementToActivate.set_Off);
+        }
+    });
 }
 
 cip.subscribe((data)  =>  {
