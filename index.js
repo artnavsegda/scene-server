@@ -2,7 +2,7 @@ const fs = require('fs');
 const express = require('express');
 const cipclient = require('crestron-cip');
 
-let feedbackMap = new Map([
+let feedbackDigitalMap = new Map([
 	[1, "[Light][Garage]Ceiling[L0-1][Is_On]"],
 	[2, "[Light][Corridor]Ceiling[L0-2][Is_On]"],
 	[3, "[Light][Boiler]Ceiling[L0-3][Is_On]"],
