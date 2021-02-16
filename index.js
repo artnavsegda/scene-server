@@ -73,6 +73,11 @@ const  cip  = cipclient.connect({host:  "192.168.10.10",  ipid:  "\x03"},  ()  =
 
 cip.subscribe((data)  =>  {
   console.log("type:"  +  data.type  +  " join:"  +  data.join  +  " value:"  +  data.value)
+  switch(data.type)
+  {
+    case "digital":
+      console.log("digital decode: " + feedbackDigitalMap.get(data.join))
+  }
 })
 
 const tryRead = (filename, template) => {
