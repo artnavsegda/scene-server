@@ -2,7 +2,7 @@ const fs = require('fs');
 const express = require('express');
 const cipclient = require('crestron-cip');
 
-const feedback = [
+let feedbackMap = new Map([
 	[1, "[Light][Garage]Ceiling[L0-1][Is_On]"],
 	[2, "[Light][Corridor]Ceiling[L0-2][Is_On]"],
 	[3, "[Light][Boiler]Ceiling[L0-3][Is_On]"],
@@ -65,7 +65,7 @@ const feedback = [
 	[60, "[Light][1st_level]Bra[L14-3][Is_On]"],
 	[61, "[Light][1st_level]Bra[L14-4][Is_On]"],
 	[62, "[Light][Balcony]Lamp[L15-1][Is_On]"]
-]
+]);
 
 const  cip  = cipclient.connect({host:  "192.168.10.10",  ipid:  "\x03"},  ()  =>  {
   console.log('CIP connected')
