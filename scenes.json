@@ -1,1 +1,1 @@
-[]
+[{"payload":[{"type":"lights","is_On":"[Light][Garage]Ceiling[L0-1][is_On]","name":"Гараж L0.1","set_On":"[Light][Garage]Ceiling[L0-1][On]","set_Off":"[Light][Garage]Ceiling[L0-1][Off]","value":1}],"name":"Сценарий"}]

@@ -251,11 +251,11 @@ function activateScene(scene)
 }
 
 cip.subscribe((data)  =>  {
-	console.log("type:"  +  data.type  +  " join:"  +  data.join  +  " value:"  +  data.value)
+	//console.log("type:"  +  data.type  +  " join:"  +  data.join  +  " value:"  +  data.value)
 	switch(data.type)
 	{
 	  case "digital":
-		console.log("digital decode: " + feedbackDigitalMap.get(data.join))
+		//console.log("digital decode: " + feedbackDigitalMap.get(data.join))
 		if (data.join == 228)
 		{
 			activateScene(Scenarios)
