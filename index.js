@@ -194,6 +194,20 @@ let feedbackDigitalMap = new Map([
 	[62, "[Light][Balcony]Lamp[L15-1][Is_On]"]
 ]);
 
+const climateTemplate = {
+	mode: "weekly",
+	weekly: [
+		[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+		[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+		[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+		[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+		[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+		[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+		[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+	],
+	daily: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+}
+
 const  cip  = cipclient.connect({host:  "192.168.10.10",  ipid:  "\x03"},  ()  =>  {
   console.log('CIP connected')
 })
@@ -207,19 +221,9 @@ const tryRead = (filename, template) => {
   }
 }
 
-let climateSchedule = tryRead('climate.json', {
-  mode: "weekly",
-  weekly: [
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-      [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
-  ],
-  daily: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
-  });
+let floorsSchedule = tryRead('floors.json', climateTemplate);
+let heatersSchedule = tryRead('heaters.json', climateTemplate);
+
 let Scenarios = tryRead('scenes.json', []);
 
 function activateScene(scene)
@@ -279,14 +283,25 @@ app.get('/getScen', (req, res) => {
     res.send(Scenarios);
 })
     
-app.get('/getClimate', (req, res) => {
-    res.send(climateSchedule);
+app.get('/getFloors', (req, res) => {
+    res.send(floorSchedule);
 })
 
-app.post('/setClimate', (req, res) => {
+app.post('/setFloors', (req, res) => {
     console.log("data:" + JSON.stringify(req.body))
-    climateSchedule = req.body;
-    fs.writeFile('climate.json', JSON.stringify(climateSchedule),(error) => {});
+    floorsSchedule = req.body;
+    fs.writeFile('floors.json', JSON.stringify(floorsSchedule),(error) => {});
+    res.json(req.body);
+})
+
+app.get('/getHeaters', (req, res) => {
+    res.send(heatersSchedule);
+})
+
+app.post('/setHeaters', (req, res) => {
+    console.log("data:" + JSON.stringify(req.body))
+    heatersSchedule = req.body;
+    fs.writeFile('heaters.json', JSON.stringify(heatersSchedule),(error) => {});
     res.json(req.body);
 })
 
