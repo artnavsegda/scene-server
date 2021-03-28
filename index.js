@@ -208,6 +208,11 @@ const climateTemplate = {
 	daily: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
 }
 
+const activeTemplate = {
+	weekly: [],
+	daily: []
+}
+
 const  cip  = cipclient.connect({host:  "192.168.10.10",  ipid:  "\x03"},  ()  =>  {
   console.log('CIP connected')
 })
@@ -224,8 +229,8 @@ const tryRead = (filename, template) => {
 let floorsSchedule = tryRead('floors.json', climateTemplate);
 let heatersSchedule = tryRead('heaters.json', climateTemplate);
 
-let floorsActive = tryRead('floorsActive.json', climateTemplate);
-let heatersActive = tryRead('heatersActive.json', climateTemplate);
+let floorsActive = tryRead('floorsActive.json', activeTemplate);
+let heatersActive = tryRead('heatersActive.json', activeTemplate);
 
 let Scenarios = tryRead('scenes.json', []);
 
