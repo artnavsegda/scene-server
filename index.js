@@ -224,6 +224,9 @@ const tryRead = (filename, template) => {
 let floorsSchedule = tryRead('floors.json', climateTemplate);
 let heatersSchedule = tryRead('heaters.json', climateTemplate);
 
+let floorsActive = tryRead('floorsActive.json', climateTemplate);
+let heatersActive = tryRead('heatersActive.json', climateTemplate);
+
 let Scenarios = tryRead('scenes.json', []);
 
 function activateScene(scene)
@@ -305,12 +308,26 @@ app.post('/setHeaters', (req, res) => {
     res.json(req.body);
 })
 
-app.post('/setActive', (req,res) => {
-	res.json(req.body);
+app.get('/getActiveFloors', (req, res) => {
+    res.send(floorActive);
 })
 
-app.post('/getActive', (req,res) => {
-	res.json(req.body);
+app.post('/setActiveFloors', (req, res) => {
+    console.log("data:" + JSON.stringify(req.body))
+    floorsActive = req.body;
+    fs.writeFile('floorsActive.json', JSON.stringify(floorsActive),(error) => {});
+    res.json(req.body);
+})
+
+app.get('/getActiveHeaters', (req, res) => {
+    res.send(heatersActive);
+})
+
+app.post('/setActiveHeaters', (req, res) => {
+    console.log("data:" + JSON.stringify(req.body))
+    heatersActive = req.body;
+    fs.writeFile('heatersActive.json', JSON.stringify(heatersActive),(error) => {});
+    res.json(req.body);
 })
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
