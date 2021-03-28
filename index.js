@@ -290,4 +290,12 @@ app.post('/setClimate', (req, res) => {
     res.json(req.body);
 })
 
+app.post('/setActive', (req,res) => {
+	res.json(req.body);
+})
+
+app.post('/getActive', (req,res) => {
+	res.json(req.body);
+})
+
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
