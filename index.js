@@ -314,7 +314,7 @@ app.post('/setHeaters', (req, res) => {
 })
 
 app.get('/getActiveFloors', (req, res) => {
-    res.send(floorActive);
+    res.send(floorsActive);
 })
 
 app.post('/setActiveFloors', (req, res) => {
