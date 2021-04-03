@@ -292,7 +292,7 @@ app.get('/getScen', (req, res) => {
 })
     
 app.get('/getFloors', (req, res) => {
-    res.send(floorSchedule);
+    res.send(floorsSchedule);
 })
 
 app.post('/setFloors', (req, res) => {
