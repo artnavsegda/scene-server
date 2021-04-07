@@ -1,7 +1,8 @@
 const fs = require('fs');
 const express = require('express');
 const cipclient = require('crestron-cip');
-const joins = require('crestron-cip');
+const joins = require('./joinMap.js');
+const media = require('./media.js');
 
 const climateTemplate = {
 	mode: "weekly",
@@ -145,10 +146,7 @@ app.post('/setActiveHeaters', (req, res) => {
 })
 
 app.get('/media', (req, res) => {
-	console.log(req.query.power);
-	console.log(req.query.location);
-	console.log(req.query.source);
-    res.send({result: "ok"});
+    res.send(media.turn(req.query));
 })
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
