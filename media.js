@@ -20,5 +20,14 @@ exports.turn = function(parameters)
   console.log(parameters.power);
   console.log(parameters.location);
   console.log(parameters.source);
+
+  if (parameters.power == "on")
+  {
+    client.publish('/media/appletv', "1")
+  } else if (parameters.power == "off")
+  {
+    client.publish('/media/appletv', "0")
+  }
+
   return {result: "ok"}
 }
