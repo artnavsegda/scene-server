@@ -145,6 +145,9 @@ app.post('/setActiveHeaters', (req, res) => {
 })
 
 app.get('/media', (req, res) => {
+	console.log(req.query.power);
+	console.log(req.query.location);
+	console.log(req.query.source);
     res.send({result: "ok"});
 })
 
