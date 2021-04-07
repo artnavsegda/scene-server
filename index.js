@@ -145,7 +145,7 @@ app.post('/setActiveHeaters', (req, res) => {
 })
 
 app.get('/media', (req, res) => {
-    res.send({result: "ok"}});
+    res.send({result: "ok"});
 })
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
