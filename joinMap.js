@@ -1,4 +1,4 @@
-let digitalMap = new Map([
+exports.digitalMap = new Map([
 	["[Light][Garage]Ceiling[L0-1][On]", 1],
 	["[Light][Corridor]Ceiling[L0-2][On]", 2],
 	["[Light][Boiler]Ceiling[L0-3][On]", 3],
@@ -125,7 +125,7 @@ let digitalMap = new Map([
 	["[Light][Balcony]Lamp[L15-1][Off]", 162]
 ])
 
-let feedbackDigitalMap = new Map([
+exports.feedbackDigitalMap = new Map([
 	[1, "[Light][Garage]Ceiling[L0-1][Is_On]"],
 	[2, "[Light][Corridor]Ceiling[L0-2][Is_On]"],
 	[3, "[Light][Boiler]Ceiling[L0-3][Is_On]"],
