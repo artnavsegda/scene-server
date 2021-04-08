@@ -23,10 +23,10 @@ exports.turn = function(parameters)
 
   if (parameters.power == "on")
   {
-    client.publish('/media/livingroom/'+ parameters.source +'/on', "1")
+    client.publish('/media/livingroom/'+ parameters.source +'/on', "1", {retain: true})
   } else if (parameters.power == "off")
   {
-    client.publish('/media/livingroom/'+ parameters.source +'/on', "0")
+    client.publish('/media/livingroom/'+ parameters.source +'/on', "0", {retain: true})
   }
 
   return {result: "ok"}
