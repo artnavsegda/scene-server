@@ -1,4 +1,4 @@
-exports.digitalMap = new Map([
+export digitalMap = new Map([
 	["[Light][Garage]Ceiling[L0-1][On]", 1],
 	["[Light][Corridor]Ceiling[L0-2][On]", 2],
 	["[Light][Boiler]Ceiling[L0-3][On]", 3],

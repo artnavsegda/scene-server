@@ -1,8 +1,8 @@
-const fs = require('fs');
-const express = require('express');
-const cipclient = require('crestron-cip');
-const joins = require('./joinMap.js');
-const media = require('./media.js');
+import fs from "fs";
+import express from "express";
+import cipclient from "crestron-cip";
+import joins from "./joinMap.js";
+import media from "./media.js";
 
 const climateTemplate = {
 	mode: "weekly",
