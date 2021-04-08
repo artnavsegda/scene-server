@@ -4,7 +4,7 @@ var client  = mqtt.connect('mqtt://127.0.0.1')
 client.on('connect', function () {
     client.subscribe('presence', function (err) {
       if (!err) {
-        client.publish('presence', 'Hello mqtt')
+        //client.publish('presence', 'Hello mqtt')
       }
     })
   })
@@ -23,10 +23,10 @@ exports.turn = function(parameters)
 
   if (parameters.power == "on")
   {
-    client.publish('/media/livingroom/appletv/on', "1")
+    client.publish('/media/livingroom/'+ parameters.source +'/on', "1")
   } else if (parameters.power == "off")
   {
-    client.publish('/media/livingroom/appletv/on', "0")
+    client.publish('/media/livingroom/'+ parameters.source +'/on', "0")
   }
 
   return {result: "ok"}
