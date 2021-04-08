@@ -17,6 +17,8 @@ client.on('message', function (topic, message) {
 
 exports.turn = function(parameters)
 {
+  let timeout = 0;
+
   console.log(parameters.power);
   console.log(parameters.location);
   console.log(parameters.source);
@@ -24,10 +26,12 @@ exports.turn = function(parameters)
   if (parameters.power == "on")
   {
     client.publish('/media/livingroom/'+ parameters.source +'/on', "1", {retain: true})
+    timeout = 10;
   } else if (parameters.power == "off")
   {
     client.publish('/media/livingroom/'+ parameters.source +'/on', "0", {retain: true})
+    timeout = 15;
   }
 
-  return {result: "ok"}
+  return {result: "ok", timeout}
 }
