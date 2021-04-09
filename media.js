@@ -19,25 +19,20 @@ client.on('message', function (topic, message) {
     //client.end()
 })
 
-let sources = [
-  {
-    name: "appletv",
-    on: false
-  },
-  {
-    name: "kodi",
-    on: false
-  }
-]
+let sources = new Map([
+  ["appletv", {on: false}],
+  ["kodi", {on: false}],
+])
 
-//shut down every unused source
+//turn down every unused source
 myEmitter.on('turn', function(power, location, source) {
   if (power == "on")
   {
-    sources.forEach((element) => {
-      if (element.name != source)
+    sources.forEach((value, key) => {
+      if (key != source)
       {
-        client.publish('/media/livingroom/'+ element.name +'/on', "0", {retain: true})
+        sources.set(key, {on: false})
+        client.publish('/media/livingroom/'+ key +'/on', "0", {retain: true})
       }
     })
   }
@@ -55,15 +50,22 @@ export function turn(parameters)
 
   if (parameters.power == "on")
   {
-    //sources[parameters.source].on = true;
-    client.publish('/media/livingroom/'+ parameters.source +'/on', "1", {retain: true})
-    timeout = 10;
+    console.log("AAAA:" + sources.get(parameters.source).on)
+    if (sources.get(parameters.source).on == false)
+    {
+      console.log("BBBB!");
+      sources.set(parameters.source, {on: true})
+      client.publish('/media/livingroom/'+ parameters.source +'/on', "1", {retain: true})
+      timeout = 10;
+    }
   } else if (parameters.power == "off")
   {
-    //sources[parameters.source].on = false;
+    sources.set(parameters.source, {on: false})
     client.publish('/media/livingroom/'+ parameters.source +'/on', "0", {retain: true})
     timeout = 15;
   }
+
+  console.log("timeout:" + timeout)
 
   return {result: "ok", timeout}
 }
