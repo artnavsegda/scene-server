@@ -19,14 +19,25 @@ client.on('message', function (topic, message) {
     //client.end()
 })
 
+let sources = [
+  {
+    name: "appletv",
+    on: false
+  },
+  {
+    name: "kodi",
+    on: false
+  }
+]
+
 //shut down every unused source
 myEmitter.on('turn', function(power, location, source) {
   if (power == "on")
   {
-    ['kodi', 'appletv'].forEach((element) => {
-      if (element != source)
+    sources.forEach((element) => {
+      if (element.name != source)
       {
-        client.publish('/media/livingroom/'+ element +'/on', "0", {retain: true})
+        client.publish('/media/livingroom/'+ element.name +'/on', "0", {retain: true})
       }
     })
   }
@@ -44,10 +55,12 @@ export function turn(parameters)
 
   if (parameters.power == "on")
   {
+    //sources[parameters.source].on = true;
     client.publish('/media/livingroom/'+ parameters.source +'/on', "1", {retain: true})
     timeout = 10;
   } else if (parameters.power == "off")
   {
+    //sources[parameters.source].on = false;
     client.publish('/media/livingroom/'+ parameters.source +'/on', "0", {retain: true})
     timeout = 15;
   }
