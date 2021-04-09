@@ -1,8 +1,8 @@
 import fs from "fs";
 import express from "express";
 import cipclient from "crestron-cip";
-import joins from "./joinMap.js";
-import media from "./media.js";
+import { digitalMap, feedbackDigitalMap } from "./joinMap.js";
+import { turn } from "./media.js";
 
 const climateTemplate = {
 	mode: "weekly",
@@ -77,7 +77,7 @@ cip.subscribe((data)  =>  {
 	switch(data.type)
 	{
 	  case "digital":
-		//console.log("digital decode: " + joins.feedbackDigitalMap.get(data.join))
+		//console.log("digital decode: " + feedbackDigitalMap.get(data.join))
 		if (data.join == 228)
 		{
 			activateScene(Scenarios)
@@ -146,7 +146,7 @@ app.post('/setActiveHeaters', (req, res) => {
 })
 
 app.get('/media', (req, res) => {
-    res.send(media.turn(req.query));
+    res.send(turn(req.query));
 })
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
