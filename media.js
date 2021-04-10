@@ -51,6 +51,7 @@ myEmitter.on('turn', function(power, location, source) {
 export function turn(parameters)
 {
   let timeout = 0;
+  let result = "ok";
 
   console.log(parameters.power);
   console.log(parameters.location);
@@ -62,13 +63,16 @@ export function turn(parameters)
   {
     if (sources.get(parameters.source).on == false)
     {
-      sources.set(parameters.source, {on: true})
+      sources.set(parameters.source, {on: true, in: parameters.location})
       client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true})
       timeout = 10;
+    } else if (sources.get(parameters.source).in != parameters.location)
+    {
+      result = "busy";
     }
   } else if (parameters.power == "off")
   {
-    sources.set(parameters.source, {on: false})
+    sources.set(parameters.source, {on: false, in: ""})
     client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true})
     timeout = 15;
   }
