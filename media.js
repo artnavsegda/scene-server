@@ -20,8 +20,17 @@ client.on('message', function (topic, message) {
 })
 
 let sources = new Map([
-  ["appletv", {on: false}],
-  ["kodi", {on: false}],
+  ["appletv", {on: false, in: ""}],
+  ["kodi", {on: false, in: ""}],
+])
+
+let rooms = new Map([
+  ["livingroom", {}],
+  ["kitchen", {}],
+  ["bathroom", {}],
+  ["bedroom", {}],
+  ["bedroombathroom", {}],
+  ["highfloorbathroom", {}],
 ])
 
 //turn down every unused source
