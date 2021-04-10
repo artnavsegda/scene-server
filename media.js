@@ -79,5 +79,5 @@ export function turn(parameters)
 
   console.log("timeout:" + timeout)
 
-  return {result: "ok", timeout}
+  return {result, timeout}
 }
