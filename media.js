@@ -32,7 +32,7 @@ myEmitter.on('turn', function(power, location, source) {
       if (key != source)
       {
         sources.set(key, {on: false})
-        client.publish('/media/livingroom/'+ key +'/on', "0", {retain: true})
+        client.publish('/media/' + location + '/'+ key +'/on', "0", {retain: true})
       }
     })
   }
@@ -50,18 +50,16 @@ export function turn(parameters)
 
   if (parameters.power == "on")
   {
-    console.log("AAAA:" + sources.get(parameters.source).on)
     if (sources.get(parameters.source).on == false)
     {
-      console.log("BBBB!");
       sources.set(parameters.source, {on: true})
-      client.publish('/media/livingroom/'+ parameters.source +'/on', "1", {retain: true})
+      client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true})
       timeout = 10;
     }
   } else if (parameters.power == "off")
   {
     sources.set(parameters.source, {on: false})
-    client.publish('/media/livingroom/'+ parameters.source +'/on', "0", {retain: true})
+    client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true})
     timeout = 15;
   }
 
