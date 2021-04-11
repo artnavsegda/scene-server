@@ -1,7 +1,12 @@
 import mqtt from "mqtt";
 import EventEmitter from "events";
+import cipclient from "crestron-cip";
 
 var client  = mqtt.connect('mqtt://127.0.0.1')
+
+const  cip  = cipclient.connect({host:  "192.168.10.11",  ipid:  "\x03"},  ()  =>  {
+  console.log('CIP connected')
+})
 
 const myEmitter = new EventEmitter();
 
