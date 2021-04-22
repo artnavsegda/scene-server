@@ -27,7 +27,7 @@ client.on('message', function (topic, message) {
 let sources = new Map([
   ["appletv", {on: false, in: ""}],
   ["kodi", {on: false, in: ""}],
-  ["yamaha", {on: false, in: ""}],
+  ["yamaha_big", {on: false, in: ""}],
 ])
 
 let rooms = new Map([
