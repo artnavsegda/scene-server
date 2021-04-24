@@ -45,7 +45,9 @@ let rooms = new Map([
 myEmitter.on('turn', function(power, location, source) {
   if (power == "on")
   {
-    sources.forEach((value, key) => {
+    sourcesList = rooms.get(location)
+
+    sourcesList.forEach((key) => {
       if (key != source)
       {
         sources.set(key, {on: false})
