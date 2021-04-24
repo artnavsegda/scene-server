@@ -76,7 +76,8 @@ export function turn(parameters)
       sources.set(parameters.source, {on: true, in: parameters.location})
       client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true})
       timeout = 10;
-    } else if (sources.get(parameters.source).in != parameters.location)
+    }
+    else if (sources.get(parameters.source).in != parameters.location)
     {
       result = "busy";
       detais = {
@@ -84,7 +85,8 @@ export function turn(parameters)
         prompt: "Устройство занято в команте " + sources.get(parameters.source).in
       }
     }
-  } else if (parameters.power == "off")
+  }
+  else if (parameters.power == "off")
   {
     sources.set(parameters.source, {on: false, in: ""})
     client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true})
