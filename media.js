@@ -77,6 +77,10 @@ export function turn(parameters)
     } else if (sources.get(parameters.source).in != parameters.location)
     {
       result = "busy";
+      detais = {
+        in: sources.get(parameters.source).in,
+        prompt: "Устройство занято в команте " + sources.get(parameters.source).in
+      }
     }
   } else if (parameters.power == "off")
   {
