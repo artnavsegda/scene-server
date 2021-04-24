@@ -41,7 +41,7 @@ let rooms = new Map([
   ["highfloorbathroom", {}],
 ])
 
-//turn down every unused source
+//turn down every unused source in particular room
 myEmitter.on('turn', function(power, location, source) {
   if (power == "on")
   {
