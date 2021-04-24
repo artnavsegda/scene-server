@@ -59,6 +59,7 @@ export function turn(parameters)
 {
   let timeout = 0;
   let result = "ok";
+  let details = {};
 
   console.log(parameters.power);
   console.log(parameters.location);
@@ -86,5 +87,5 @@ export function turn(parameters)
 
   console.log("timeout:" + timeout)
 
-  return {result, timeout}
+  return {result, timeout, details}
 }
