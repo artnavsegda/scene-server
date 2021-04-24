@@ -33,12 +33,12 @@ let sources = new Map([
 ])
 
 let rooms = new Map([
-  ["livingroom", {}],
-  ["kitchen", {}],
-  ["bathroom", {}],
-  ["bedroom", {}],
-  ["bedroombathroom", {}],
-  ["highfloorbathroom", {}],
+  ["livingroom", ["appletv", "kodi", "yamaha_big"]],
+  ["kitchen", ["yamaha", "yamaha2"]],
+  ["bathroom", ["yamaha", "yamaha2"]],
+  ["bedroom", ["yamaha", "yamaha2"]],
+  ["bedroombathroom", ["yamaha", "yamaha2"]],
+  ["highfloorbathroom", ["yamaha", "yamaha2"]],
 ])
 
 //turn down every unused source in particular room
