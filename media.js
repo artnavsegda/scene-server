@@ -55,7 +55,7 @@ myEmitter.on('turn', function(power, location, source) {
   }
 });
 
-function powerOn(location,source, prevSource)
+function powerOn(location, source, prevSource)
 {
   let timeout = 15;
   if (location == "livingroom" && (source == "appletv" || source == "kodi"))
