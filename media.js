@@ -69,7 +69,7 @@ export function turn(parameters)
 {
   let timeout = 0;
   let result = "ok";
-  let details = {};
+  let details = {prompt: ""};
 
   console.log(parameters.power);
   console.log(parameters.location);
@@ -91,7 +91,7 @@ export function turn(parameters)
     else if (sources[parameters.source].in != parameters.location)
     {
       result = "busy";
-      detais = {
+      details = {
         in: sources[parameters.source].in,
         prompt: "Устройство занято в команте " + sources[parameters.source].in
       }
