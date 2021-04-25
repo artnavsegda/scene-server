@@ -55,6 +55,16 @@ myEmitter.on('turn', function(power, location, source) {
   }
 });
 
+function powerOn(location,source)
+{
+  return 10;
+}
+
+function powerOff(location,source)
+{
+  return 15;
+}
+
 export function turn(parameters)
 {
   let timeout = 0;
@@ -77,8 +87,6 @@ export function turn(parameters)
       client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true})
       // calculate timeouts & execute actions
       timeout = powerOn(parameters.location, parameters.source);
-
-      //timeout = 10;
     }
     else if (sources[parameters.source].in != parameters.location)
     {
@@ -97,8 +105,6 @@ export function turn(parameters)
 
     // calculate timeouts & execute actions
     timeout = powerOff(parameters.location, parameters.source);
-
-    //timeout = 15;
   }
 
   console.log("timeout:" + timeout)
