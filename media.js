@@ -57,24 +57,54 @@ myEmitter.on('turn', function(power, location, source) {
 
 function powerOn(location, source, prevSource)
 {
-  let timeout = 15;
-  if (location == "livingroom" && (source == "appletv" || source == "kodi"))
-  {
-    timeout += 60;
-  }
+  let timeout = 10;
 
-  // in case of switching from source that doesnot use screen projector, we need deliberatly shut off projector, take lift up and roll up lift, if it currently used
+  if (location == "livingroom")
+  {
+    if (source == "appletv" || source == "kodi")
+    {
+      if (prevSource == "appletv" || prevSource == "kodi")
+      {
+        timeout += 5;
+      }
+      else
+      {
+        timeout += 60;
+      }
+    }
+    else
+    {
+      if (prevSource == "appletv" || prevSource == "kodi")
+      {
+        // in case of switching from source that doesnot use screen projector, we need deliberatly shut off projector, take lift up and roll up lift, if it currently used
+        timeout += 60;
+      }
+      else
+      {
+        timeout += 5;
+      }
+    }
+  }
 
   return timeout;
 }
 
 function powerOff(location,source)
 {
-  let timeout = 10;
-  if (location == "livingroom" && (source == "appletv" || source == "kodi"))
+  let timeout = 5;
+
+  if (location == "livingroom")
   {
-    timeout += 60;
+    if (source == "appletv" || source == "kodi")
+    {
+      timeout += 60;
+    }
+    else
+    {
+      timeout += 5;
+    }
   }
+
   return timeout;
 }
 
