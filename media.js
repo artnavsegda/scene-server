@@ -65,6 +65,7 @@ function powerOn(location,source)
 
   // in case of switching from source that doesnot use screen projector, we need deliberatly shut off projector, take lift up and roll up lift, if it currently used
 
+
   return timeout;
 }
 
@@ -94,12 +95,12 @@ export function turn(parameters)
   {
     if (sources[parameters.source].on == false)
     {
-      sources[parameters.source] = {on: true, in: parameters.location};
-      rooms[parameters.location].current = parameters.source;
-
-      client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
       // calculate timeouts & execute actions
       timeout = powerOn(parameters.location, parameters.source);
+
+      sources[parameters.source] = {on: true, in: parameters.location};
+      rooms[parameters.location].current = parameters.source;
+      client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
     }
     else if (sources[parameters.source].in != parameters.location)
     {
@@ -112,12 +113,12 @@ export function turn(parameters)
   }
   else if (parameters.power == "off")
   {
+    // calculate timeouts & execute actions
+    timeout = powerOff(parameters.location, parameters.source);
+
     sources[parameters.source] = {on: false, in: ""};
     rooms[parameters.location].current = "";
     client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true});
-
-    // calculate timeouts & execute actions
-    timeout = powerOff(parameters.location, parameters.source);
   }
 
   console.log("timeout:" + timeout)
