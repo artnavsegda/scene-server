@@ -72,6 +72,7 @@ export function turn(parameters)
     if (sources[parameters.source].on == false)
     {
       sources[parameters.source] = {on: true, in: parameters.location})
+      rooms[parameters.location].current = parameters.source;
 
       client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true})
       timeout = 10;
@@ -88,6 +89,8 @@ export function turn(parameters)
   else if (parameters.power == "off")
   {
     sources[parameters.source] = {on: false, in: ""})
+    rooms[parameters.location].current = "";
+
     client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true})
     timeout = 15;
   }
