@@ -24,13 +24,13 @@ client.on('message', function (topic, message) {
     //client.end()
 })
 
-let sources = new Map([
-  ["appletv", {on: false, in: ""}],
-  ["kodi", {on: false, in: ""}],
-  ["yamaha", {on: false, in: ""}],
-  ["yamaha2", {on: false, in: ""}],
-  ["yamaha_big", {on: false, in: ""}],
-])
+let sources = {
+  "appletv": {on: false, in: ""},
+  "kodi": {on: false, in: ""},
+  "yamaha": {on: false, in: ""},
+  "yamaha2": {on: false, in: ""},
+  "yamaha_big": {on: false, in: ""},
+}
 
 let rooms = new Map([
   ["livingroom", { list: ["appletv", "kodi", "yamaha_big"], current: ""}],
@@ -48,7 +48,7 @@ myEmitter.on('turn', function(power, location, source) {
     rooms.get(location).list.forEach((key) => {
       if (key != source)
       {
-        sources.set(key, {on: false})
+        sources[key].on = false;
         client.publish('/media/' + location + '/'+ key +'/on', "0", {retain: true})
       }
     })
@@ -69,24 +69,25 @@ export function turn(parameters)
 
   if (parameters.power == "on")
   {
-    if (sources.get(parameters.source).on == false)
+    if (sources[parameters.source].on == false)
     {
-      sources.set(parameters.source, {on: true, in: parameters.location})
+      sources[parameters.source] = {on: true, in: parameters.location})
+
       client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true})
       timeout = 10;
     }
-    else if (sources.get(parameters.source).in != parameters.location)
+    else if (sources[parameters.source].in != parameters.location)
     {
       result = "busy";
       detais = {
-        in: sources.get(parameters.source).in,
-        prompt: "Устройство занято в команте " + sources.get(parameters.source).in
+        in: sources[parameters.source].in,
+        prompt: "Устройство занято в команте " + sources[parameters.source].in
       }
     }
   }
   else if (parameters.power == "off")
   {
-    sources.set(parameters.source, {on: false, in: ""})
+    sources[parameters.source] = {on: false, in: ""})
     client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true})
     timeout = 15;
   }
