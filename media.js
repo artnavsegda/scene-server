@@ -33,21 +33,19 @@ let sources = new Map([
 ])
 
 let rooms = new Map([
-  ["livingroom", ["appletv", "kodi", "yamaha_big"]],
-  ["kitchen", ["yamaha", "yamaha2"]],
-  ["bathroom", ["yamaha", "yamaha2"]],
-  ["bedroom", ["yamaha", "yamaha2"]],
-  ["bedroombathroom", ["yamaha", "yamaha2"]],
-  ["highfloorbathroom", ["yamaha", "yamaha2"]],
+  ["livingroom", { list: ["appletv", "kodi", "yamaha_big"], current: ""}],
+  ["kitchen", { list: ["yamaha", "yamaha2"], current: ""}],
+  ["bathroom", { list: ["yamaha", "yamaha2"], current: ""}],
+  ["bedroom", { list: ["yamaha", "yamaha2"], current: ""}],
+  ["bedroombathroom", { list: ["yamaha", "yamaha2"], current: ""}],
+  ["highfloorbathroom", { list: ["yamaha", "yamaha2"], current: ""}],
 ])
 
 //turn down every unused source in particular room
 myEmitter.on('turn', function(power, location, source) {
   if (power == "on")
   {
-    sourcesList = rooms.get(location)
-
-    sourcesList.forEach((key) => {
+    rooms.get(location).list.forEach((key) => {
       if (key != source)
       {
         sources.set(key, {on: false})
