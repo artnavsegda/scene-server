@@ -81,10 +81,10 @@ export function turn(parameters)
   {
     if (sources[parameters.source].on == false)
     {
-      sources[parameters.source] = {on: true, in: parameters.location})
+      sources[parameters.source] = {on: true, in: parameters.location};
       rooms[parameters.location].current = parameters.source;
 
-      client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true})
+      client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
       // calculate timeouts & execute actions
       timeout = powerOn(parameters.location, parameters.source);
     }
@@ -99,7 +99,7 @@ export function turn(parameters)
   }
   else if (parameters.power == "off")
   {
-    sources[parameters.source] = {on: false, in: ""});
+    sources[parameters.source] = {on: false, in: ""};
     rooms[parameters.location].current = "";
     client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true});
 
