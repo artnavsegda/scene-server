@@ -45,7 +45,7 @@ let rooms = {
 myEmitter.on('turn', function(power, location, source) {
   if (power == "on")
   {
-    rooms.list.forEach((key) => {
+    rooms[location].list.forEach((key) => {
       if (key != source)
       {
         sources[key].on = false;
