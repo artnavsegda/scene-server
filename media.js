@@ -59,31 +59,35 @@ function powerOn(location, source, prevSource)
 {
   let timeout = 10;
 
-  if (location == "livingroom")
+  switch (location)
   {
-    if (source == "appletv" || source == "kodi")
-    {
-      if (prevSource == "appletv" || prevSource == "kodi")
+    case "livingroom":
+      if (source == "appletv" || source == "kodi")
       {
-        timeout += 5;
+        if (prevSource == "appletv" || prevSource == "kodi")
+        {
+          timeout += 5;
+        }
+        else
+        {
+          timeout += 60;
+        }
       }
       else
       {
-        timeout += 60;
+        if (prevSource == "appletv" || prevSource == "kodi")
+        {
+          // in case of switching from source that doesnot use screen projector, we need deliberatly shut off projector, take lift up and roll up lift, if it currently used
+          timeout += 60;
+        }
+        else
+        {
+          timeout += 5;
+        }
       }
-    }
-    else
-    {
-      if (prevSource == "appletv" || prevSource == "kodi")
-      {
-        // in case of switching from source that doesnot use screen projector, we need deliberatly shut off projector, take lift up and roll up lift, if it currently used
-        timeout += 60;
-      }
-      else
-      {
-        timeout += 5;
-      }
-    }
+    break;
+    default:
+      timeout += 5;
   }
 
   return timeout;
@@ -93,16 +97,20 @@ function powerOff(location,source)
 {
   let timeout = 5;
 
-  if (location == "livingroom")
+  switch (location)
   {
-    if (source == "appletv" || source == "kodi")
-    {
-      timeout += 60;
-    }
-    else
-    {
+    case "livingroom":
+      if (source == "appletv" || source == "kodi")
+      {
+        timeout += 60;
+      }
+      else
+      {
+        timeout += 5;
+      }
+    break;
+    default:
       timeout += 5;
-    }
   }
 
   return timeout;
