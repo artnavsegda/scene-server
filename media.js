@@ -62,6 +62,9 @@ function powerOn(location,source)
   {
     timeout += 60;
   }
+
+  // in case of switching from source that doesnot use screen projector, we need deliberatly shut off projector, take lift up and roll up lift, if it currently used
+
   return timeout;
 }
 
