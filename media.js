@@ -55,7 +55,7 @@ myEmitter.on('turn', function(power, location, source) {
   }
 });
 
-function powerOn(location,source)
+function powerOn(location,source, prevSource)
 {
   let timeout = 15;
   if (location == "livingroom" && (source == "appletv" || source == "kodi"))
@@ -64,7 +64,6 @@ function powerOn(location,source)
   }
 
   // in case of switching from source that doesnot use screen projector, we need deliberatly shut off projector, take lift up and roll up lift, if it currently used
-
 
   return timeout;
 }
@@ -96,7 +95,7 @@ export function turn(parameters)
     if (sources[parameters.source].on == false)
     {
       // calculate timeouts & execute actions
-      timeout = powerOn(parameters.location, parameters.source);
+      timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
 
       sources[parameters.source] = {on: true, in: parameters.location};
       rooms[parameters.location].current = parameters.source;
