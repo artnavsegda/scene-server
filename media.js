@@ -57,12 +57,22 @@ myEmitter.on('turn', function(power, location, source) {
 
 function powerOn(location,source)
 {
-  return 10;
+  let timeout = 15;
+  if (location == "livingroom" && (source == "appletv" || source == "kodi"))
+  {
+    timeout += 60;
+  }
+  return timeout;
 }
 
 function powerOff(location,source)
 {
-  return 15;
+  let timeout = 10;
+  if (location == "livingroom" && (source == "appletv" || source == "kodi"))
+  {
+    timeout += 60;
+  }
+  return timeout;
 }
 
 export function turn(parameters)
