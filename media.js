@@ -34,11 +34,11 @@ let sources = {
 
 let rooms = {
   "livingroom": { list: ["appletv", "kodi", "yamaha_big"], current: ""},
-  "kitchen": { list: ["yamaha", "yamaha2"], current: ""},
-  "bathroom": { list: ["yamaha", "yamaha2"], current: ""},
-  "bedroom": { list: ["yamaha", "yamaha2"], current: ""},
-  "bedroombathroom": { list: ["yamaha", "yamaha2"], current: ""},
-  "highfloorbathroom": { list: ["yamaha", "yamaha2"], current: ""},
+  "kitchen": { list: ["yamaha", "yamaha2"], current: "", ampcode: 1},
+  "bathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 2},
+  "bedroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 3},
+  "bedroombathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 4},
+  "highfloorbathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 5},
 }
 
 //turn down every unused source in particular room
