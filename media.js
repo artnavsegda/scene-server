@@ -4,7 +4,7 @@ import cipclient from "crestron-cip";
 
 var client  = mqtt.connect('mqtt://127.0.0.1')
 
-const  cip  = cipclient.connect({host:  "192.168.10.11",  ipid:  "\x03"},  ()  =>  {
+const cip = cipclient.connect({host:  "192.168.10.11",  ipid:  "\x03"},  ()  =>  {
   console.log('CIP connected')
 })
 
@@ -27,8 +27,8 @@ client.on('message', function (topic, message) {
 let sources = {
   "appletv": {on: false, in: ""},
   "kodi": {on: false, in: ""},
-  "yamaha": {on: false, in: ""},
-  "yamaha2": {on: false, in: ""},
+  "yamaha": {on: false, in: "", ampinput: 1},
+  "yamaha2": {on: false, in: "", ampinput: 2},
   "yamaha_big": {on: false, in: ""},
 }
 
@@ -91,6 +91,7 @@ function powerOn(location, source, prevSource)
     case "bedroom":
     case "bedroombathroom":
     case "highfloorbathroom":
+      cip.aset(sources[source].ampinput, rooms[location].ampcode); // that should work, i guess but do not forget jount index, th this case is 0 but for other controld has to be different
     default:
       timeout += 5;
   }
