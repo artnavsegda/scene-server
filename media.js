@@ -86,6 +86,11 @@ function powerOn(location, source, prevSource)
         }
       }
     break;
+    case "kitchen":
+    case "bathroom":
+    case "bedroom":
+    case "bedroombathroom":
+    case "highfloorbathroom":
     default:
       timeout += 5;
   }
