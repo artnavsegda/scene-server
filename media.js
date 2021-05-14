@@ -26,15 +26,18 @@ client.on('message', function (topic, message) {
 
 let sources = {
   "appletv": {on: false, in: ""},
+  "appletv2": {on: false, in: ""},
   "kodi": {on: false, in: ""},
+  "kodi2": {on: false, in: ""},
   "yamaha": {on: false, in: "", ampinput: 1},
   "yamaha2": {on: false, in: "", ampinput: 2},
   "yamaha_big": {on: false, in: ""},
 }
 
 let rooms = {
-  "livingroom": { list: ["appletv", "kodi", "yamaha_big"], current: ""},
-  "kitchen": { list: ["yamaha", "yamaha2"], current: "", ampcode: 1},
+  "cinema": { list: ["appletv", "kodi", "yamaha_big", "appletv2", "kodi2"], current: ""},
+  "livingroom": { list: ["appletv", "kodi", "yamaha_big", "appletv2", "kodi2"], current: ""},
+  "kitchen": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2"], current: "", ampcode: 1},
   "bathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 2},
   "bedroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 3},
   "bedroombathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 4},
