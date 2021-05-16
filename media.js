@@ -74,6 +74,7 @@ function powerOn(location, source, prevSource)
         else
         {
           timeout += 60;
+          cip.pulse(3);
         }
       }
       else
@@ -82,6 +83,7 @@ function powerOn(location, source, prevSource)
         {
           // in case of switching from source that doesnot use screen projector, we need deliberatly shut off projector, take lift up and roll up lift, if it currently used
           timeout += 60;
+          cip.pulse(4);
         }
         else
         {
@@ -112,6 +114,7 @@ function powerOff(location,source)
       if (source == "appletv" || source == "kodi")
       {
         timeout += 60;
+        cip.pulse(4);
       }
       else
       {
