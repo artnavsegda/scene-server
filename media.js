@@ -45,7 +45,7 @@ let rooms = {
 }
 
 //turn down every unused source in particular room
-myEmitter.on('turn', function(power, location, source) {
+myEmitter.on('turn', function(power, location, source, prevSource) {
   if (power == "on")
   {
     rooms[location].list.forEach((key) => {
@@ -135,7 +135,7 @@ export function turn(parameters)
   console.log(parameters.location);
   console.log(parameters.source);
 
-  myEmitter.emit('turn', parameters.power, parameters.location, parameters.source);
+  myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
 
   if (parameters.power == "on")
   {
