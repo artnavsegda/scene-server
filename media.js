@@ -35,7 +35,7 @@ let sources = {
 }
 
 let rooms = {
-  "cinema": { list: ["appletv", "kodi", "yamaha_big", "appletv2", "kodi2"], current: ""},
+  "cinema": { list: ["appletv", "kodi", "appletv2", "kodi2"], current: ""},
   "livingroom": { list: ["appletv", "kodi", "yamaha_big", "appletv2", "kodi2"], current: ""},
   "kitchen": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2"], current: "", ampcode: 1},
   "bathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 2},
@@ -64,7 +64,7 @@ function powerOn(location, source, prevSource)
 
   switch (location)
   {
-    case "livingroom":
+    case "cinema":
       if (source == "appletv" || source == "kodi")
       {
         if (prevSource == "appletv" || prevSource == "kodi")
@@ -90,6 +90,15 @@ function powerOn(location, source, prevSource)
           timeout += 5;
         }
       }
+    break;
+    case "livingroom":
+      if (rooms["cinema"].current == "appletv" || rooms["cinema"].current)
+      {
+        timeout += 60;
+        cip.pulse(4);
+      }
+      else
+        timeout += 5;
     break;
     case "kitchen":
     case "bathroom":
