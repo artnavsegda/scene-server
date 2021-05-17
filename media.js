@@ -70,40 +70,18 @@ function powerOn(location, source, prevSource)
   switch (location)
   {
     case "cinema":
-      if (source == "appletv" || source == "kodi")
+      if (rooms["cinema"].current == "")
       {
-        if (prevSource == "appletv" || prevSource == "kodi")
-        {
-          timeout += 5;
-        }
-        else
-        {
           timeout += 60;
           cip.pulse(3);
-        }
       }
       else
       {
-        if (prevSource == "appletv" || prevSource == "kodi")
-        {
-          // in case of switching from source that doesnot use screen projector, we need deliberatly shut off projector, take lift up and roll up lift, if it currently used
-          timeout += 60;
-          cip.pulse(4);
-        }
-        else
-        {
           timeout += 5;
-        }
       }
     break;
     case "livingroom":
-      if (rooms["cinema"].current == "appletv" || rooms["cinema"].current)
-      {
-        timeout += 60;
-        cip.pulse(4);
-      }
-      else
-        timeout += 5;
+      timeout += 5;
     break;
     case "kitchen":
     case "bathroom":
@@ -127,16 +105,12 @@ function powerOff(location,source)
 
   switch (location)
   {
+    case "cinema":
+      timeout += 60;
+      cip.pulse(4);
+    break;
     case "livingroom":
-      if (source == "appletv" || source == "kodi")
-      {
-        timeout += 60;
-        cip.pulse(4);
-      }
-      else
-      {
-        timeout += 5;
-      }
+      timeout += 5;
     break;
     case "kitchen":
     case "bathroom":
