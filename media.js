@@ -38,15 +38,16 @@ let sources = {
 }
 
 let rooms = {
-  "cinema": { list: ["appletv", "kodi", "appletv2", "kodi2"], current: "", matrixcode: 1},
-  "livingroom": { list: ["appletv", "kodi", "yamaha_big", "appletv2", "kodi2"], current: "", matrixcode: 1},
-  "kitchen": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2"], current: "", ampcode: 1, ampon: 11, ampoff: 21, matrixcode: 2},
+  "cinema": { list: ["appletv", "kodi", "appletv2", "kodi2"], current: "", matrixjoin: 21},
+  "livingroom": { list: ["appletv", "kodi", "yamaha_big", "appletv2", "kodi2"], current: "", matrixjoin: 21},
+  "kitchen": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2"], current: "", ampcode: 1, ampon: 11, ampoff: 21, matrixjoin: 22},
   "bathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 2, ampon: 12, ampoff: 22},
-  "bedroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 3, ampon: 13, ampoff: 23, matrixcode: 3},
+  "bedroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 3, ampon: 13, ampoff: 23, matrixjoin: 23},
+  "kidsroom": { list: [], current, matrixjoin: 24}
   "bedroombathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 4, ampon: 14, ampoff: 24},
   "highfloorbathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 5, ampon: 15, ampoff: 25},
-  "cabinet": { list: [], current: "", matrixcode: 5},
-  "workshop": { list: [], current: "", matrixcode: 6}
+  "cabinet": { list: [], current: "", matrixjoin: 25},
+  "workshop": { list: [], current: "", matrixjoin: 26}
 }
 
 //turn down every unused source in particular room
@@ -79,6 +80,7 @@ function powerOn(location, source, prevSource)
       {
           timeout += 5;
       }
+      cip.aset(rooms[location].matrixjoin, sources[source].matrixcode);
     break;
     case "livingroom":
       timeout += 5;
