@@ -25,23 +25,28 @@ client.on('message', function (topic, message) {
 })
 
 let sources = {
-  "appletv": {on: false, in: ""},
-  "appletv2": {on: false, in: ""},
-  "kodi": {on: false, in: ""},
-  "kodi2": {on: false, in: ""},
+  "appletv": {on: false, in: "", matrixcode: 6},
+  "appletv2": {on: false, in: "", matrixcode: 7},
+  "kodi": {on: false, in: "", matrixcode: 4},
+  "kodi2": {on: false, in: "", matrixcode: 5},
   "yamaha": {on: false, in: "", ampinput: 1},
   "yamaha2": {on: false, in: "", ampinput: 2},
   "yamaha_big": {on: false, in: ""},
+  "sat1": {on: false, in: "", matrixcode: 1},
+  "sat2": {on: false, in: "", matrixcode: 2},
+  "sat3": {on: false, in: "", matrixcode: 3},
 }
 
 let rooms = {
-  "cinema": { list: ["appletv", "kodi", "appletv2", "kodi2"], current: ""},
-  "livingroom": { list: ["appletv", "kodi", "yamaha_big", "appletv2", "kodi2"], current: ""},
-  "kitchen": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2"], current: "", ampcode: 1, ampon: 11, ampoff: 21},
+  "cinema": { list: ["appletv", "kodi", "appletv2", "kodi2"], current: "", matrixcode: 1},
+  "livingroom": { list: ["appletv", "kodi", "yamaha_big", "appletv2", "kodi2"], current: "", matrixcode: 1},
+  "kitchen": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2"], current: "", ampcode: 1, ampon: 11, ampoff: 21, matrixcode: 2},
   "bathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 2, ampon: 12, ampoff: 22},
-  "bedroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 3, ampon: 13, ampoff: 23},
+  "bedroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 3, ampon: 13, ampoff: 23, matrixcode: 3},
   "bedroombathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 4, ampon: 14, ampoff: 24},
   "highfloorbathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 5, ampon: 15, ampoff: 25},
+  "cabinet": { list: [], current: "", matrixcode: 5},
+  "workshop": { list: [], current: "", matrixcode: 6}
 }
 
 //turn down every unused source in particular room
