@@ -83,8 +83,7 @@ function powerOn(location, source, prevSource)
       }
       cip.aset(rooms[location].matrixjoin, sources[source].matrixcode);
       fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=on")
-        .then(res => res.json())
-        .then(json => console.log(json));
+      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=av1"))
     break;
     case "livingroom":
       timeout += 5;
