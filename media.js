@@ -94,6 +94,7 @@ function powerOn(location, source, prevSource)
     case "highfloorbathroom":
       console.log("Media CIP pulse " + rooms[location].ampon);
       cip.pulse(rooms[location].ampon);
+      console.log("CIP analog " + rooms[location].ampcode + " = " + sources[source].ampinput);
       cip.aset(rooms[location].ampcode, sources[source].ampinput);
     break;
     default:
@@ -178,7 +179,8 @@ export function turn(parameters)
     // calculate timeouts & execute actions
     timeout = powerOff(parameters.location, parameters.source);
 
-    sources[parameters.source] = {on: false, in: ""};
+    sources[parameters.source].on = false;
+    sources[parameters.source].in = "";
     rooms[parameters.location].current = "";
     client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true});
   }
