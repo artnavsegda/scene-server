@@ -90,11 +90,11 @@ function powerOn(location, source, prevSource)
     case "highfloorbathroom":
       console.log("Media CIP pulse " + rooms[location].ampon);
       cip.pulse(rooms[location].ampon);
-      cip.aset(sources[source].ampinput, rooms[location].ampcode); // that should work, i guess but do not forget jount index, th this case is 0 but for other controld has to be different
+      cip.aset(rooms[location].ampcode, sources[source].ampinput);
     break;
     default:
       timeout += 5;
-  }
+  } 
 
   return timeout;
 }
