@@ -161,7 +161,8 @@ export function turn(parameters)
       // calculate timeouts & execute actions
       timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
 
-      sources[parameters.source] = {on: true, in: parameters.location};
+      sources[parameters.source].on = true
+      sources[parameters.source].location = parameters.location;
       rooms[parameters.location].current = parameters.source;
       client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
     }
