@@ -4,7 +4,7 @@ import cipclient from "crestron-cip";
 
 var client  = mqtt.connect('mqtt://127.0.0.1')
 
-const cip = cipclient.connect({host:  "192.168.10.11",  ipid:  "\x03"},  ()  =>  { // 192.168.10.11
+const cip = cipclient.connect({host:  "192.168.10.11",  ipid:  "\x05"},  ()  =>  { // 192.168.10.11
   console.log('CIP connected')
 })
 
