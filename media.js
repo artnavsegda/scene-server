@@ -70,7 +70,7 @@ function powerOn(location, source, prevSource)
   switch (location)
   {
     case "cinema":
-      if (rooms["cinema"].current == "")
+      if (prevSource == "")
       {
           timeout += 60;
           cip.pulse(3);
