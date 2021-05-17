@@ -1,6 +1,7 @@
 import mqtt from "mqtt";
 import EventEmitter from "events";
 import cipclient from "crestron-cip";
+import fetch from "node-fetch";
 
 var client  = mqtt.connect('mqtt://127.0.0.1')
 
@@ -81,7 +82,7 @@ function powerOn(location, source, prevSource)
           timeout += 5;
       }
       cip.aset(rooms[location].matrixjoin, sources[source].matrixcode);
-      
+
     break;
     case "livingroom":
       timeout += 5;
