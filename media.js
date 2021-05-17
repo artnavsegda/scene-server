@@ -81,6 +81,7 @@ function powerOn(location, source, prevSource)
           timeout += 5;
       }
       cip.aset(rooms[location].matrixjoin, sources[source].matrixcode);
+      
     break;
     case "livingroom":
       timeout += 5;
@@ -96,7 +97,7 @@ function powerOn(location, source, prevSource)
     break;
     default:
       timeout += 5;
-  } 
+  }
 
   return timeout;
 }
