@@ -37,11 +37,11 @@ let sources = {
 let rooms = {
   "cinema": { list: ["appletv", "kodi", "appletv2", "kodi2"], current: ""},
   "livingroom": { list: ["appletv", "kodi", "yamaha_big", "appletv2", "kodi2"], current: ""},
-  "kitchen": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2"], current: "", ampcode: 1},
-  "bathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 2},
-  "bedroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 3},
-  "bedroombathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 4},
-  "highfloorbathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 5},
+  "kitchen": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2"], current: "", ampcode: 1, ampon: 11, ampoff: 21},
+  "bathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 2, ampon: 12, ampoff: 22},
+  "bedroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 3, ampon: 13, ampoff: 23},
+  "bedroombathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 4, ampon: 14, ampoff: 24},
+  "highfloorbathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 5, ampon: 15, ampoff: 25},
 }
 
 //turn down every unused source in particular room
@@ -105,7 +105,9 @@ function powerOn(location, source, prevSource)
     case "bedroom":
     case "bedroombathroom":
     case "highfloorbathroom":
+      cip.pulse(rooms[location].ampon);
       cip.aset(sources[source].ampinput, rooms[location].ampcode); // that should work, i guess but do not forget jount index, th this case is 0 but for other controld has to be different
+    break;
     default:
       timeout += 5;
   }
@@ -129,6 +131,13 @@ function powerOff(location,source)
       {
         timeout += 5;
       }
+    break;
+    case "kitchen":
+    case "bathroom":
+    case "bedroom":
+    case "bedroombathroom":
+    case "highfloorbathroom":
+      cip.pulse(rooms[location].ampoff);
     break;
     default:
       timeout += 5;
