@@ -43,7 +43,7 @@ let rooms = {
   "kitchen": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2"], current: "", ampcode: 1, ampon: 11, ampoff: 21, matrixjoin: 22},
   "bathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 2, ampon: 12, ampoff: 22},
   "bedroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 3, ampon: 13, ampoff: 23, matrixjoin: 23},
-  "kidsroom": { list: [], current, matrixjoin: 24}
+  "kidsroom": { list: [], current, matrixjoin: 24},
   "bedroombathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 4, ampon: 14, ampoff: 24},
   "highfloorbathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 5, ampon: 15, ampoff: 25},
   "cabinet": { list: [], current: "", matrixjoin: 25},
