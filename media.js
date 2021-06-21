@@ -105,6 +105,8 @@ function powerOn(location, source, prevSource)
   {
     case "cinema":
     case "bedroom":
+    case "livingroom":
+    case "kitchen":
       cip.aset(rooms[location].matrixjoin, sources[source].matrixcode);
     break;
   }
