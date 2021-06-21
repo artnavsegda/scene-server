@@ -84,14 +84,14 @@ function powerOn(location, source, prevSource)
       fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=on")
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=av1"))
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut1?enable=true"))
-      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut1?enable=false"))
+      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut2?enable=false"))
     break;
     case "livingroom":
       timeout += 5;
       fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=on")
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=av1"))
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut1?enable=true"))
-      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut1?enable=false"))
+      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut2?enable=false"))
     break;
     case "kitchen":
     case "bathroom":
@@ -113,6 +113,7 @@ function powerOn(location, source, prevSource)
     case "bedroom":
     case "livingroom":
     case "kitchen":
+      console.log("CIP analog " + rooms[location].matrixjoin + " = " + sources[source].matrixcode);
       cip.aset(rooms[location].matrixjoin, sources[source].matrixcode);
     break;
   }
