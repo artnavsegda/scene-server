@@ -200,7 +200,7 @@ export function turn(parameters)
       timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
 
       sources[parameters.source].on = true
-      sources[parameters.source].location = parameters.location;
+      sources[parameters.source].in = parameters.location;
       rooms[parameters.location].current = parameters.source;
       client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
     }
