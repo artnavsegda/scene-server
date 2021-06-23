@@ -41,9 +41,9 @@ let sources = {
 let rooms = {
   "cinema": { list: ["appletv", "kodi", "appletv2", "kodi2"], current: "", matrixjoin: 21},
   "livingroom": { list: ["appletv", "kodi", "yamaha_big", "appletv2", "kodi2"], current: "", matrixjoin: 21},
-  "kitchen": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2"], current: "", ampcode: 1, ampon: 11, ampoff: 21, matrixjoin: 22},// matrix join is fucked up
+  "kitchen": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2"], current: "", ampcode: 1, ampon: 11, ampoff: 21, matrixjoin: 22},
   "bathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 2, ampon: 12, ampoff: 22},
-  "bedroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 3, ampon: 13, ampoff: 23, matrixjoin: 24},// matrix join is fucked up
+  "bedroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 3, ampon: 13, ampoff: 23, matrixjoin: 24, tvjoin: { on: 300, off: 301, hdmi1: 303 }},
   "kidsroom": { list: [], current: "", matrixjoin: 25},
   "bedroombathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 4, ampon: 14, ampoff: 24},
   "highfloorbathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 5, ampon: 15, ampoff: 25},
