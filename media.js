@@ -166,7 +166,9 @@ function powerOff(location,source)
       cip.pulse(rooms[location].ampoff);
       switch (source) {
         case "appletv":
+        case "appletv2":
         case "kodi":
+        case "kodi2":
           cip.pulse(rooms[location].tvjoin.off);
           break;
       }
