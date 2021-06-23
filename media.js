@@ -199,36 +199,52 @@ export function turn(parameters)
 
   myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
 
-  if (parameters.power == "on")
+  if (parameters.source == "smarttv")
   {
-    if (sources[parameters.source].on == false)
+    if (parameters.power == "on")
     {
-      // calculate timeouts & execute actions
       timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
-
-      sources[parameters.source].on = true
-      sources[parameters.source].in = parameters.location;
-      rooms[parameters.location].current = parameters.source;
       client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
     }
-    else if (sources[parameters.source].in != parameters.location)
+    else if (parameters.power == "off")
     {
-      result = "busy";
-      details = {
-        in: sources[parameters.source].in,
-        prompt: "Устройство занято в команте " + sources[parameters.source].in
-      }
+      timeout = powerOff(parameters.location, parameters.source);
+      client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true});
     }
   }
-  else if (parameters.power == "off")
+  else
   {
-    // calculate timeouts & execute actions
-    timeout = powerOff(parameters.location, parameters.source);
+    if (parameters.power == "on")
+    {
+      if (sources[parameters.source].on == false)
+      {
+        // calculate timeouts & execute actions
+        timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
 
-    sources[parameters.source].on = false;
-    sources[parameters.source].in = "";
-    rooms[parameters.location].current = "";
-    client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true});
+        sources[parameters.source].on = true
+        sources[parameters.source].in = parameters.location;
+        rooms[parameters.location].current = parameters.source;
+        client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
+      }
+      else if (sources[parameters.source].in != parameters.location)
+      {
+        result = "busy";
+        details = {
+          in: sources[parameters.source].in,
+          prompt: "Устройство занято в команте " + sources[parameters.source].in
+        }
+      }
+    }
+    else if (parameters.power == "off")
+    {
+      // calculate timeouts & execute actions
+      timeout = powerOff(parameters.location, parameters.source);
+
+      sources[parameters.source].on = false;
+      sources[parameters.source].in = "";
+      rooms[parameters.location].current = "";
+      client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true});
+    }
   }
 
   console.log("timeout:" + timeout)
