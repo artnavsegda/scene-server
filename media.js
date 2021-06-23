@@ -105,8 +105,8 @@ function powerOn(location, source, prevSource)
       switch (source) {
         case "appletv":
         case "kodi":
-          cip.pulse(sources[source].tvjoin.on);
-          cip.pulse(sources[source].tvjoin.hdmi1);
+          cip.pulse(rooms[location].tvjoin.on);
+          cip.pulse(rooma[location].tvjoin.hdmi1);
           break;
       }
     break;
@@ -153,7 +153,7 @@ function powerOff(location,source)
       switch (source) {
         case "appletv":
         case "kodi":
-          cip.pulse(sources[source].tvjoin.off);
+          cip.pulse(rooms[location].tvjoin.off);
           break;
       }
     break;
