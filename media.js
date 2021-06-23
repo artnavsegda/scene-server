@@ -180,6 +180,13 @@ function powerOff(location,source)
   return timeout;
 }
 
+export function query(parameters)
+{
+  return {
+    current: rooms[parameters.location].current
+  }
+}
+
 export function turn(parameters)
 {
   let timeout = 0;
