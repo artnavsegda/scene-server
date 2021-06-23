@@ -130,7 +130,7 @@ function powerOn(location, source, prevSource)
 
   switch (location)
   {
-    case "cinema":
+    case "kitchen":
     case "bedroom":
       console.log("CIP analog " + rooms[location].matrixaudio + " = " + sources[source].matrixcode);
       cip.aset(rooms[location].matrixaudio, sources[source].matrixcode);
