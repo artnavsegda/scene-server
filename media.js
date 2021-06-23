@@ -102,6 +102,13 @@ function powerOn(location, source, prevSource)
       cip.pulse(rooms[location].ampon);
       console.log("CIP analog " + rooms[location].ampcode + " = " + sources[source].ampinput);
       cip.aset(rooms[location].ampcode, sources[source].ampinput);
+      switch (source) {
+        case "appletv":
+        case "kodi":
+          cip.pulse(sources[source].tvjoin.on);
+          cip.pulse(sources[source].tvjoin.hdmi1);
+          break;
+      }
     break;
     default:
       timeout += 5;
@@ -143,6 +150,12 @@ function powerOff(location,source)
     case "bedroombathroom":
     case "highfloorbathroom":
       cip.pulse(rooms[location].ampoff);
+      switch (source) {
+        case "appletv":
+        case "kodi":
+          cip.pulse(sources[source].tvjoin.off);
+          break;
+      }
     break;
     default:
       timeout += 5;
