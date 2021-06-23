@@ -106,7 +106,7 @@ function powerOn(location, source, prevSource)
         case "appletv":
         case "kodi":
           cip.pulse(rooms[location].tvjoin.on);
-          cip.pulse(rooma[location].tvjoin.hdmi1);
+          cip.pulse(rooms[location].tvjoin.hdmi1);
           break;
       }
     break;
