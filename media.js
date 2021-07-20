@@ -58,11 +58,13 @@ myEmitter.on('turn', function(power, location, source, prevSource) {
     rooms[location].list.forEach((key) => {
       if (key != source)
       {
-        if (key != "smarttv")
-	      sources[key].on = false;
+        //if (key != "smarttv")
+	      //sources[key].on = false;
         client.publish('/media/' + location + '/'+ key +'/on', "0", {retain: true})
       }
     })
+    if (prevSource != "smarttv")
+      sources[prevSource].on = false;
   }
 });
 
