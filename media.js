@@ -227,6 +227,7 @@ export function turn(parameters)
     {
       if (sources[parameters.source].on == false)
       {
+        console.log("Performing ON actions");
         // calculate timeouts & execute actions
         timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
 
