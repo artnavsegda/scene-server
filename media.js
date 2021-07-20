@@ -270,7 +270,9 @@ export function turn(parameters)
       else if (parameters.location == "cinema" && sources[parameters.source].in == "livingroom") {
         //off
         rooms["livingroom"].current = "";
-        client.publish('/media/livingroom/'+ parameters.source +'/on', "0", {retain: true});
+        rooms["livingroom"].list.forEach((key) => {
+            client.publish('/media/livingroom/'+ key +'/on', "0", {retain: true})
+        });
         cip.pulse(4);
         //on
         timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
@@ -282,7 +284,9 @@ export function turn(parameters)
       else if (parameters.location == "livingroom" && sources[parameters.source].in == "cinema") {
         //off
         rooms["cinema"].current = "";
-        client.publish('/media/cinema/'+ parameters.source +'/on', "0", {retain: true});
+        rooms["cinema"].list.forEach((key) => {
+          client.publish('/media/cinema/'+ key +'/on', "0", {retain: true})
+        });
         cip.pulse(rooms["livingroom"].tvjoin.off);
         //on
         timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
