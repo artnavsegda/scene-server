@@ -157,8 +157,6 @@ function powerOff(location,source)
         .then(json => console.log(json));
     break;
     case "livingroom":
-      timeout += 5;
-    break;
     case "kitchen":
     case "bathroom":
     case "bedroom":
