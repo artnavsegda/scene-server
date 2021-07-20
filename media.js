@@ -72,6 +72,22 @@ function powerOn(location, source, prevSource)
 {
   let timeout = 10;
 
+  if (location == "cinema")
+  {
+    rooms["livingroom"].current = "";
+    rooms["livingroom"].list.forEach((key) => {
+        client.publish('/media/livingroom/'+ key +'/on', "0", {retain: true})
+    });
+  }
+
+  if (location == "livingroom")
+  {
+    rooms["cinema"].current = "";
+    rooms["cinema"].list.forEach((key) => {
+      client.publish('/media/cinema/'+ key +'/on', "0", {retain: true})
+    });
+  }
+
   // power tv/procjector
   switch (location)
   {
@@ -256,40 +272,15 @@ export function turn(parameters)
     if (parameters.power == "on")
     {
       console.log("Sources status:" + JSON.stringify(sources));
-      if (sources[parameters.source].on == false)
+      if (sources[parameters.source].on == false || 
+        (parameters.location == "cinema" && sources[parameters.source].in == "livingroom") || 
+        (parameters.location == "livingroom" && sources[parameters.source].in == "cinema"))
       {
         console.log("Performing ON actions");
         // calculate timeouts & execute actions
         timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
 
         sources[parameters.source].on = true
-        sources[parameters.source].in = parameters.location;
-        rooms[parameters.location].current = parameters.source;
-        client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
-      }
-      else if (parameters.location == "cinema" && sources[parameters.source].in == "livingroom") {
-        //off
-        rooms["livingroom"].current = "";
-        rooms["livingroom"].list.forEach((key) => {
-            client.publish('/media/livingroom/'+ key +'/on', "0", {retain: true})
-        });
-        cip.pulse(4);
-        //on
-        timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
-        timeout += 60;
-        sources[parameters.source].in = parameters.location;
-        rooms[parameters.location].current = parameters.source;
-        client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
-      }
-      else if (parameters.location == "livingroom" && sources[parameters.source].in == "cinema") {
-        //off
-        rooms["cinema"].current = "";
-        rooms["cinema"].list.forEach((key) => {
-          client.publish('/media/cinema/'+ key +'/on', "0", {retain: true})
-        });
-        cip.pulse(rooms["livingroom"].tvjoin.off);
-        //on
-        timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
         sources[parameters.source].in = parameters.location;
         rooms[parameters.location].current = parameters.source;
         client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
