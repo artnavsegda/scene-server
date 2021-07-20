@@ -72,22 +72,6 @@ function powerOn(location, source, prevSource)
 {
   let timeout = 10;
 
-  if (location == "cinema")
-  {
-    rooms["livingroom"].current = "";
-    rooms["livingroom"].list.forEach((key) => {
-        client.publish('/media/livingroom/'+ key +'/on', "0", {retain: true})
-    });
-  }
-
-  if (location == "livingroom")
-  {
-    rooms["cinema"].current = "";
-    rooms["cinema"].list.forEach((key) => {
-      client.publish('/media/cinema/'+ key +'/on', "0", {retain: true})
-    });
-  }
-
   // power tv/procjector
   switch (location)
   {
@@ -182,6 +166,22 @@ function powerOn(location, source, prevSource)
       console.log("Matrix audio CIP analog " + rooms[location].matrixaudio + " = " + sources[source].matrixcode);
       cip.aset(rooms[location].matrixaudio, sources[source].matrixcode);
       break;
+  }
+
+  if (location == "cinema")
+  {
+    rooms["livingroom"].current = "";
+    rooms["livingroom"].list.forEach((key) => {
+        client.publish('/media/livingroom/'+ key +'/on', "0", {retain: true})
+    });
+  }
+
+  if (location == "livingroom")
+  {
+    rooms["cinema"].current = "";
+    rooms["cinema"].list.forEach((key) => {
+      client.publish('/media/cinema/'+ key +'/on', "0", {retain: true})
+    });
   }
 
   return timeout;
