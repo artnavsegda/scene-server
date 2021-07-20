@@ -63,7 +63,7 @@ myEmitter.on('turn', function(power, location, source, prevSource) {
         client.publish('/media/' + location + '/'+ key +'/on', "0", {retain: true})
       }
     })
-    if (prevSource != "smarttv")
+    if (prevSource != "smarttv" && prevSource != "")
       sources[prevSource].on = false;
   }
 });
