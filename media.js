@@ -98,6 +98,9 @@ function powerOn(location, source, prevSource)
           cip.pulse(rooms[location].tvjoin.on);
           cip.pulse(rooms[location].tvjoin.hdmi1);
           break;
+        case "big_yamaha":
+          cip.pulse(rooms[location].tvjoin.on);
+          break;
       }
     break;
   }
