@@ -98,7 +98,7 @@ function powerOn(location, source, prevSource)
           cip.pulse(rooms[location].tvjoin.on);
           cip.pulse(rooms[location].tvjoin.hdmi1);
           break;
-        case "big_yamaha":
+        case "yamaha_big":
           cip.pulse(rooms[location].tvjoin.on);
           break;
       }
@@ -156,8 +156,11 @@ function powerOn(location, source, prevSource)
     case "bedroom":
     case "livingroom":
     case "kitchen":
-      console.log("Matrix video CIP analog " + rooms[location].matrixjoin + " = " + sources[source].matrixcode);
-      cip.aset(rooms[location].matrixjoin, sources[source].matrixcode);
+      if (sources[source].matrixcode)
+      {
+        console.log("Matrix video CIP analog " + rooms[location].matrixjoin + " = " + sources[source].matrixcode);
+        cip.aset(rooms[location].matrixjoin, sources[source].matrixcode);
+      }
     break;
   }
 
