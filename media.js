@@ -275,6 +275,12 @@ export function turn(parameters)
   }
   else
   {
+    var tempname = parameters.source;
+    if (tempname == "appletv2")
+      tempname = "appletv";
+    if (tempname == "kodi2")
+      tempname = "kodi";
+
     if (parameters.power == "on")
     {
       console.log("Sources status:" + JSON.stringify(sources));
@@ -289,7 +295,7 @@ export function turn(parameters)
         sources[parameters.source].on = true
         sources[parameters.source].in = parameters.location;
         rooms[parameters.location].current = parameters.source;
-        client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
+        client.publish('/media/' + parameters.location + '/' + tempname + '/on', "1", {retain: true});
       }
       else if (sources[parameters.source].in != parameters.location)
       {
@@ -308,7 +314,7 @@ export function turn(parameters)
       sources[parameters.source].on = false;
       sources[parameters.source].in = "";
       rooms[parameters.location].current = "";
-      client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true});
+      client.publish('/media/' + parameters.location + '/'+ tempname +'/on', "0", {retain: true});
     }
   }
 
