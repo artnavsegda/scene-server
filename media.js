@@ -150,19 +150,31 @@ function powerOff(location,source)
   switch (location)
   {
     case "cinema":
-      timeout += 60;
-      cip.pulse(4);
+    case "livingroom":
       fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=standby")
         .then(res => res.json())
         .then(json => console.log(json));
     break;
-    case "livingroom":
     case "kitchen":
     case "bathroom":
     case "bedroom":
     case "bedroombathroom":
     case "highfloorbathroom":
       cip.pulse(rooms[location].ampoff);
+    break;
+    default:
+      timeout += 5;
+  }
+
+  switch (location)
+  {
+    case "cinema":
+      timeout += 60;
+      cip.pulse(4);
+    break;
+    case "livingroom":
+    case "kitchen":
+    case "bedroom":
       switch (source) {
         case "appletv":
         case "appletv2":
@@ -172,8 +184,6 @@ function powerOff(location,source)
           break;
       }
     break;
-    default:
-      timeout += 5;
   }
 
   return timeout;
