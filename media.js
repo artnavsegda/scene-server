@@ -225,6 +225,7 @@ export function turn(parameters)
   {
     if (parameters.power == "on")
     {
+      console.log("Sources status:" + JSON.stringify(sources));
       if (sources[parameters.source].on == false)
       {
         console.log("Performing ON actions");
