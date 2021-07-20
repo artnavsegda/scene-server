@@ -260,10 +260,10 @@ export function turn(parameters)
   console.log(parameters.location);
   console.log(parameters.source);
 
-  myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
-
   if (parameters.source == "smarttv")
   {
+    myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
+
     if (parameters.power == "on")
     {
       timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
@@ -292,6 +292,8 @@ export function turn(parameters)
         (parameters.location == "cinema" && sources[parameters.source].in == "livingroom") || 
         (parameters.location == "livingroom" && sources[parameters.source].in == "cinema"))
       {
+        myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
+
         console.log("Performing ON actions");
         // calculate timeouts & execute actions
         timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
@@ -312,6 +314,8 @@ export function turn(parameters)
     }
     else if (parameters.power == "off")
     {
+      myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
+
       // calculate timeouts & execute actions
       timeout = powerOff(parameters.location, parameters.source);
 
