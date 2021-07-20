@@ -72,6 +72,7 @@ function powerOn(location, source, prevSource)
 {
   let timeout = 10;
 
+  // power tv/procjector
   switch (location)
   {
     case "cinema":
@@ -84,17 +85,36 @@ function powerOn(location, source, prevSource)
       {
           timeout += 5;
       }
+    break;
+    case "livingroom":
+    case "kitchen":
+    case "bedroom":
+      switch (source) {
+        case "appletv":
+        case "appletv2":
+        case "kodi":
+        case "kodi2":
+          cip.pulse(rooms[location].tvjoin.on);
+          cip.pulse(rooms[location].tvjoin.hdmi1);
+          break;
+      }
+    break;
+  }
+
+  //power sound
+  switch (location)
+  {
+    case "cinema":
       fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=on")
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=av2"))
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut1?enable=true"))
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut2?enable=false"))
     break;
     case "livingroom":
-      timeout += 5;
       fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=on")
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=av2"))
-      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut1?enable=true"))
-      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut2?enable=false"))
+      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut1?enable=false"))
+      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut2?enable=true"))
     break;
     case "kitchen":
     case "bathroom":
@@ -102,7 +122,6 @@ function powerOn(location, source, prevSource)
     case "bedroombathroom":
     case "highfloorbathroom":
       cip.pulse(rooms[location].ampon);
-      cip.aset(rooms[location].ampcode, sources[source].ampinput);
       switch (source) {
         case "yamaha":
         case "yamaha2":
@@ -112,8 +131,6 @@ function powerOn(location, source, prevSource)
         case "kodi":
         case "appletv2":
         case "kodi2":
-          cip.pulse(rooms[location].tvjoin.on);
-          cip.pulse(rooms[location].tvjoin.hdmi1);
           cip.aset(rooms[location].ampcode, rooms[location].ampinput);
           break;
       }
@@ -122,6 +139,7 @@ function powerOn(location, source, prevSource)
       timeout += 5;
   }
 
+  //switch matrix video
   switch (location)
   {
     case "cinema":
@@ -133,6 +151,7 @@ function powerOn(location, source, prevSource)
     break;
   }
 
+  //switch matrix audio
   switch (location)
   {
     case "kitchen":
