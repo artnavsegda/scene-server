@@ -280,6 +280,8 @@ export function turn(parameters)
       tempname = "appletv";
     if (tempname == "kodi2")
       tempname = "kodi";
+    if (tempname == "yamaha2")
+      tempname = "yamaha";
 
     if (parameters.power == "on")
     {
