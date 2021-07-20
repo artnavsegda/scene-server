@@ -83,14 +83,14 @@ function powerOn(location, source, prevSource)
           timeout += 5;
       }
       fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=on")
-      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=av1"))
+      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=av2"))
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut1?enable=true"))
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut2?enable=false"))
     break;
     case "livingroom":
       timeout += 5;
       fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=on")
-      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=av1"))
+      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=av2"))
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut1?enable=true"))
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut2?enable=false"))
     break;
