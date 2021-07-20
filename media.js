@@ -168,6 +168,7 @@ function powerOff(location,source)
 {
   let timeout = 5;
 
+  //shutdown audio
   switch (location)
   {
     case "cinema":
@@ -187,6 +188,7 @@ function powerOff(location,source)
       timeout += 5;
   }
 
+  //shutdown video
   switch (location)
   {
     case "cinema":
@@ -262,8 +264,10 @@ export function turn(parameters)
         //off
         rooms["livingroom"].current = "";
         client.publish('/media/livingroom/'+ parameters.source +'/on', "0", {retain: true});
+        cip.pulse(4);
         //on
         timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
+        timeout += 60;
         sources[parameters.source].in = parameters.location;
         rooms[parameters.location].current = parameters.source;
         client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
@@ -272,6 +276,7 @@ export function turn(parameters)
         //off
         rooms["cinema"].current = "";
         client.publish('/media/cinema/'+ parameters.source +'/on', "0", {retain: true});
+        cip.pulse(rooms["livingroom"].tvjoin.off);
         //on
         timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
         sources[parameters.source].in = parameters.location;
