@@ -169,7 +169,7 @@ function powerOn(location, source, prevSource)
     case "bedroom":
     case "livingroom":
     case "kitchen":
-      console.log("CIP analog " + rooms[location].matrixjoin + " = " + sources[source].matrixcode);
+      console.log("Matrix video CIP analog " + rooms[location].matrixjoin + " = " + sources[source].matrixcode);
       cip.aset(rooms[location].matrixjoin, sources[source].matrixcode);
     break;
   }
@@ -179,7 +179,7 @@ function powerOn(location, source, prevSource)
   {
     case "kitchen":
     case "bedroom":
-      console.log("CIP analog " + rooms[location].matrixaudio + " = " + sources[source].matrixcode);
+      console.log("Matrix audio CIP analog " + rooms[location].matrixaudio + " = " + sources[source].matrixcode);
       cip.aset(rooms[location].matrixaudio, sources[source].matrixcode);
       break;
   }
