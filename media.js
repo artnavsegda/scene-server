@@ -80,6 +80,7 @@ function powerOn(location, source, prevSource)
       {
           timeout += 60;
           cip.pulse(3);
+          cip.pulse(rooms["livingroom"].tvjoin.off);
       }
       else
       {
@@ -99,6 +100,12 @@ function powerOn(location, source, prevSource)
           break;
       }
     break;
+  }
+
+  if (location == "livingroom" && rooms[cinema].current != "")
+  {
+    timeout += 60;
+    cip.pulse(4);
   }
 
   //power sound
