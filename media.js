@@ -102,7 +102,7 @@ function powerOn(location, source, prevSource)
     break;
   }
 
-  if (location == "livingroom" && rooms[cinema].current != "")
+  if (location == "livingroom" && rooms["cinema"].current != "")
   {
     timeout += 60;
     cip.pulse(4);
