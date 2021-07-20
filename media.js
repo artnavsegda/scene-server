@@ -239,6 +239,26 @@ export function turn(parameters)
         rooms[parameters.location].current = parameters.source;
         client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
       }
+      else if (parameters.location == "cinema" && sources[parameters.source].in == "livingroom") {
+        //off
+        rooms["livingroom"].current = "";
+        client.publish('/media/livingroom/'+ parameters.source +'/on', "0", {retain: true});
+        //on
+        timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
+        sources[parameters.source].in = parameters.location;
+        rooms[parameters.location].current = parameters.source;
+        client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
+      }
+      else if (parameters.location == "livingroom" && sources[parameters.source].in == "cinema") {
+        //off
+        rooms["cinema"].current = "";
+        client.publish('/media/cinema/'+ parameters.source +'/on', "0", {retain: true});
+        //on
+        timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
+        sources[parameters.source].in = parameters.location;
+        rooms[parameters.location].current = parameters.source;
+        client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
+      }
       else if (sources[parameters.source].in != parameters.location)
       {
         result = "busy";
