@@ -3,6 +3,10 @@ import EventEmitter from "events";
 import cipclient from "crestron-cip";
 import fetch from "node-fetch";
 
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 var client  = mqtt.connect('mqtt://127.0.0.1')
 
 const cip = cipclient.connect({host:  "192.168.10.11",  ipid:  "\x05"},  ()  =>  { // 192.168.10.11
@@ -51,6 +55,11 @@ let rooms = {
   "workshop": { list: [], current: "", matrixjoin: 27}
 }
 
+function stopSource(source)
+{
+
+}
+
 //turn down every unused source in particular room
 myEmitter.on('turn', function(power, location, source, prevSource) {
   if (power == "on")
@@ -66,9 +75,13 @@ myEmitter.on('turn', function(power, location, source, prevSource) {
     if (prevSource != "smarttv" && prevSource != "" && prevSource != source)
       sources[prevSource].on = false;
   }
+  if (power == "off")
+  {
+    stopSource(source);
+  }
 });
 
-function powerOn(location, source, prevSource)
+async function powerOn(location, source, prevSource)
 {
   let timeout = 10;
 
@@ -96,6 +109,7 @@ function powerOn(location, source, prevSource)
         case "kodi":
         case "kodi2":
           cip.pulse(rooms[location].tvjoin.on);
+          await delay(5000);
           cip.pulse(rooms[location].tvjoin.hdmi1);
           break;
         case "yamaha":
