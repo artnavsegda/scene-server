@@ -296,11 +296,13 @@ export function turn(parameters)
     if (parameters.power == "on" && rooms[parameters.location].current != parameters.source)
     {
       timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
+      rooms[parameters.location].current = parameters.source;
       client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
     }
     else if (parameters.power == "off")
     {
       timeout = powerOff(parameters.location, parameters.source);
+      rooms[parameters.location].current = "";
       client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true});
     }
   }
