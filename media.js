@@ -40,6 +40,7 @@ let sources = {
   "sat1": {on: false, in: "", matrixcode: 1},
   "sat2": {on: false, in: "", matrixcode: 2},
   "sat3": {on: false, in: "", matrixcode: 3},
+  "smarttv": {},
 }
 
 let rooms = {
@@ -81,7 +82,7 @@ myEmitter.on('turn', function(power, location, source, prevSource) {
   }
 });
 
-async function powerOn(location, source, prevSource)
+function powerOn(location, source, prevSource)
 {
   let timeout = 10;
 
@@ -109,8 +110,10 @@ async function powerOn(location, source, prevSource)
         case "kodi":
         case "kodi2":
           cip.pulse(rooms[location].tvjoin.on);
-          await delay(5000);
-          cip.pulse(rooms[location].tvjoin.hdmi1);
+          delay(5000)
+	  .then(() => {
+          	cip.pulse(rooms[location].tvjoin.hdmi1);
+	  });
           break;
         case "yamaha":
         case "yamaha2":
