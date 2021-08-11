@@ -285,7 +285,7 @@ export function turn(parameters)
   {
     myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
 
-    if (parameters.power == "on")
+    if (parameters.power == "on" && rooms[parameters.location].current != parameters.source)
     {
       timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
       client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
