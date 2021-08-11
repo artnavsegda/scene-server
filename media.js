@@ -143,10 +143,18 @@ function powerOn(location, source, prevSource)
       .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut2?enable=false"))
     break;
     case "livingroom":
-      fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=on")
-      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=av2"))
-      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut1?enable=false"))
-      .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut2?enable=true"))
+      if (source == "smarttv")
+      {
+	fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=on")
+	.then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=audio1"))
+      }
+      else
+      {
+	fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=on")
+	.then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=av2"))
+	.then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut1?enable=false"))
+	.then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/system/setHdmiOut2?enable=true"))
+      }
     break;
     case "kitchen":
     case "bathroom":
