@@ -262,7 +262,7 @@ function powerOff(location,source)
         case "appletv2":
         case "kodi":
         case "kodi2":
-	case "smarttv":
+	      case "smarttv":
           cip.pulse(rooms[location].tvjoin.off);
           break;
       }
