@@ -92,7 +92,7 @@ function powerOn(location, source, prevSource)
     case "cinema":
       if (prevSource == "")
       {
-          timeout += 60;
+          timeout += 200;
           cip.pulse(3);
           cip.pulse(rooms["livingroom"].tvjoin.off);
       }
@@ -129,7 +129,7 @@ function powerOn(location, source, prevSource)
 
   if (location == "livingroom" && rooms["cinema"].current != "")
   {
-    timeout += 60;
+    timeout += 200;
     cip.pulse(4);
   }
 
@@ -251,7 +251,7 @@ function powerOff(location,source)
   switch (location)
   {
     case "cinema":
-      timeout += 60;
+      timeout += 200;
       cip.pulse(4);
     break;
     case "livingroom":
