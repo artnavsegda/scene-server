@@ -289,6 +289,22 @@ export function turn(parameters)
   console.log(parameters.location);
   console.log(parameters.source);
 
+  if (parameters.power == "off" && parameters.source == undefined)
+  {
+    myEmitter.emit('turn', parameters.power, parameters.location, rooms[parameters.location].current, rooms[parameters.location].current);
+    timeout = powerOff(parameters.location, rooms[parameters.location].current);
+    client.publish('/media/' + parameters.location + '/'+ rooms[parameters.location].current +'/on', "0", {retain: true});
+
+    if (rooms[parameters.location].current != "smarttv")
+    {
+      sources[rooms[parameters.location].current].on = false;
+      sources[rooms[parameters.location].current].in = "";
+    }
+
+    rooms[parameters.location].current = "";
+    return;
+  }
+
   if (parameters.source == "smarttv")
   {
     myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
