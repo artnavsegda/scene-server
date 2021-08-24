@@ -111,13 +111,17 @@ function powerOn(location, source, prevSource)
         case "kodi2":
           cip.pulse(rooms[location].tvjoin.on);
           delay(5000)
-	  .then(() => {
-          	cip.pulse(rooms[location].tvjoin.hdmi1);
-	  });
+          .then(() => {
+                  cip.pulse(rooms[location].tvjoin.hdmi1);
+          });
           break;
 	case "smarttv":
-          cip.pulse(rooms[location].tvjoin.tv);
-	  break;
+          cip.pulse(rooms[location].tvjoin.on);
+          delay(5000)
+          .then(() => {
+                cip.pulse(rooms[location].tvjoin.tv);
+          });
+          break;
         case "yamaha":
         case "yamaha2":
         case "yamaha_big":
