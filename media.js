@@ -299,6 +299,7 @@ export function turn(parameters)
     myEmitter.emit('turn', parameters.power, parameters.location, rooms[parameters.location].current, rooms[parameters.location].current);
     timeout = powerOff(parameters.location, rooms[parameters.location].current);
     client.publish('/media/' + parameters.location + '/'+ rooms[parameters.location].current +'/on', "0", {retain: true});
+    client.publish('/media/' + parameters.location,  "void", {retain: true});
 
     if (rooms[parameters.location].current != "smarttv")
     {
