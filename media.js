@@ -182,29 +182,29 @@ function powerOn(location, source, prevSource)
       timeout += 5;
   }
 
-  //switch matrix video
-  switch (location)
+  if (sources[source].matrixcode)
   {
-    case "cinema":
-    case "bedroom":
-    case "livingroom":
-    case "kitchen":
-      if (sources[source].matrixcode)
-      {
+    //switch matrix video
+    switch (location)
+    {
+      case "cinema":
+      case "bedroom":
+      case "livingroom":
+      case "kitchen":
         console.log("Matrix video CIP analog " + rooms[location].matrixjoin + " = " + sources[source].matrixcode);
         cip.aset(rooms[location].matrixjoin, sources[source].matrixcode);
-      }
-    break;
-  }
-
-  //switch matrix audio
-  switch (location)
-  {
-    case "kitchen":
-    case "bedroom":
-      console.log("Matrix audio CIP analog " + rooms[location].matrixaudio + " = " + sources[source].matrixcode);
-      cip.aset(rooms[location].matrixaudio, sources[source].matrixcode);
       break;
+    }
+
+    //switch matrix audio
+    switch (location)
+    {
+      case "kitchen":
+      case "bedroom":
+        console.log("Matrix audio CIP analog " + rooms[location].matrixaudio + " = " + sources[source].matrixcode);
+        cip.aset(rooms[location].matrixaudio, sources[source].matrixcode);
+        break;
+    }
   }
 
   if (location == "cinema")
