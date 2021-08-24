@@ -212,7 +212,7 @@ function powerOn(location, source, prevSource)
     rooms["livingroom"].current = "";
     rooms["livingroom"].list.forEach((key) => {
         client.publish('/media/livingroom/'+ key +'/on', "0", {retain: true})
-        client.publish('/media/livingroom',  "", {retain: true});
+        client.publish('/media/livingroom',  "void", {retain: true});
     });
   }
 
@@ -221,7 +221,7 @@ function powerOn(location, source, prevSource)
     rooms["cinema"].current = "";
     rooms["cinema"].list.forEach((key) => {
       client.publish('/media/cinema/'+ key +'/on', "0", {retain: true})
-      client.publish('/media/cinema',  "", {retain: true});
+      client.publish('/media/cinema',  "void", {retain: true});
     });
   }
 
@@ -326,7 +326,7 @@ export function turn(parameters)
       timeout = powerOff(parameters.location, parameters.source);
       rooms[parameters.location].current = "";
       client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true});
-      client.publish('/media/' + parameters.location,  "", {retain: true});
+      client.publish('/media/' + parameters.location,  "void", {retain: true});
     }
   }
   else
@@ -378,7 +378,7 @@ export function turn(parameters)
       sources[parameters.source].in = "";
       rooms[parameters.location].current = "";
       client.publish('/media/' + parameters.location + '/'+ tempname +'/on', "0", {retain: true});
-      client.publish('/media/' + parameters.location,  "", {retain: true});
+      client.publish('/media/' + parameters.location,  "void", {retain: true});
     }
   }
 
