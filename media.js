@@ -209,6 +209,7 @@ function powerOn(location, source, prevSource)
     rooms["livingroom"].current = "";
     rooms["livingroom"].list.forEach((key) => {
         client.publish('/media/livingroom/'+ key +'/on', "0", {retain: true})
+        client.publish('/media/livingroom',  "", {retain: true});
     });
   }
 
@@ -217,6 +218,7 @@ function powerOn(location, source, prevSource)
     rooms["cinema"].current = "";
     rooms["cinema"].list.forEach((key) => {
       client.publish('/media/cinema/'+ key +'/on', "0", {retain: true})
+      client.publish('/media/cinema',  "", {retain: true});
     });
   }
 
@@ -314,12 +316,14 @@ export function turn(parameters)
       timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
       rooms[parameters.location].current = parameters.source;
       client.publish('/media/' + parameters.location + '/' + parameters.source +'/on', "1", {retain: true});
+      client.publish('/media/' + parameters.location,  parameters.source, {retain: true});
     }
     else if (parameters.power == "off")
     {
       timeout = powerOff(parameters.location, parameters.source);
       rooms[parameters.location].current = "";
       client.publish('/media/' + parameters.location + '/'+ parameters.source +'/on', "0", {retain: true});
+      client.publish('/media/' + parameters.location,  "", {retain: true});
     }
   }
   else
@@ -349,6 +353,7 @@ export function turn(parameters)
         sources[parameters.source].in = parameters.location;
         rooms[parameters.location].current = parameters.source;
         client.publish('/media/' + parameters.location + '/' + tempname + '/on', "1", {retain: true});
+        client.publish('/media/' + parameters.location,  tempname, {retain: true});
       }
       else if (sources[parameters.source].in != parameters.location)
       {
@@ -370,6 +375,7 @@ export function turn(parameters)
       sources[parameters.source].in = "";
       rooms[parameters.location].current = "";
       client.publish('/media/' + parameters.location + '/'+ tempname +'/on', "0", {retain: true});
+      client.publish('/media/' + parameters.location,  "", {retain: true});
     }
   }
 
