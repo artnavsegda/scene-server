@@ -300,9 +300,18 @@ export function turn(parameters)
 
   if (parameters.power == "off" && parameters.source == undefined)
   {
+    var tempname = rooms[parameters.location].current;
+    if (tempname == "appletv2")
+      tempname = "appletv";
+    if (tempname == "kodi2")
+      tempname = "kodi";
+    if (tempname == "yamaha2")
+      tempname = "yamaha";
+
+
     myEmitter.emit('turn', parameters.power, parameters.location, rooms[parameters.location].current, rooms[parameters.location].current);
     timeout = powerOff(parameters.location, rooms[parameters.location].current);
-    client.publish('/media/' + parameters.location + '/'+ rooms[parameters.location].current +'/on', "0", {retain: true});
+    client.publish('/media/' + parameters.location + '/'+ tempname +'/on', "0", {retain: true});
     client.publish('/media/' + parameters.location,  "void", {retain: true});
 
     if (rooms[parameters.location].current != "smarttv")
