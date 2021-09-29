@@ -407,7 +407,11 @@ export function multiroom(parameters)
   {
     case "status":
       return {
-        on: false,
+        on: true,
+        ready: [
+          "yamaha1",
+          "yamaha2"
+        ],
         driver: "yamaha1",
         enlisted: [
           "kitchen",
@@ -424,6 +428,20 @@ export function multiroom(parameters)
     break;
     case "exclude":
       console.log("enlisting " + parameters.arg);
+      return {
+        status: "ok",
+        timeout: 15
+      }
+    break;
+    case "start":
+      console.log("start " + parameters.arg);
+      return {
+        status: "ok",
+        timeout: 15
+      }
+    break;
+    case "stop":
+      console.log("stop " + parameters.arg);
       return {
         status: "ok",
         timeout: 15
