@@ -406,9 +406,11 @@ let activeMultirooms = []
 const MRControllers = {
   "yamaha1": {
     address: "http://192.168.10.34",
+    ampinput: 1
   },
   "yamaha2": {
     address: "http://192.168.10.35",
+    ampinput: 2
   }
 }
 
@@ -431,6 +433,12 @@ export function multiroom(parameters)
       console.log("enlisting " + parameters.arg);
 
       let moreRooms = parameters.arg.split(" ");
+
+      moreRooms.forEach((element) {
+        cip.pulse(rooms[element].ampon);
+        cip.aset(rooms[element].ampcode, MRControllers["yamaha1"].ampinput);
+      })
+      
       activeMultirooms = activeMultirooms.concat(moreRooms);
 
       return {
