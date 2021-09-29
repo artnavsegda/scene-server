@@ -403,6 +403,15 @@ export function turn(parameters)
 
 let activeMultirooms = []
 
+const MRControllers = {
+  "yamaha1": {
+    address: "http://192.168.10.34",
+  },
+  "yamaha2": {
+    address: "http://192.168.10.35",
+  }
+}
+
 export function multiroom(parameters)
 {
   switch (parameters.op)
@@ -444,6 +453,13 @@ export function multiroom(parameters)
     break;
     case "start":
       console.log("start " + parameters.arg);
+
+      fetch(MRControllers[parameters.arg] + "/YamahaExtendedControl/v1/main/setPower?power=on")
+        .then(res => res.json())
+        .then(json => console.log(json));
+
+      activeMultirooms = [];
+
       return {
         status: "ok",
         timeout: 15
@@ -451,6 +467,13 @@ export function multiroom(parameters)
     break;
     case "stop":
       console.log("stop " + parameters.arg);
+
+      fetch(MRControllers[parameters.arg] + "/YamahaExtendedControl/v1/main/setPower?power=standby")
+        .then(res => res.json())
+        .then(json => console.log(json));
+
+        activeMultirooms = [];
+
       return {
         status: "ok",
         timeout: 15
