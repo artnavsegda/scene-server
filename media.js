@@ -433,7 +433,13 @@ export function multiroom(parameters)
       }
     break;
     case "exclude":
-      console.log("enlisting " + parameters.arg);
+      console.log("excluding " + parameters.arg);
+
+      const index = activeMultirooms.indexOf(parameters.arg);
+      if (index > -1) {
+        activeMultirooms.splice(index, 1);
+      }
+
       return {
         status: "ok",
         timeout: 15
