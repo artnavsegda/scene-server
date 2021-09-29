@@ -415,19 +415,25 @@ const MRControllers = {
 }
 
 let multiroomActiveStatus = false;
+let selectedMultiroomDriver = "";
 
 export function multiroom(parameters)
 {
   switch (parameters.op)
   {
     case "status":
+      var readyList = [];
+
+      if (sources["yamaha"].on = false)
+        readyList.push("yamaha1");
+
+      if (sources["yamaha2"].on = false)
+        readyList.push("yamaha2");
+
       return {
         on: multiroomActiveStatus,
-        ready: [
-          "yamaha1",
-          "yamaha2"
-        ],
-        driver: "yamaha1",
+        ready: readyList,
+        driver: selectedMultiroomDriver,
         enlisted: activeMultirooms
       }
     break;
@@ -472,6 +478,7 @@ export function multiroom(parameters)
 
       activeMultirooms = [];
       multiroomActiveStatus = true;
+      selectedMultiroomDriver = parameters.arg;
 
       return {
         status: "ok",
@@ -491,6 +498,7 @@ export function multiroom(parameters)
 
         activeMultirooms = [];
         multiroomActiveStatus = false;
+        selectedMultiroomDriver = "";
 
       return {
         status: "ok",
