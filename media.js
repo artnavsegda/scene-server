@@ -425,7 +425,7 @@ export function multiroom(parameters)
       console.log("enlisting " + parameters.arg);
 
       let moreRooms = parameters.arg.split(" ");
-      activeMultirooms.concat(moreRooms);
+      activeMultirooms = activeMultirooms.concat(moreRooms);
 
       return {
         status: "ok",
