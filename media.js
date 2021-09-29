@@ -434,7 +434,7 @@ export function multiroom(parameters)
 
       let moreRooms = parameters.arg.split(" ");
 
-      moreRooms.forEach((element) {
+      moreRooms.forEach((element) => {
         cip.pulse(rooms[element].ampon);
         cip.aset(rooms[element].ampcode, MRControllers["yamaha1"].ampinput);
       })
