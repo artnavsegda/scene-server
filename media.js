@@ -485,6 +485,10 @@ export function multiroom(parameters)
         .then(res => res.json())
         .then(json => console.log(json));
 
+        activeMultirooms.forEach((element) => {
+          cip.pulse(rooms[element].ampoff);
+        })
+
         activeMultirooms = [];
         multiroomActiveStatus = false;
 
