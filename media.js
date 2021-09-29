@@ -401,6 +401,11 @@ export function turn(parameters)
   return {result, timeout, details}
 }
 
+let activeMultirooms = [
+  "kitchen",
+  "bedroom"
+]
+
 export function multiroom(parameters)
 {
   switch (parameters.op)
@@ -421,6 +426,10 @@ export function multiroom(parameters)
     break;
     case "enlist":
       console.log("enlisting " + parameters.arg);
+
+      let moreRooms = parameters.arg.split(" ");
+      activeMultirooms.concat(moreRooms);
+
       return {
         status: "ok",
         timeout: 15
