@@ -449,7 +449,7 @@ export function multiroom(parameters)
     case "exclude":
       console.log("excluding " + parameters.arg);
 
-      cip.pulse(rooms[element].ampoff);
+      cip.pulse(rooms[parameters.arg].ampoff);
 
       const index = activeMultirooms.indexOf(parameters.arg);
       if (index > -1) {
