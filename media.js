@@ -418,10 +418,7 @@ export function multiroom(parameters)
           "yamaha2"
         ],
         driver: "yamaha1",
-        enlisted: [
-          "kitchen",
-          "bedroom"
-        ]
+        enlisted: activeMultirooms
       }
     break;
     case "enlist":
