@@ -444,7 +444,7 @@ export function multiroom(parameters)
 
       moreRooms.forEach((element) => {
         cip.pulse(rooms[element].ampon);
-        cip.aset(rooms[element].ampcode, MRControllers["yamaha1"].ampinput);
+        cip.aset(rooms[element].ampcode, MRControllers[selectedMultiroomDriver].ampinput);
       })
       
       activeMultirooms = activeMultirooms.concat(moreRooms);
