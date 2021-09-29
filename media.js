@@ -401,10 +401,7 @@ export function turn(parameters)
   return {result, timeout, details}
 }
 
-let activeMultirooms = [
-  "kitchen",
-  "bedroom"
-]
+let activeMultirooms = []
 
 export function multiroom(parameters)
 {
@@ -412,7 +409,7 @@ export function multiroom(parameters)
   {
     case "status":
       return {
-        on: true,
+        on: false,
         ready: [
           "yamaha1",
           "yamaha2"
