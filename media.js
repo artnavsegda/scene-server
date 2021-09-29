@@ -414,13 +414,15 @@ const MRControllers = {
   }
 }
 
+let multiroomActiveStatus = false;
+
 export function multiroom(parameters)
 {
   switch (parameters.op)
   {
     case "status":
       return {
-        on: false,
+        on: multiroomActiveStatus,
         ready: [
           "yamaha1",
           "yamaha2"
@@ -469,6 +471,7 @@ export function multiroom(parameters)
         .then(json => console.log(json));
 
       activeMultirooms = [];
+      multiroomActiveStatus = true;
 
       return {
         status: "ok",
@@ -483,6 +486,7 @@ export function multiroom(parameters)
         .then(json => console.log(json));
 
         activeMultirooms = [];
+        multiroomActiveStatus = false;
 
       return {
         status: "ok",
