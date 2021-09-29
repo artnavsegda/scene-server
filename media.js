@@ -424,10 +424,10 @@ export function multiroom(parameters)
     case "status":
       var readyList = [];
 
-      if (sources["yamaha"].on = false)
+      if (sources["yamaha"].on == false)
         readyList.push("yamaha1");
 
-      if (sources["yamaha2"].on = false)
+      if (sources["yamaha2"].on == false)
         readyList.push("yamaha2");
 
       return {
