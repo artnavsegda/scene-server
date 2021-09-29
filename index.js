@@ -2,7 +2,7 @@ import fs from "fs";
 import express from "express";
 import cipclient from "crestron-cip";
 import { digitalMap, feedbackDigitalMap } from "./joinMap.js";
-import { turn, query } from "./media.js";
+import { turn, query, multiroom } from "./media.js";
 
 const climateTemplate = {
 	mode: "weekly",
@@ -151,6 +151,10 @@ app.get('/media', (req, res) => {
 
 app.get('/query', (req, res) => {
     res.send(query(req.query));
+})
+
+app.get('/multiroom', (req, res) => {
+    res.send(multiroom(req.query));
 })
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));

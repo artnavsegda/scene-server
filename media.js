@@ -400,3 +400,38 @@ export function turn(parameters)
 
   return {result, timeout, details}
 }
+
+export function multiroom(parameters)
+{
+  switch (parameters.op)
+  {
+    case "status":
+      return {
+        on: false,
+        driver: "yamaha1",
+        enlisted: [
+          "kitchen",
+          "bedroom"
+        ]
+      }
+    break;
+    case "enlist":
+      console.log("enlisting " + parameters.arg);
+      return {
+        status: "ok",
+        timeout: 15
+      }
+    break;
+    case "exclude":
+      console.log("enlisting " + parameters.arg);
+      return {
+        status: "ok",
+        timeout: 15
+      }
+    break;
+  }
+
+  return {
+    status: "unknown op"
+  }
+}
