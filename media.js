@@ -460,9 +460,8 @@ export function multiroom(parameters)
       moreRooms.forEach((element) => {
         client.publish('/media/' + element,  "multiroom", {retain: true});
         rooms[element].list.forEach((key) => {
-          client.publish('/media/' + location + '/'+ key +'/on', "0", {retain: true})
+          client.publish('/media/' + element + '/'+ key +'/on', "0", {retain: true})
         });
-
 
         cip.pulse(rooms[element].ampon);
         cip.aset(rooms[element].ampcode, MRControllers[selectedMultiroomDriver].ampinput);
