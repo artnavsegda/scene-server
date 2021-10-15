@@ -362,6 +362,13 @@ export function turn(parameters)
           prompt: "Устройство занято мультирумом"
         }
       }
+      else if (multiroomActiveStatus == true && activeMultirooms.includes(parameters.location))
+      {
+        result = "busy";
+        details = {
+          prompt: "Комната занята мультирумом"
+        }
+      }
       else
       {
         console.log("Sources status:" + JSON.stringify(sources));
