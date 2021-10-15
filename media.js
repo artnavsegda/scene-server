@@ -481,6 +481,7 @@ export function multiroom(parameters)
     break;
     case "start":
       console.log("start " + parameters.arg);
+      client.publish('/media/multiroom/on', "1", {retain: true})
 
       fetch(MRControllers[parameters.arg].address + "/YamahaExtendedControl/v1/main/setPower?power=on")
         .then(res => res.json())
@@ -497,6 +498,7 @@ export function multiroom(parameters)
     break;
     case "stop":
       console.log("stop " + parameters.arg);
+      client.publish('/media/multiroom/on', "0", {retain: true})
 
       fetch(MRControllers[parameters.arg].address + "/YamahaExtendedControl/v1/main/setPower?power=standby")
         .then(res => res.json())
