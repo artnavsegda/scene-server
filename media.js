@@ -466,16 +466,17 @@ export function multiroom(parameters)
         cip.pulse(rooms[element].ampon);
         cip.aset(rooms[element].ampcode, MRControllers[selectedMultiroomDriver].ampinput);
 
-        rooms[parameters.arg].current = "multiroom";
-        switch(parameters.arg)
+        rooms[element].current = "multiroom";
+
+        switch(element)
         {
           case 'kitchen':
           case 'livingroom':
           case 'bedroom':
-            cip.pulse(rooms[parameters.arg].tvjoin.off);
+            cip.pulse(rooms[element].tvjoin.off);
         }
         
-        if (parameters.arg == 'livingroom')
+        if (element == 'livingroom')
         {
           fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=on")
           .then(() => fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setInput?input=av4"))
