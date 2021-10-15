@@ -449,7 +449,8 @@ export function multiroom(parameters)
     break;
     case "enlist":
       console.log("enlisting " + parameters.arg);
-
+      client.publish('/media/' + parameters.arg,  "multiroom", {retain: true});
+      
       let moreRooms = parameters.arg.split(" ");
 
       moreRooms.forEach((element) => {
@@ -466,6 +467,7 @@ export function multiroom(parameters)
     break;
     case "exclude":
       console.log("excluding " + parameters.arg);
+      client.publish('/media/' + parameters.arg, "void", {retain: true});
 
       cip.pulse(rooms[parameters.arg].ampoff);
 
