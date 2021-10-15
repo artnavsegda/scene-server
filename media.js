@@ -462,7 +462,7 @@ export function multiroom(parameters)
       moreRooms.forEach((element) => {
         cip.pulse(rooms[element].ampon);
         cip.aset(rooms[element].ampcode, MRControllers[selectedMultiroomDriver].ampinput);
-        
+
         rooms[parameters.arg].current = "multiroom";
         switch(parameters.arg)
         {
@@ -484,6 +484,7 @@ export function multiroom(parameters)
     case "exclude":
       console.log("excluding " + parameters.arg);
       client.publish('/media/' + parameters.arg, "void", {retain: true});
+      rooms[parameters.arg].current = "";
 
       cip.pulse(rooms[parameters.arg].ampoff);
 
@@ -523,6 +524,8 @@ export function multiroom(parameters)
         .then(json => console.log(json));
 
         activeMultirooms.forEach((element) => {
+          client.publish('/media/' + parameters.arg, "void", {retain: true});
+          rooms[parameters.arg].current = "";
           cip.pulse(rooms[element].ampoff);
         })
 
