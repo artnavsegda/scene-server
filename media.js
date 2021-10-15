@@ -457,7 +457,6 @@ export function multiroom(parameters)
       console.log("enlisting " + parameters.arg);
 
       rooms[parameters.arg].list.forEach((key) => {
-      if (key != source)
         client.publish('/media/' + location + '/'+ key +'/on', "0", {retain: true})
       });
 
