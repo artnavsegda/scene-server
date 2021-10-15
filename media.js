@@ -498,6 +498,11 @@ export function multiroom(parameters)
 
       cip.pulse(rooms[parameters.arg].ampoff);
 
+      if (parameters.arg == 'livingroom')
+        {
+          fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=standby");
+        }
+
       const index = activeMultirooms.indexOf(parameters.arg);
       if (index > -1) {
         activeMultirooms.splice(index, 1);
@@ -537,6 +542,11 @@ export function multiroom(parameters)
           client.publish('/media/' + parameters.arg, "void", {retain: true});
           rooms[element].current = "";
           cip.pulse(rooms[element].ampoff);
+
+          if (element == 'livingroom')
+          {
+            fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=standby");
+          }
         })
 
         activeMultirooms = [];
