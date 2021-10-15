@@ -458,8 +458,8 @@ export function multiroom(parameters)
       let moreRooms = parameters.arg.split(" ");
 
       moreRooms.forEach((element) => {
-        client.publish('/media/' + parameters.arg,  "multiroom", {retain: true});
-        rooms[parameters.arg].list.forEach((key) => {
+        client.publish('/media/' + element,  "multiroom", {retain: true});
+        rooms[element].list.forEach((key) => {
           client.publish('/media/' + location + '/'+ key +'/on', "0", {retain: true})
         });
 
