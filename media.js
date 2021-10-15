@@ -45,8 +45,8 @@ let sources = {
 }
 
 let rooms = {
-  "cinema": { list: ["appletv", "kodi", "appletv2", "kodi2"], current: "", matrixjoin: 21},
-  "livingroom": { list: ["appletv", "kodi", "yamaha_big", "appletv2", "kodi2", "smarttv"], current: "", matrixjoin: 27, tvjoin: { on: 100, off: 101, hdmi1: 103, tv: 109 }},
+  "cinema": { list: ["appletv", "kodi", "appletv2", "kodi2"], current: "", ampcode: 7, ampon: 17, ampoff: 27, matrixjoin: 21},
+  "livingroom": { list: ["appletv", "kodi", "yamaha_big", "appletv2", "kodi2", "smarttv"], current: "", matrixjoin: 21, tvjoin: { on: 100, off: 101, hdmi1: 103, tv: 109 }},
   "kitchen": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2", "smarttv"], current: "", ampcode: 1, ampon: 11, ampoff: 21, matrixjoin: 22, tvjoin: { on: 200, off: 201, hdmi1: 203, tv: 209, smarthub: 221 }, ampinput: 11, matrixaudio: 31, tvinput: 3},
   "bathroom": { list: ["yamaha", "yamaha2"], current: "", ampcode: 2, ampon: 12, ampoff: 22},
   "bedroom": { list: ["yamaha", "yamaha2", "appletv", "kodi", "appletv2", "kodi2", "smarttv"], current: "", ampcode: 3, ampon: 13, ampoff: 23, matrixjoin: 24, tvjoin: { on: 300, off: 301, hdmi1: 303, tv: 309, smarthub: 221 }, ampinput: 12, matrixaudio: 32, tvinput: 4},
@@ -535,7 +535,7 @@ export function multiroom(parameters)
 
         activeMultirooms.forEach((element) => {
           client.publish('/media/' + parameters.arg, "void", {retain: true});
-          rooms[parameters.arg].current = "";
+          rooms[element].current = "";
           cip.pulse(rooms[element].ampoff);
         })
 
