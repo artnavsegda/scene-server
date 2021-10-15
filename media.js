@@ -65,6 +65,11 @@ function stopSource(source)
 myEmitter.on('turn', function(power, location, source, prevSource) {
   if (power == "on")
   {
+    const index = activeMultirooms.indexOf(location);
+    if (index > -1) {
+      activeMultirooms.splice(index, 1);
+    }
+
     rooms[location].list.forEach((key) => {
       if (key != source)
       {
@@ -360,13 +365,6 @@ export function turn(parameters)
         result = "busy";
         details = {
           prompt: "Устройство занято мультирумом"
-        }
-      }
-      else if (multiroomActiveStatus == true && activeMultirooms.includes(parameters.location))
-      {
-        result = "busy";
-        details = {
-          prompt: "Комната занята мультирумом"
         }
       }
       else
