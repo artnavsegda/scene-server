@@ -355,29 +355,39 @@ export function turn(parameters)
 
     if (parameters.power == "on")
     {
-      console.log("Sources status:" + JSON.stringify(sources));
-      if (sources[parameters.source].on == false || 
-        (parameters.location == "cinema" && sources[parameters.source].in == "livingroom") || 
-        (parameters.location == "livingroom" && sources[parameters.source].in == "cinema"))
-      {
-        myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
-
-        console.log("Performing ON actions");
-        // calculate timeouts & execute actions
-        timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
-
-        sources[parameters.source].on = true
-        sources[parameters.source].in = parameters.location;
-        rooms[parameters.location].current = parameters.source;
-        client.publish('/media/' + parameters.location + '/' + tempname + '/on', "1", {retain: true});
-        client.publish('/media/' + parameters.location,  tempname, {retain: true});
-      }
-      else if (sources[parameters.source].in != parameters.location)
+      if (multiroomActiveStatus == true && selectedMultiroomDriver == parameters.source)
       {
         result = "busy";
         details = {
-          in: sources[parameters.source].in,
-          prompt: "Устройство занято в команте " + sources[parameters.source].in
+          prompt: "Устройство занято мультирумом"
+        }
+      }
+      else
+      {
+        console.log("Sources status:" + JSON.stringify(sources));
+        if (sources[parameters.source].on == false || 
+          (parameters.location == "cinema" && sources[parameters.source].in == "livingroom") || 
+          (parameters.location == "livingroom" && sources[parameters.source].in == "cinema"))
+        {
+          myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
+
+          console.log("Performing ON actions");
+          // calculate timeouts & execute actions
+          timeout = powerOn(parameters.location, parameters.source, rooms[parameters.location].current);
+
+          sources[parameters.source].on = true
+          sources[parameters.source].in = parameters.location;
+          rooms[parameters.location].current = parameters.source;
+          client.publish('/media/' + parameters.location + '/' + tempname + '/on', "1", {retain: true});
+          client.publish('/media/' + parameters.location,  tempname, {retain: true});
+        }
+        else if (sources[parameters.source].in != parameters.location)
+        {
+          result = "busy";
+          details = {
+            in: sources[parameters.source].in,
+            prompt: "Устройство занято в команте " + sources[parameters.source].in
+          }
         }
       }
     }
