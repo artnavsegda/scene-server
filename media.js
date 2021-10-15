@@ -539,7 +539,7 @@ export function multiroom(parameters)
         .then(json => console.log(json));
 
         activeMultirooms.forEach((element) => {
-          client.publish('/media/' + parameters.arg, "void", {retain: true});
+          client.publish('/media/' + element, "void", {retain: true});
           rooms[element].current = "";
           cip.pulse(rooms[element].ampoff);
 
