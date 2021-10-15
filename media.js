@@ -455,16 +455,15 @@ export function multiroom(parameters)
     break;
     case "enlist":
       console.log("enlisting " + parameters.arg);
-
-      rooms[parameters.arg].list.forEach((key) => {
-        client.publish('/media/' + location + '/'+ key +'/on', "0", {retain: true})
-      });
-
-      client.publish('/media/' + parameters.arg,  "multiroom", {retain: true});
-      
       let moreRooms = parameters.arg.split(" ");
 
       moreRooms.forEach((element) => {
+        client.publish('/media/' + parameters.arg,  "multiroom", {retain: true});
+        rooms[parameters.arg].list.forEach((key) => {
+          client.publish('/media/' + location + '/'+ key +'/on', "0", {retain: true})
+        });
+
+
         cip.pulse(rooms[element].ampon);
         cip.aset(rooms[element].ampcode, MRControllers[selectedMultiroomDriver].ampinput);
 
