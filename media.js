@@ -459,6 +459,7 @@ export function multiroom(parameters)
       rooms[parameters.arg].list.forEach((key) => {
       if (key != source)
         client.publish('/media/' + location + '/'+ key +'/on', "0", {retain: true})
+      });
 
       client.publish('/media/' + parameters.arg,  "multiroom", {retain: true});
       
