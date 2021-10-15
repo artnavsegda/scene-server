@@ -41,6 +41,7 @@ let sources = {
   "sat2": {on: false, in: "", matrixcode: 2},
   "sat3": {on: false, in: "", matrixcode: 3},
   "smarttv": {},
+  "multiroom": {}
 }
 
 let rooms = {
@@ -461,6 +462,16 @@ export function multiroom(parameters)
       moreRooms.forEach((element) => {
         cip.pulse(rooms[element].ampon);
         cip.aset(rooms[element].ampcode, MRControllers[selectedMultiroomDriver].ampinput);
+        
+        rooms[parameters.arg].current = "multiroom";
+        switch(parameters.arg)
+        {
+          case 'kitchen':
+          case 'livingroom':
+          case 'bedroom':
+            cip.pulse(rooms[parameters.arg].tvjoin.off);
+        }
+
       })
       
       activeMultirooms = activeMultirooms.concat(moreRooms);
