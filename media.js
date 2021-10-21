@@ -41,7 +41,7 @@ let sources = {
   "sat2": {on: false, in: "", matrixcode: 2},
   "sat3": {on: false, in: "", matrixcode: 3},
   "smarttv": {},
-  "multiroom": {}
+  "multiroom": {on: false}
 }
 
 let rooms = {
@@ -85,6 +85,39 @@ myEmitter.on('turn', function(power, location, source, prevSource) {
   if (power == "off")
   {
     stopSource(source);
+  }
+});
+
+myEmitter.on('turn', function(power, location, source, prevSource) {
+  if (power == "on")
+  {
+    client.publish('/media/on', "1", {retain: true})
+  }
+  if (power == "off")
+  {
+    let power = false;
+    for (element in
+    [
+      "appletv",
+      "appletv2",
+      "kodi",
+      "kodi2",
+      "yamaha",
+      "yamaha2",
+      "yamaha_big",
+      "multiroom"
+    ])
+    {
+      if (source != element)
+      {
+        if (source.on == true)
+          power = true;
+      }
+    }
+    if (power == false)
+    {
+      client.publish('/media/on', "0", {retain: true})
+    }
   }
 });
 
@@ -430,7 +463,6 @@ const MRControllers = {
   }
 }
 
-let multiroomActiveStatus = false;
 let selectedMultiroomDriver = "";
 
 export function multiroom(parameters)
@@ -447,7 +479,7 @@ export function multiroom(parameters)
         readyList.push("yamaha2");
 
       return {
-        on: multiroomActiveStatus,
+        on: sources["multiroom"].on,
         ready: readyList,
         driver: selectedMultiroomDriver,
         enlisted: activeMultirooms
@@ -522,7 +554,7 @@ export function multiroom(parameters)
         .then(json => console.log(json));
 
       activeMultirooms = [];
-      multiroomActiveStatus = true;
+      sources["multiroom"].on = true;
       selectedMultiroomDriver = parameters.arg;
 
       return {
@@ -550,7 +582,7 @@ export function multiroom(parameters)
         })
 
         activeMultirooms = [];
-        multiroomActiveStatus = false;
+        sources["multiroom"].on = false;
         selectedMultiroomDriver = "";
 
       return {
