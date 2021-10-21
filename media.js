@@ -87,6 +87,7 @@ myEmitter.on('turn', function(power, location, source, prevSource) {
     stopSource(source);
   }
 });
+
 function setGlobalPower(power, source) {
   if (power == "on")
   {
@@ -95,7 +96,7 @@ function setGlobalPower(power, source) {
   if (power == "off")
   {
     let power = false;
-    for (element in
+    for (var element in
     [
       "appletv",
       "appletv2",
