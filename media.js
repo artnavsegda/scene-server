@@ -87,8 +87,7 @@ myEmitter.on('turn', function(power, location, source, prevSource) {
     stopSource(source);
   }
 });
-
-myEmitter.on('turn', function(power, location, source, prevSource) {
+function setGlobalPower(power, source) {
   if (power == "on")
   {
     client.publish('/media/on', "1", {retain: true})
@@ -119,7 +118,7 @@ myEmitter.on('turn', function(power, location, source, prevSource) {
       client.publish('/media/on', "0", {retain: true})
     }
   }
-});
+}
 
 function powerOn(location, source, prevSource)
 {
@@ -349,6 +348,7 @@ export function turn(parameters)
 
 
     myEmitter.emit('turn', parameters.power, parameters.location, rooms[parameters.location].current, rooms[parameters.location].current);
+    setGlobalPower(parameters.power, parameters.source);
     timeout = powerOff(parameters.location, rooms[parameters.location].current);
     client.publish('/media/' + parameters.location + '/'+ tempname +'/on', "0", {retain: true});
     client.publish('/media/' + parameters.location,  "void", {retain: true});
@@ -366,6 +366,7 @@ export function turn(parameters)
   if (parameters.source == "smarttv")
   {
     myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
+    setGlobalPower(parameters.power, parameters.source);
 
     if (parameters.power == "on" && rooms[parameters.location].current != parameters.source)
     {
@@ -409,6 +410,7 @@ export function turn(parameters)
           (parameters.location == "livingroom" && sources[parameters.source].in == "cinema"))
         {
           myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
+          setGlobalPower(parameters.power, parameters.source);
 
           console.log("Performing ON actions");
           // calculate timeouts & execute actions
@@ -433,6 +435,7 @@ export function turn(parameters)
     else if (parameters.power == "off")
     {
       myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
+      setGlobalPower(parameters.power, parameters.source);
 
       // calculate timeouts & execute actions
       timeout = powerOff(parameters.location, parameters.source);
@@ -548,6 +551,7 @@ export function multiroom(parameters)
     case "start":
       console.log("start " + parameters.arg);
       client.publish('/media/multiroom/on', "1", {retain: true})
+      setGlobalPower("on", "multiroom");
 
       fetch(MRControllers[parameters.arg].address + "/YamahaExtendedControl/v1/main/setPower?power=on")
         .then(res => res.json())
@@ -565,6 +569,7 @@ export function multiroom(parameters)
     case "stop":
       console.log("stop " + parameters.arg);
       client.publish('/media/multiroom/on', "0", {retain: true})
+      setGlobalPower("off", "multiroom");
 
       fetch(MRControllers[parameters.arg].address + "/YamahaExtendedControl/v1/main/setPower?power=standby")
         .then(res => res.json())
