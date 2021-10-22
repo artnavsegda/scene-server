@@ -396,7 +396,7 @@ export function turn(parameters)
 
     if (parameters.power == "on")
     {
-      if (source['multiroom'].on == true && selectedMultiroomDriver == parameters.source)
+      if (sources['multiroom'].on == true && selectedMultiroomDriver == parameters.source)
       {
         result = "busy";
         details = {
