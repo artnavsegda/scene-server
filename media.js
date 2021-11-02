@@ -40,7 +40,7 @@ let sources = {
   "sat1": {on: false, in: "", matrixcode: 1},
   "sat2": {on: false, in: "", matrixcode: 2},
   "sat3": {on: false, in: "", matrixcode: 3},
-  "smarttv": {},
+  "smarttv": {on: false},
   "multiroom": {on: false}
 }
 
