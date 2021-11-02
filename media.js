@@ -40,7 +40,7 @@ let sources = {
   "sat1": {on: false, in: "", matrixcode: 1},
   "sat2": {on: false, in: "", matrixcode: 2},
   "sat3": {on: false, in: "", matrixcode: 3},
-  "smarttv": {on: false},
+  "smarttv": {},
   "multiroom": {on: false}
 }
 
@@ -110,7 +110,7 @@ function setGlobalPower(power, source) {
     {
       if (source != element)
       {
-        if (source.on == true)
+        if (source != "smarttv" && sources[source].on == true)
           power = true;
       }
     }
