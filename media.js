@@ -96,22 +96,25 @@ function setGlobalPower(power, source) {
   if (power == "off")
   {
     let power = false;
-    for (var element in
-    [
-      "appletv",
-      "appletv2",
-      "kodi",
-      "kodi2",
-      "yamaha",
-      "yamaha2",
-      "yamaha_big",
-      "multiroom"
-    ])
+    if (source)
     {
-      if (source != element)
+      for (var element in
+      [
+        "appletv",
+        "appletv2",
+        "kodi",
+        "kodi2",
+        "yamaha",
+        "yamaha2",
+        "yamaha_big",
+        "multiroom"
+      ])
       {
-        if (source != "smarttv" && sources[source].on == true)
-          power = true;
+        if (source != element)
+        {
+          if (source != "smarttv" && sources[source].on == true)
+            power = true;
+        }
       }
     }
     if (power == false)
