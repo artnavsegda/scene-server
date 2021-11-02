@@ -357,7 +357,7 @@ export function turn(parameters)
     client.publish('/media/' + parameters.location + '/'+ tempname +'/on', "0", {retain: true});
     client.publish('/media/' + parameters.location,  "void", {retain: true});
 
-    if (rooms[parameters.location].current != "smarttv")
+    if (rooms[parameters.location].current != "smarttv" && rooms[parameters.location].current != "")
     {
       sources[rooms[parameters.location].current].on = false;
       sources[rooms[parameters.location].current].in = "";
