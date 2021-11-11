@@ -158,3 +158,43 @@ app.get('/multiroom', (req, res) => {
 })
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+
+function processDaily(elementList, schedule)
+{
+    var setValue = schedule[new Date().getHours()] ? 1 : 0;
+
+    elementList.forEach(element => {
+        cip.dset(elementList[element], setValue);
+    });
+}
+
+function processWeekly(elementList,schedule)
+{
+    var dayWeekNumber = (new Date().getDay() + 6) % 7;
+    processDaily(elementList, schedule[dayWeekNumber]);
+}
+
+function processClimate()
+{
+    if (floorsSchedule.mode = "weekly")
+    {
+        processWeekly(floorsActive,floorsSchedule.weekly);
+    }
+    else if (floorsSchedule.mode = "daily")
+    {
+        processDaily(floorsActive,floorsSchedule.daily)
+    }
+
+    if (heatersSchedule.mode = "weekly")
+    {
+        processWeekly(heatersActive,heatersSchedule.weekly);
+    }
+    else if (heatersSchedule.mode = "daily")
+    {
+        processDaily(heatersActive,heatersSchedule.daily)
+    }
+}
+
+const climateTimer = setInterval((w) = {
+    processClimate();
+},100000)
