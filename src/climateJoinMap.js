@@ -1,0 +1,30 @@
+export const climateDigitalMap = new Map([
+	["[Climate][Hallway]Floor[Enable]", 501],
+    ["[Climate][Hall]Floor[Enable]", 502],
+    ["[Climate][Livingroom]Floor[Enable]", 503],
+    ["[Climate][Kitchen]Floor[Enable]", 504],
+    ["[Climate][Bathroom]Floor[Enable]", 505],
+    ["[Climate][Bedroom]Floor[Enable]", 506],
+    ["[Climate][Kids_room]Floor[Enable]", 507],
+    ["[Climate][2nd_floor_Bathrooms]Floor[Enable]", 508],
+    ["[Climate][2nd_floor_stairs]Floor[Enable]", 510],
+    ["[Climate][Cabinet]Floor[Enable]", 511],
+    ["[Climate][3rd_floor_stairs]Floor[Enable]", 512],
+    ["[Climate][3rd_floor_Bathroom]Floor[Enable]", 513],
+    ["[Climate][Workshop]Floor[Enable]", 514],
+    ["[Climate][Garage]Heater[Enable]", 515],
+    ["[Climate][Boiler]Heater[Enable]", 516],
+    ["[Climate][Technical_room]Heater[Enable]", 517],
+    ["[Climate][Livingroom]Heater[Enable]", 518],
+    ["[Climate][Kitchen]Heater[Enable]", 520],
+    ["[Climate][Bedroom]Heater[Enable]", 521],
+    ["[Climate][Kids_room]Heater[Enable]", 522],
+    ["[Climate][2nd_floor_stairs]Heater[Enable]", 523],
+    ["[Climate][Cabinet]Heater[Enable]", 524],
+    ["[Climate][3rd_floor_stairs]Heater[Enable]", 525],
+    ["[Climate][Workshop]Heater[Enable]", 526],
+])
+
+export const ClimateFeedbackDigitalMap = new Map([
+	[601, "[Climate][Hallway]Floor[Is_On]"],
+]);
