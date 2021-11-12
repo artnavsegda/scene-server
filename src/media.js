@@ -175,7 +175,7 @@ function powerOn(location, source, prevSource)
 
   if (location == "livingroom" && rooms["cinema"].current != "")
   {
-    timeout += 200;
+    timeout += 5000;
     cip.pulse(4);
   }
 
@@ -342,7 +342,7 @@ export function turn(parameters)
 
   if (parameters.power == "off" && parameters.source == undefined && parameters.location == undefined)
   {
-    // do global off
+    client.publish('/media/on', "0", {retain: true})
   }
   else if (parameters.power == "off" && parameters.source == undefined)
   {
@@ -353,7 +353,6 @@ export function turn(parameters)
       tempname = "kodi";
     if (tempname == "yamaha2")
       tempname = "yamaha";
-
 
     myEmitter.emit('turn', parameters.power, parameters.location, rooms[parameters.location].current, rooms[parameters.location].current);
     setGlobalPower(parameters.power, parameters.source);
