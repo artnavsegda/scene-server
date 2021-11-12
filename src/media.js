@@ -340,7 +340,11 @@ export function turn(parameters)
   console.log(parameters.location);
   console.log(parameters.source);
 
-  if (parameters.power == "off" && parameters.source == undefined)
+  if (parameters.power == "off" && parameters.source == undefined && parameters.location == undefined)
+  {
+    // do global off
+  }
+  else if (parameters.power == "off" && parameters.source == undefined)
   {
     var tempname = rooms[parameters.location].current;
     if (tempname == "appletv2")
@@ -436,7 +440,7 @@ export function turn(parameters)
     }
     else if (parameters.power == "off")
     {
-      myEmitter.emit('turn', parameters.power, parameters.location, parameters.source);
+      myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
       setGlobalPower(parameters.power, parameters.source);
 
       // calculate timeouts & execute actions
