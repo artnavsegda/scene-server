@@ -342,7 +342,33 @@ export function turn(parameters)
 
   if (parameters.power == "off" && parameters.source == undefined && parameters.location == undefined)
   {
-    client.publish('/media/on', "0", {retain: true})
+    client.publish('/media/on', "0", {retain: true});
+
+    [
+      "livingroom", 
+      "cinema",
+      "kitchen",
+      "bathroom",
+      "bedroom",
+      "bedroombathroom",
+      "highfloorbathroom",
+    ]
+    .forEach((element) => {
+      if (rooms[element].current != "")
+      {
+        client.publish('/media/' + element,  "void", {retain: true});
+        var tempname = rooms[element].current;
+        if (tempname == "appletv2")
+          tempname = "appletv";
+        if (tempname == "kodi2")
+          tempname = "kodi";
+        if (tempname == "yamaha2")
+          tempname = "yamaha";
+        client.publish('/media/' + element + '/'+ tempname +'/on', "0", {retain: true});
+        powerOff(element, rooms[element].current);
+        rooms[element].current = "";
+      }
+    })
   }
   else if (parameters.power == "off" && parameters.source == undefined)
   {
