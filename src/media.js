@@ -436,7 +436,7 @@ export function turn(parameters)
     }
     else if (parameters.power == "off")
     {
-      myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
+      myEmitter.emit('turn', parameters.power, parameters.location, parameters.source);
       setGlobalPower(parameters.power, parameters.source);
 
       // calculate timeouts & execute actions
