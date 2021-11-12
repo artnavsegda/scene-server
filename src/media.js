@@ -365,8 +365,7 @@ export function turn(parameters)
 
     rooms[parameters.location].current = "";
   }
-
-  if (parameters.source == "smarttv")
+  else if (parameters.source == "smarttv")
   {
     myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
     setGlobalPower(parameters.power, parameters.source);
