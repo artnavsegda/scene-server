@@ -159,7 +159,7 @@ app.get('/multiroom', (req, res) => {
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
-function processDaily(elementList, schedule)
+/* function processDaily(elementList, schedule)
 {
     var setValue = schedule[new Date().getHours()] ? 1 : 0;
 
@@ -197,4 +197,4 @@ function processClimate()
 
 const climateTimer = setInterval((w) = {
     processClimate();
-},100000)
+},100000) */
