@@ -364,7 +364,6 @@ export function turn(parameters)
     }
 
     rooms[parameters.location].current = "";
-    return;
   }
 
   if (parameters.source == "smarttv")
