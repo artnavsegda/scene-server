@@ -2,6 +2,7 @@ import fs from "fs";
 import express from "express";
 import cipclient from "crestron-cip";
 import { digitalMap, feedbackDigitalMap } from "./joinMap.js";
+import { climateDigitalMap } from "./climateJoinMap.js";
 import { turn, query, multiroom } from "./media.js";
 
 const climateTemplate = {
@@ -168,7 +169,7 @@ function processDaily(elementList, schedule)
 
     elementList.forEach(element => {
         //cip.dset(elementList[element], setValue);
-        console.log("join " + elementList[element] + " value " + setValue);
+        console.log("join " + climateDigitalMap[element] + " value " + setValue);
     });
 }
 
