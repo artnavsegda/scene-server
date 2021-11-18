@@ -166,8 +166,10 @@ app.get('/testclimate', (req, res) => {
 function processDaily(elementList, schedule)
 {
     var setValue = schedule[new Date().getHours()] ? 1 : 0;
+    var invSetValue = schedule[new Date().getHours()] ? 0 : 1;
 
     elementList.forEach(element => {
+        cip.dset(elementList[element], invSetValue);
         cip.dset(elementList[element], setValue);
         console.log("join " + element + " number " + new Map(climateDigitalMap).get(element + "[Enable]") + " value " + setValue);
     });
