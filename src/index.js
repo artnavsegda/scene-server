@@ -181,23 +181,14 @@ function processWeekly(elementList,schedule)
 
 function processClimate()
 {
-    if (floorsSchedule.mode = "weekly")
-    {
+        console.log("floors weekly");
         processWeekly(floorsActive.weekly,floorsSchedule.weekly);
-    }
-    else if (floorsSchedule.mode = "daily")
-    {
+        console.log("floors daily");
         processDaily(floorsActive.daily,floorsSchedule.daily)
-    }
-
-    if (heatersSchedule.mode = "weekly")
-    {
+        console.log("heaters weekly");
         processWeekly(heatersActive.weekly,heatersSchedule.weekly);
-    }
-    else if (heatersSchedule.mode = "daily")
-    {
-        processDaily(heatersActive.daily,heatersSchedule.daily)
-    }
+        console.log("heaters daily");
+        processDaily(heatersActive.daily,heatersSchedule.daily);
 }
 
 /* const climateTimer = setInterval((w) = {
