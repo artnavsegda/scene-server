@@ -169,7 +169,7 @@ function processDaily(elementList, schedule)
     var invSetValue = schedule[new Date().getHours()] ? 0 : 1;
 
     elementList.forEach(element => {
-        cipnumber = new Map(climateDigitalMap).get(element + "[Enable]");
+        const cipnumber = new Map(climateDigitalMap).get(element + "[Enable]");
         cip.dset(cipnumber, invSetValue);
         cip.dset(cipnumber, setValue);
         console.log("join " + element + " number " + cipnumber + " value " + setValue);
