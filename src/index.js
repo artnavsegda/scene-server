@@ -183,20 +183,20 @@ function processClimate()
 {
     if (floorsSchedule.mode = "weekly")
     {
-        processWeekly(floorsActive,floorsSchedule.weekly);
+        processWeekly(floorsActive.weekly,floorsSchedule.weekly);
     }
     else if (floorsSchedule.mode = "daily")
     {
-        processDaily(floorsActive,floorsSchedule.daily)
+        processDaily(floorsActive.daily,floorsSchedule.daily)
     }
 
     if (heatersSchedule.mode = "weekly")
     {
-        processWeekly(heatersActive,heatersSchedule.weekly);
+        processWeekly(heatersActive.weekly,heatersSchedule.weekly);
     }
     else if (heatersSchedule.mode = "daily")
     {
-        processDaily(heatersActive,heatersSchedule.daily)
+        processDaily(heatersActive.daily,heatersSchedule.daily)
     }
 }
 
