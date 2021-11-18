@@ -169,7 +169,7 @@ function processDaily(elementList, schedule)
 
     elementList.forEach(element => {
         //cip.dset(elementList[element], setValue);
-        console.log("join " + new Map(climateDigitalMap).get(element) + " value " + setValue);
+        console.log("join " + element + " number " + new Map(climateDigitalMap).get(element) + " value " + setValue);
     });
 }
 
