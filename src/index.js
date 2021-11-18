@@ -168,7 +168,7 @@ function processDaily(elementList, schedule)
     var setValue = schedule[new Date().getHours()] ? 1 : 0;
 
     elementList.forEach(element => {
-        //cip.dset(elementList[element], setValue);
+        cip.dset(elementList[element], setValue);
         console.log("join " + element + " number " + new Map(climateDigitalMap).get(element + "[Enable]") + " value " + setValue);
     });
 }
@@ -191,8 +191,8 @@ function processClimate()
         processDaily(heatersActive.daily,heatersSchedule.daily);
 }
 
-/* const climateTimer = setInterval((w) = {
+const climateTimer = setInterval((w) = {
     processClimate();
-},100000) */
+},100000)
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
