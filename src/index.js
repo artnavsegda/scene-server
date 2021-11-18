@@ -191,7 +191,7 @@ function processClimate()
         processDaily(heatersActive.daily,heatersSchedule.daily);
 }
 
-const climateTimer = setInterval((w) = {
+const climateTimer = setInterval((w) => {
     processClimate();
 },100000)
 
