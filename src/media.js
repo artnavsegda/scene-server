@@ -41,7 +41,7 @@ let sources = {
   "sat2": {on: false, in: "", matrixcode: 2},
   "sat3": {on: false, in: "", matrixcode: 3},
   "smarttv": {},
-  "multiroom": {on: false}
+  "multiroom": {on: false, in: ""}
 }
 
 let rooms = {
@@ -600,26 +600,27 @@ export function multiroom(parameters)
     case "stop":
       console.log("stop " + parameters.arg);
       client.publish('/media/multiroom/on', "0", {retain: true})
-      setGlobalPower("off", "multiroom");
 
       fetch(MRControllers[parameters.arg].address + "/YamahaExtendedControl/v1/main/setPower?power=standby")
         .then(res => res.json())
         .then(json => console.log(json));
 
-        activeMultirooms.forEach((element) => {
-          client.publish('/media/' + element, "void", {retain: true});
-          rooms[element].current = "";
-          cip.pulse(rooms[element].ampoff);
+      activeMultirooms.forEach((element) => {
+        client.publish('/media/' + element, "void", {retain: true});
+        rooms[element].current = "";
+        cip.pulse(rooms[element].ampoff);
 
-          if (element == 'livingroom')
-          {
-            fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=standby");
-          }
-        })
+        if (element == 'livingroom')
+        {
+          fetch("http://192.168.10.33/YamahaExtendedControl/v1/main/setPower?power=standby");
+        }
+      })
 
-        activeMultirooms = [];
-        sources["multiroom"].on = false;
-        selectedMultiroomDriver = "";
+      activeMultirooms = [];
+      sources["multiroom"].on = false;
+      selectedMultiroomDriver = "";
+
+      setGlobalPower("off", "multiroom");
 
       return {
         status: "ok",
