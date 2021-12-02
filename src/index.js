@@ -198,7 +198,7 @@ const climateTimer = setInterval((w) => {
     processClimate();
 },100000)
 
-export const climateFloors = new Map([
+/* export const climateFloors = new Map([
 	["[Climate][Hallway]Floor", {mode: "always", state: "on"}],
     ["[Climate][Hall]Floor", {mode: "always", state: "on"}],
     ["[Climate][Livingroom]Floor", {mode: "always", state: "on"}],
@@ -254,7 +254,7 @@ app.get('/switchHeaterClimate', (req, res) => {
 app.get('/setHeaterClimateMode', (req, res) => {
     req.query;
     res.send("ok");
-})
+}) */
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
