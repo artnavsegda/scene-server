@@ -99,16 +99,16 @@ function setGlobalPower(power, source) {
     if (source)
     {
       for (var element in
-      [
-        "appletv",
-        "appletv2",
-        "kodi",
-        "kodi2",
-        "yamaha",
-        "yamaha2",
-        "yamaha_big",
-        "multiroom"
-      ])
+        [
+          "appletv",
+          "appletv2",
+          "kodi",
+          "kodi2",
+          "yamaha",
+          "yamaha2",
+          "yamaha_big",
+          "multiroom"
+        ])
       {
         if (source != element)
         {
@@ -466,7 +466,6 @@ export function turn(parameters)
     else if (parameters.power == "off")
     {
       myEmitter.emit('turn', parameters.power, parameters.location, parameters.source, rooms[parameters.location].current);
-      setGlobalPower(parameters.power, parameters.source);
 
       // calculate timeouts & execute actions
       timeout = powerOff(parameters.location, parameters.source);
@@ -476,6 +475,7 @@ export function turn(parameters)
       rooms[parameters.location].current = "";
       client.publish('/media/' + parameters.location + '/'+ tempname +'/on', "0", {retain: true});
       client.publish('/media/' + parameters.location,  "void", {retain: true});
+      setGlobalPower(parameters.power, parameters.source);
     }
   }
 
