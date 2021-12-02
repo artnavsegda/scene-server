@@ -113,12 +113,16 @@ function setGlobalPower(power, source) {
         if (source != element)
         {
           if (source != "smarttv" && sources[source].on == true)
+          {
             power = true;
+            console.log("global power flag not set due " + source);
+          }
         }
       }
     }
     if (power == false)
     {
+      console.log("global power flag set to off");
       client.publish('/media/on', "0", {retain: true})
     }
   }
