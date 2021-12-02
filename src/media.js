@@ -393,7 +393,7 @@ export function turn(parameters)
     client.publish('/media/' + parameters.location + '/'+ tempname +'/on', "0", {retain: true});
     client.publish('/media/' + parameters.location,  "void", {retain: true});
 
-    if (rooms[parameters.location].current != "smarttv" && rooms[parameters.location].current != "")
+    if (rooms[parameters.location].current != "smarttv" && rooms[parameters.location].current != "multiroom" && rooms[parameters.location].current != "")
     {
       sources[rooms[parameters.location].current].on = false;
       sources[rooms[parameters.location].current].in = "";
@@ -433,7 +433,7 @@ export function turn(parameters)
 
     if (parameters.power == "on")
     {
-      if (sources['multiroom'].on == true && selectedMultiroomDriver == parameters.source)
+      if (multiroomStatus == true && selectedMultiroomDriver == parameters.source)
       {
         result = "busy";
         details = {
@@ -492,6 +492,7 @@ export function turn(parameters)
 }
 
 let activeMultirooms = []
+var multiroomStatus = false;
 
 const MRControllers = {
   "yamaha1": {
@@ -520,7 +521,7 @@ export function multiroom(parameters)
         readyList.push("yamaha2");
 
       return {
-        on: sources["multiroom"].on,
+        on: multiroomStatus,
         ready: readyList,
         driver: selectedMultiroomDriver,
         enlisted: activeMultirooms
@@ -597,6 +598,7 @@ export function multiroom(parameters)
 
       activeMultirooms = [];
       sources["multiroom"].on = true;
+      multiroomStatus = true;
       selectedMultiroomDriver = parameters.arg;
 
       return {
@@ -625,6 +627,7 @@ export function multiroom(parameters)
 
       activeMultirooms = [];
       sources["multiroom"].on = false;
+      multiroomStatus = false;
       selectedMultiroomDriver = "";
 
       setGlobalPower("off", "multiroom");
