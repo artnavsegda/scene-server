@@ -68,7 +68,10 @@ myEmitter.on('turn', function(power, location, source, prevSource) {
   {
     const index = activeMultirooms.indexOf(location);
     if (index > -1) {
+      console.log("removing room from multiroom set")
+      console.log("previous state: " + JSON.stringify(activeMultirooms));
       activeMultirooms.splice(index, 1);
+      console.log("after state: " + JSON.stringify(activeMultirooms));
     }
 
     rooms[location].list.forEach((key) => {
