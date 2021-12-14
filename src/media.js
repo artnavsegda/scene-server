@@ -7,7 +7,9 @@ function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-var client  = mqtt.connect('mqtt://127.0.0.1')
+var client  = mqtt.connect('mqtt://127.0.0.1');
+
+export {client};
 
 const cip = cipclient.connect({host:  "192.168.10.11",  ipid:  "\x05"},  ()  =>  { // 192.168.10.11
   console.log('CIP connected')
