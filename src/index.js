@@ -14,6 +14,10 @@ import {
   setFloors,
   getHeaters,
   setHeaters,
+  getActiveFloors,
+  setActiveFloors,
+  getActiveHeaters,
+  setActiveHeaters,
 } from "./climate.js";
 
 const cip  = cipclient.connect({host:  "192.168.10.10",  ipid:  "\x03"},  ()  =>  {
