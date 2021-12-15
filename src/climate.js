@@ -51,27 +51,27 @@ let heatersSchedule = tryRead('heaters.json', climateTemplate);
 let floorsActive = tryRead('floorsActive.json', climateFloors);
 let heatersActive = tryRead('heatersActive.json', climateHeaters);
 
-app.get('/getFloors', (req, res) => {
+export function getFloors(req, res) {
     res.send(floorsSchedule);
-})
+}
 
-app.post('/setFloors', (req, res) => {
+export function setFloors(req, res) {
     console.log("data:" + JSON.stringify(req.body))
     floorsSchedule = req.body;
     fs.writeFile('floors.json', JSON.stringify(floorsSchedule),(error) => {});
     res.json(req.body);
-})
+}
 
-app.get('/getHeaters', (req, res) => {
+export function getHeaters(req, res) {
     res.send(heatersSchedule);
-})
+}
 
-app.post('/setHeaters', (req, res) => {
+export function setHeaters(req, res) {
     console.log("data:" + JSON.stringify(req.body))
     heatersSchedule = req.body;
     fs.writeFile('heaters.json', JSON.stringify(heatersSchedule),(error) => {});
     res.json(req.body);
-})
+}
 
 app.get('/getActiveFloors', (req, res) => {
     res.send(floorsActive);
