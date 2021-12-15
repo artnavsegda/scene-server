@@ -111,6 +111,10 @@ app.get('/getHeaters', getHeaters);
 app.post('/setHeaters', setHeaters);
 app.get('/getFloors', getFloors);
 app.post('/setFloors', setFloors);
+app.get('/getActiveFloors', getActiveFloors);
+app.post('/setActiveFloors', setActiveFloors);
+app.get('/getActiveHeaters', getActiveHeaters);
+app.post('/setActiveHeaters', setActiveHeaters);
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 

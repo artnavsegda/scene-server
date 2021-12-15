@@ -73,27 +73,27 @@ export function setHeaters(req, res) {
     res.json(req.body);
 }
 
-app.get('/getActiveFloors', (req, res) => {
+export function getActiveFloors(req, res) {
     res.send(floorsActive);
-})
+}
 
-app.post('/setActiveFloors', (req, res) => {
+export function setActiveFloors(req, res) {
     console.log("data:" + JSON.stringify(req.body))
     floorsActive = req.body;
     fs.writeFile('floorsActive.json', JSON.stringify(floorsActive),(error) => {});
     res.json(req.body);
-})
+}
 
-app.get('/getActiveHeaters', (req, res) => {
+export function getActiveHeaters(req, res) {
     res.send(heatersActive);
-})
+}
 
-app.post('/setActiveHeaters', (req, res) => {
+export function setActiveHeaters(req, res) {
     console.log("data:" + JSON.stringify(req.body))
     heatersActive = req.body;
     fs.writeFile('heatersActive.json', JSON.stringify(heatersActive),(error) => {});
     res.json(req.body);
-})
+}
 
 export function processDaily(elementList, schedule)
 {
