@@ -161,7 +161,7 @@ function processFloor(floor)
             cip.dset(floor.join, 0);
             cip.dset(floor.join, 1);
         }
-        else if (value.mode == 'daily')
+        else if (floor.mode == 'daily')
         {
             var setValue = floorsSchedule.daily[new Date().getHours()] ? 1 : 0;
             console.log('daily value is ' + setValue);
@@ -207,7 +207,7 @@ function processHeater(heater)
             cip.dset(heater.join, invSetValue);
             cip.dset(heater.join, setValue);
         }
-        else if (value.mode == 'weekly')
+        else if (heater.mode == 'weekly')
         {
             var dayWeekNumber = (new Date().getDay() + 6) % 7;
             var setValue = heatersSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 1 : 0;
