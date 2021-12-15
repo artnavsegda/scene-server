@@ -3,20 +3,6 @@ import EventEmitter from "events";
 import cipclient from "crestron-cip";
 import fetch from "node-fetch";
 
-import { app } from "./index.js";
-
-app.get('/media', (req, res) => {
-  res.send(turn(req.query));
-})
-
-app.get('/query', (req, res) => {
-  res.send(query(req.query));
-})
-
-app.get('/multiroom', (req, res) => {
-  res.send(multiroom(req.query));
-})
-
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
