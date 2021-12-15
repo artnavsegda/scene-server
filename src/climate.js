@@ -155,71 +155,81 @@ function processClimate()
 function processFloors()
 {
     floorsActive.forEach((value,key) => {
-        if (value.enable == true)
-        {
-            if (value.mode == 'always')
-            {
-                cip.dset(value.join, 0);
-                cip.dset(value.join, 1);
-            }
-            else if (value.mode == 'daily')
-            {
-                var setValue = floorsSchedule.daily[new Date().getHours()] ? 1 : 0;
-                var invSetValue = floorsSchedule.daily[new Date().getHours()] ? 0 : 1;
-                cip.dset(value.join, invSetValue);
-                cip.dset(value.join, setValue);
-            }
-            else if (value.mode == 'weekly')
-            {
-                var dayWeekNumber = (new Date().getDay() + 6) % 7;
-                var setValue = floorsSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 1 : 0;
-                var invSetValue = floorsSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 0 : 1;
-                cip.dset(value.join, invSetValue);
-                cip.dset(value.join, setValue);
-            }
-        }
-        else
-        {
-            //disable
-            cip.dset(value.join, 1);
-            cip.dset(value.join, 0);
-        }
+        processFloor(value);
     })
+}
+
+function processFloor(floor)
+{
+    if (floor.enable == true)
+    {
+        if (floor.mode == 'always')
+        {
+            cip.dset(floor.join, 0);
+            cip.dset(floor.join, 1);
+        }
+        else if (value.mode == 'daily')
+        {
+            var setValue = floorsSchedule.daily[new Date().getHours()] ? 1 : 0;
+            var invSetValue = floorsSchedule.daily[new Date().getHours()] ? 0 : 1;
+            cip.dset(floor.join, invSetValue);
+            cip.dset(floor.join, setValue);
+        }
+        else if (floor.mode == 'weekly')
+        {
+            var dayWeekNumber = (new Date().getDay() + 6) % 7;
+            var setValue = floorsSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 1 : 0;
+            var invSetValue = floorsSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 0 : 1;
+            cip.dset(floor.join, invSetValue);
+            cip.dset(floor.join, setValue);
+        }
+    }
+    else
+    {
+        //disable
+        cip.dset(floor.join, 1);
+        cip.dset(floor.join, 0);
+    }
+}
+
+function processHeater(heater)
+{
+    if (heater.enable == true)
+    {
+        if (heater.mode == 'always')
+        {
+            //enable
+            cip.dset(heater.join, 0);
+            cip.dset(heater.join, 1);
+        }
+        else if (heater.mode == 'daily')
+        {
+            var setValue = heatersSchedule.daily[new Date().getHours()] ? 1 : 0;
+            var invSetValue = heatersSchedule.daily[new Date().getHours()] ? 0 : 1;
+            cip.dset(heater.join, invSetValue);
+            cip.dset(heater.join, setValue);
+        }
+        else if (value.mode == 'weekly')
+        {
+            var dayWeekNumber = (new Date().getDay() + 6) % 7;
+            var setValue = heatersSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 1 : 0;
+            var invSetValue = heatersSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 0 : 1;
+            cip.dset(heater.join, invSetValue);
+            cip.dset(heater.join, setValue);
+        }
+    }
+    else
+    {
+        //disable
+        cip.dset(heater.join, 1);
+        cip.dset(heater.join, 0);
+    }
 }
 
 function processHeaters()
 {
     heatersActive.forEach((value,key) => {
-        if (value.enable == true)
-        {
-            if (value.mode == 'always')
-            {
-                //enable
-                cip.dset(value.join, 0);
-                cip.dset(value.join, 1);
-            }
-            else if (value.mode == 'daily')
-            {
-                var setValue = heatersSchedule.daily[new Date().getHours()] ? 1 : 0;
-                var invSetValue = heatersSchedule.daily[new Date().getHours()] ? 0 : 1;
-                cip.dset(value.join, invSetValue);
-                cip.dset(value.join, setValue);
-            }
-            else if (value.mode == 'weekly')
-            {
-                var dayWeekNumber = (new Date().getDay() + 6) % 7;
-                var setValue = heatersSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 1 : 0;
-                var invSetValue = heatersSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 0 : 1;
-                cip.dset(value.join, invSetValue);
-                cip.dset(value.join, setValue);
-            }
-        }
-        else
-        {
-            //disable
-            cip.dset(value.join, 1);
-            cip.dset(value.join, 0);
-        }
+        processHeater(value)
     })
 }
 
