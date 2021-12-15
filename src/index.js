@@ -3,6 +3,7 @@ import express from "express";
 import cipclient from "crestron-cip";
 import { digitalMap, feedbackDigitalMap } from "./joinMap.js";
 import { turn, query, multiroom } from "./media.js";
+import { getFloorClimate, switchFloorClimate, setFloorClimateMode, getHeaterClimate, switchHeaterClimate, setHeaterClimateMode } from "./climate.js";
 
 const cip  = cipclient.connect({host:  "192.168.10.10",  ipid:  "\x03"},  ()  =>  {
   console.log('CIP connected')
@@ -88,6 +89,13 @@ app.get('/query', (req, res) => {
 app.get('/multiroom', (req, res) => {
   res.send(multiroom(req.query));
 })
+
+app.get('/getFloorClimate', getFloorClimate);
+app.get('/switchFloorClimate', switchFloorClimate);
+app.get('/setFloorClimateMode', setFloorClimateMode);
+app.get('/getHeaterClimate', getHeaterClimate);
+app.get('/switchHeaterClimate', switchHeaterClimate);
+app.get('/setHeaterClimateMode', setHeaterClimateMode);
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 

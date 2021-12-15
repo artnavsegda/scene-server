@@ -243,11 +243,11 @@ const modes = {
     'weekly': 2
 }
 
-app.get('/getFloorClimate', (req, res) => {
+export function getFloorClimate(req, res) {
     res.send(floorsActive);
-})
+}
 
-app.get('/switchFloorClimate', (req, res) => {
+export function switchFloorClimate(req, res) {
     var floor = heatersActive.get(req.query.floor);
     floor.enable = !floor.enable;
     floorsActive.set(req.query.floor, floor);
@@ -255,9 +255,9 @@ app.get('/switchFloorClimate', (req, res) => {
     processFloor(floor);
     fs.writeFile('floorsActive.json', JSON.stringify(floorsActive),(error) => {});
     res.send("ok");
-})
+}
 
-app.get('/setFloorClimateMode', (req, res) => {
+export function setFloorClimateMode(req, res) {
     var floor = heatersActive.get(req.query.floor);
     floor.mode = req.query.mode;
     floorsActive.set(req.query.floor, floor);
@@ -265,13 +265,13 @@ app.get('/setFloorClimateMode', (req, res) => {
     processFloor(floor);
     fs.writeFile('floorsActive.json', JSON.stringify(floorsActive),(error) => {});
     res.send("ok");
-})
+}
 
-app.get('/getHeaterClimate', (req, res) => {
+export function getHeaterClimate(req, res) {
     res.send(heatersActive);
-})
+}
 
-app.get('/switchHeaterClimate', (req, res) => {
+export function switchHeaterClimate(req, res) {
     var heater = heatersActive.get(req.query.heater);
     heater.enable = !heater.enable;
     heatersActive.set(req.query.heater, heater);
@@ -279,9 +279,9 @@ app.get('/switchHeaterClimate', (req, res) => {
     processHeater(heater);
     fs.writeFile('heatersActive.json', JSON.stringify(heatersActive),(error) => {});
     res.send("ok");
-})
+}
 
-app.get('/setHeaterClimateMode', (req, res) => {
+export function setHeaterClimateMode(req, res) {
     var heater = heatersActive.get(req.query.heater);
     heater.mode = req.query.mode;
     heatersActive.set(req.query.heater, heater);
@@ -289,4 +289,4 @@ app.get('/setHeaterClimateMode', (req, res) => {
     processHeater(heater);
     fs.writeFile('heatersActive.json', JSON.stringify(heatersActive),(error) => {});
     res.send("ok");
-})
+}
