@@ -16,6 +16,36 @@ const climateTemplate = {
 	daily: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
 }
 
+const climateFloors = new Map([
+	["[Climate][Hallway]Floor", {mode: "always", enable: true, join: 501}],
+    ["[Climate][Hall]Floor", {mode: "always", enable: true, join: 502}],
+    ["[Climate][Livingroom]Floor", {mode: "always", enable: true, join: 503}],
+    ["[Climate][Kitchen]Floor", {mode: "always", enable: true, join: 504}],
+    ["[Climate][Bathroom]Floor", {mode: "always", enable: true, join: 505}],
+    ["[Climate][Bedroom]Floor", {mode: "always", enable: true, join: 506}],
+    ["[Climate][Kids_room]Floor", {mode: "always", enable: true, join: 507}],
+    ["[Climate][2nd_floor_Bathrooms]Floor", {mode: "always", enable: true, join: 508}],
+    ["[Climate][2nd_floor_stairs]Floor", {mode: "always", enable: true, join: 510}],
+    ["[Climate][Cabinet]Floor", {mode: "always", enable: true, join: 511}],
+    ["[Climate][3rd_floor_stairs]Floor", {mode: "always", enable: true, join: 512}],
+    ["[Climate][3rd_floor_Bathroom]Floor", {mode: "always", enable: true, join: 513}],
+    ["[Climate][Workshop]Floor", {mode: "always", enable: true, join: 514}],
+])
+
+const climateHeaters = new Map([
+    ["[Climate][Garage]Heater", {mode: "always", enable: true, join: 515}],
+    ["[Climate][Boiler]Heater", {mode: "always", enable: true, join: 516}],
+    ["[Climate][Technical_room]Heater", {mode: "always", enable: true, join: 517}],
+    ["[Climate][Livingroom]Heater", {mode: "always", enable: true, join: 518}],
+    ["[Climate][Kitchen]Heater", {mode: "always", enable: true, join: 520}],
+    ["[Climate][Bedroom]Heater", {mode: "always", enable: true, join: 521}],
+    ["[Climate][Kids_room]Heater", {mode: "always", enable: true, join: 522}],
+    ["[Climate][2nd_floor_stairs]Heater", {mode: "always", enable: true, join: 523}],
+    ["[Climate][Cabinet]Heater", {mode: "always", enable: true, join: 524}],
+    ["[Climate][3rd_floor_stairs]Heater", {mode: "always", enable: true, join: 525}],
+    ["[Climate][Workshop]Heater", {mode: "always", enable: true, join: 526}],
+])
+
 const activeTemplate = {
 	weekly: [],
 	daily: []
@@ -24,8 +54,8 @@ const activeTemplate = {
 let floorsSchedule = tryRead('floors.json', climateTemplate);
 let heatersSchedule = tryRead('heaters.json', climateTemplate);
 
-let floorsActive = tryRead('floorsActive.json', activeTemplate);
-let heatersActive = tryRead('heatersActive.json', activeTemplate);
+let floorsActive = tryRead('floorsActive.json', climateFloors);
+let heatersActive = tryRead('heatersActive.json', climateHeaters);
 
 app.get('/getFloors', (req, res) => {
     res.send(floorsSchedule);
@@ -112,49 +142,92 @@ function processWeekly(elementList,schedule)
 
 function processClimate()
 {
-        console.log("floors weekly");
-        processWeekly(floorsActive.weekly,floorsSchedule.weekly);
-        console.log("floors daily");
-        processDaily(floorsActive.daily,floorsSchedule.daily)
-        console.log("heaters weekly");
-        processWeekly(heatersActive.weekly,heatersSchedule.weekly);
-        console.log("heaters daily");
-        processDaily(heatersActive.daily,heatersSchedule.daily);
+    console.log("floors weekly");
+    processWeekly(floorsActive.weekly,floorsSchedule.weekly);
+    console.log("floors daily");
+    processDaily(floorsActive.daily,floorsSchedule.daily)
+    console.log("heaters weekly");
+    processWeekly(heatersActive.weekly,heatersSchedule.weekly);
+    console.log("heaters daily");
+    processDaily(heatersActive.daily,heatersSchedule.daily);
+}
+
+function processFloors()
+{
+    floorsActive.forEach((value,key) => {
+        if (value.enable == true)
+        {
+            if (value.mode == 'always')
+            {
+                cip.dset(value.join, 0);
+                cip.dset(value.join, 1);
+            }
+            else if (value.mode == 'daily')
+            {
+                var setValue = floorsSchedule.daily[new Date().getHours()] ? 1 : 0;
+                var invSetValue = floorsSchedule.daily[new Date().getHours()] ? 0 : 1;
+                cip.dset(value.join, invSetValue);
+                cip.dset(value.join, setValue);
+            }
+            else if (value.mode == 'weekly')
+            {
+                var dayWeekNumber = (new Date().getDay() + 6) % 7;
+                var setValue = floorsSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 1 : 0;
+                var invSetValue = floorsSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 0 : 1;
+                cip.dset(value.join, invSetValue);
+                cip.dset(value.join, setValue);
+            }
+        }
+        else
+        {
+            //disable
+            cip.dset(value.join, 1);
+            cip.dset(value.join, 0);
+        }
+    })
+}
+
+function processHeaters()
+{
+    heatersActive.forEach((value,key) => {
+        if (value.enable == true)
+        {
+            if (value.mode == 'always')
+            {
+                //enable
+                cip.dset(value.join, 0);
+                cip.dset(value.join, 1);
+            }
+            else if (value.mode == 'daily')
+            {
+                var setValue = heatersSchedule.daily[new Date().getHours()] ? 1 : 0;
+                var invSetValue = heatersSchedule.daily[new Date().getHours()] ? 0 : 1;
+                cip.dset(value.join, invSetValue);
+                cip.dset(value.join, setValue);
+            }
+            else if (value.mode == 'weekly')
+            {
+                var dayWeekNumber = (new Date().getDay() + 6) % 7;
+                var setValue = heatersSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 1 : 0;
+                var invSetValue = heatersSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 0 : 1;
+                cip.dset(value.join, invSetValue);
+                cip.dset(value.join, setValue);
+            }
+        }
+        else
+        {
+            //disable
+            cip.dset(value.join, 1);
+            cip.dset(value.join, 0);
+        }
+    })
 }
 
 const climateTimer = setInterval((w) => {
     processClimate();
 },100000)
 
-/* export const climateFloors = new Map([
-	["[Climate][Hallway]Floor", {mode: "always", state: "on"}],
-    ["[Climate][Hall]Floor", {mode: "always", state: "on"}],
-    ["[Climate][Livingroom]Floor", {mode: "always", state: "on"}],
-    ["[Climate][Kitchen]Floor", {mode: "always", state: "on"}],
-    ["[Climate][Bathroom]Floor", {mode: "always", state: "on"}],
-    ["[Climate][Bedroom]Floor", {mode: "always", state: "on"}],
-    ["[Climate][Kids_room]Floor", {mode: "always", state: "on"}],
-    ["[Climate][2nd_floor_Bathrooms]Floor", {mode: "always", state: "on"}],
-    ["[Climate][2nd_floor_stairs]Floor", {mode: "always", state: "on"}],
-    ["[Climate][Cabinet]Floor", {mode: "always", state: "on"}],
-    ["[Climate][3rd_floor_stairs]Floor", {mode: "always", state: "on"}],
-    ["[Climate][3rd_floor_Bathroom]Floor", {mode: "always", state: "on"}],
-    ["[Climate][Workshop]Floor", {mode: "always", state: "on"}],
-])
 
-export const climateHeaters = new Map([
-    ["[Climate][Garage]Heater", {mode: "always", state: "on"}],
-    ["[Climate][Boiler]Heater", {mode: "always", state: "on"}],
-    ["[Climate][Technical_room]Heater", {mode: "always", state: "on"}],
-    ["[Climate][Livingroom]Heater", {mode: "always", state: "on"}],
-    ["[Climate][Kitchen]Heater", {mode: "always", state: "on"}],
-    ["[Climate][Bedroom]Heater", {mode: "always", state: "on"}],
-    ["[Climate][Kids_room]Heater", {mode: "always", state: "on"}],
-    ["[Climate][2nd_floor_stairs]Heater", {mode: "always", state: "on"}],
-    ["[Climate][Cabinet]Heater", {mode: "always", state: "on"}],
-    ["[Climate][3rd_floor_stairs]Heater", {mode: "always", state: "on"}],
-    ["[Climate][Workshop]Heater", {mode: "always", state: "on"}],
-])
 
 app.get('/getFloorClimate', (req, res) => {
     res.send(climateFloors);
@@ -182,4 +255,4 @@ app.get('/switchHeaterClimate', (req, res) => {
 app.get('/setHeaterClimateMode', (req, res) => {
     req.query;
     res.send("ok");
-}) */
+})
