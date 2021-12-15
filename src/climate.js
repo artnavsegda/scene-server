@@ -156,12 +156,14 @@ function processFloor(floor)
     {
         if (floor.mode == 'always')
         {
+            console.log('switch on');
             cip.dset(floor.join, 0);
             cip.dset(floor.join, 1);
         }
         else if (value.mode == 'daily')
         {
             var setValue = floorsSchedule.daily[new Date().getHours()] ? 1 : 0;
+            console.log('daily value is ' + setValue);
             var invSetValue = floorsSchedule.daily[new Date().getHours()] ? 0 : 1;
             cip.dset(floor.join, invSetValue);
             cip.dset(floor.join, setValue);
@@ -170,6 +172,7 @@ function processFloor(floor)
         {
             var dayWeekNumber = (new Date().getDay() + 6) % 7;
             var setValue = floorsSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 1 : 0;
+            console.log('weekly value is ' + setValue);
             var invSetValue = floorsSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 0 : 1;
             cip.dset(floor.join, invSetValue);
             cip.dset(floor.join, setValue);
@@ -190,12 +193,14 @@ function processHeater(heater)
         if (heater.mode == 'always')
         {
             //enable
+            console.log('switch on');
             cip.dset(heater.join, 0);
             cip.dset(heater.join, 1);
         }
         else if (heater.mode == 'daily')
         {
             var setValue = heatersSchedule.daily[new Date().getHours()] ? 1 : 0;
+            console.log('daily value is ' + setValue);
             var invSetValue = heatersSchedule.daily[new Date().getHours()] ? 0 : 1;
             cip.dset(heater.join, invSetValue);
             cip.dset(heater.join, setValue);
@@ -204,6 +209,7 @@ function processHeater(heater)
         {
             var dayWeekNumber = (new Date().getDay() + 6) % 7;
             var setValue = heatersSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 1 : 0;
+            console.log('weekly value is ' + setValue);
             var invSetValue = heatersSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 0 : 1;
             cip.dset(heater.join, invSetValue);
             cip.dset(heater.join, setValue);
@@ -212,6 +218,7 @@ function processHeater(heater)
     else
     {
         //disable
+        console.log('switch off');
         cip.dset(heater.join, 1);
         cip.dset(heater.join, 0);
     }
@@ -219,7 +226,9 @@ function processHeater(heater)
 
 function processHeaters()
 {
+    console.log('process heaters');
     heatersActive.forEach((value,key) => {
+        console.log('heater name ' + key);
         processHeater(value)
     })
 }
