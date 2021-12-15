@@ -1,5 +1,4 @@
 import { app, tryRead, cip } from "./index.js"
-import { climateDigitalMap } from "./climateJoinMap.js";
 import { client } from "./media.js";
 
 const climateTemplate = {
@@ -45,11 +44,6 @@ const climateHeaters = new Map([
     ["[Climate][3rd_floor_stairs]Heater", {mode: "always", enable: true, join: 525}],
     ["[Climate][Workshop]Heater", {mode: "always", enable: true, join: 526}],
 ])
-
-const activeTemplate = {
-	weekly: [],
-	daily: []
-}
 
 let floorsSchedule = tryRead('floors.json', climateTemplate);
 let heatersSchedule = tryRead('heaters.json', climateTemplate);
