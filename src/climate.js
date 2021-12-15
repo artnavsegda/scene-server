@@ -258,7 +258,9 @@ app.get('/getHeaterClimate', (req, res) => {
 })
 
 app.get('/switchHeaterClimate', (req, res) => {
-    req.query;
+    var heater = heatersActive.get(req.query.heater);
+    heater.enable = !heater.enable;
+    heatersActive.set(req.query.heater, heater);
     res.send("ok");
 })
 
