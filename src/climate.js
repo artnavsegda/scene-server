@@ -181,6 +181,7 @@ function processFloor(floor)
     else
     {
         //disable
+        console.log('switch off');
         cip.dset(floor.join, 1);
         cip.dset(floor.join, 0);
     }
@@ -248,6 +249,7 @@ export function getFloorClimate(req, res) {
 }
 
 export function switchFloorClimate(req, res) {
+    console.log('switch Floor Climate');
     var floor = floorsActive.get(req.query.floor);
     floor.enable = !floor.enable;
     floorsActive.set(req.query.floor, floor);
@@ -272,6 +274,7 @@ export function getHeaterClimate(req, res) {
 }
 
 export function switchHeaterClimate(req, res) {
+    console.log('switch Heater Climate');
     var heater = heatersActive.get(req.query.heater);
     heater.enable = !heater.enable;
     heatersActive.set(req.query.heater, heater);
