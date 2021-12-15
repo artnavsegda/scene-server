@@ -1,4 +1,5 @@
-import { tryRead, cip } from "./index.js"
+import { cip } from "./index.js"
+import { tryRead } from "./utils.js";
 import { client } from "./media.js";
 
 const climateTemplate = {

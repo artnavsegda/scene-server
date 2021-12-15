@@ -4,23 +4,7 @@ import cipclient from "crestron-cip";
 import { tryRead } from "./utils.js";
 import { digitalMap, feedbackDigitalMap } from "./joinMap.js";
 import { turn, query, multiroom } from "./media.js";
-import { 
-  getFloorClimate, 
-  switchFloorClimate, 
-  setFloorClimateMode, 
-  getHeaterClimate, 
-  switchHeaterClimate, 
-  setHeaterClimateMode,
-  getFloors,
-  setFloors,
-  getHeaters,
-  setHeaters,
-  getActiveFloors,
-  setActiveFloors,
-  getActiveHeaters,
-  setActiveHeaters,
-  testclimate,
-} from "./climate.js";
+import * as climate from "./climate.js";
 
 const cip  = cipclient.connect({host:  "192.168.10.10",  ipid:  "\x03"},  ()  =>  {
   console.log('CIP connected')
@@ -98,22 +82,22 @@ app.get('/multiroom', (req, res) => {
   res.send(multiroom(req.query));
 })
 
-app.get('/getFloorClimate', getFloorClimate);
-app.get('/switchFloorClimate', switchFloorClimate);
-app.get('/setFloorClimateMode', setFloorClimateMode);
-app.get('/getHeaterClimate', getHeaterClimate);
-app.get('/switchHeaterClimate', switchHeaterClimate);
-app.get('/setHeaterClimateMode', setHeaterClimateMode);
-app.get('/getHeaters', getHeaters);
-app.post('/setHeaters', setHeaters);
-app.get('/getFloors', getFloors);
-app.post('/setFloors', setFloors);
-app.get('/getActiveFloors', getActiveFloors);
-app.post('/setActiveFloors', setActiveFloors);
-app.get('/getActiveHeaters', getActiveHeaters);
-app.post('/setActiveHeaters', setActiveHeaters);
-app.get('/testclimate', testclimate);
+app.get('/getFloorClimate', climate.getFloorClimate);
+app.get('/switchFloorClimate', climate.switchFloorClimate);
+app.get('/setFloorClimateMode', climate.setFloorClimateMode);
+app.get('/getHeaterClimate', climate.getHeaterClimate);
+app.get('/switchHeaterClimate', climate.switchHeaterClimate);
+app.get('/setHeaterClimateMode', climate.setHeaterClimateMode);
+app.get('/getHeaters', climate.getHeaters);
+app.post('/setHeaters', climate.setHeaters);
+app.get('/getFloors', climate.getFloors);
+app.post('/setFloors', climate.setFloors);
+app.get('/getActiveFloors', climate.getActiveFloors);
+app.post('/setActiveFloors', climate.setActiveFloors);
+app.get('/getActiveHeaters', climate.getActiveHeaters);
+app.post('/setActiveHeaters', climate.setActiveHeaters);
+app.get('/testclimate', climate.testclimate);
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
-export {tryRead, cip};
+export {cip};
