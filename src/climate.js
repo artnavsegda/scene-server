@@ -244,7 +244,11 @@ app.get('/getFloorClimate', (req, res) => {
 })
 
 app.get('/switchFloorClimate', (req, res) => {
-    req.query;
+    var floor = heatersActive.get(req.query.floor);
+    floor.enable = !floor.enable;
+    floorsActive.set(req.query.floor, floor);
+    client.publish('/climate/floor/' + req.query.floor +'/enable', floor.enable, {retain: true});
+    processFloor(floor);
     res.send("ok");
 })
 
@@ -261,6 +265,8 @@ app.get('/switchHeaterClimate', (req, res) => {
     var heater = heatersActive.get(req.query.heater);
     heater.enable = !heater.enable;
     heatersActive.set(req.query.heater, heater);
+    client.publish('/climate/heater/' + req.query.heater +'/enable', heater.enable, {retain: true});
+    processHeater(heater);
     res.send("ok");
 })
 
