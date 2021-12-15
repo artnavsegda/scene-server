@@ -95,7 +95,7 @@ export function setActiveHeaters(req, res) {
     res.json(req.body);
 }
 
-export function processDaily(elementList, schedule)
+/* function processDaily(elementList, schedule)
 {
     var setValue = schedule[new Date().getHours()] ? 1 : 0;
 
@@ -104,16 +104,16 @@ export function processDaily(elementList, schedule)
     });
 }
 
-export function processWeekly(elementList,schedule)
+function processWeekly(elementList,schedule)
 {
     var dayWeekNumber = (new Date().getDay() + 6) % 7;
     processDaily(elementList, schedule[dayWeekNumber]);
-}
+} */
 
-app.get('/testclimate', (req, res) => {
+export function testclimate(req, res) {
     res.send("test climate");
     processClimate();
-})
+}
 
 function processDaily(elementList, schedule)
 {

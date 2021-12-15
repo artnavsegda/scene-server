@@ -18,6 +18,7 @@ import {
   setActiveFloors,
   getActiveHeaters,
   setActiveHeaters,
+  testclimate,
 } from "./climate.js";
 
 const cip  = cipclient.connect({host:  "192.168.10.10",  ipid:  "\x03"},  ()  =>  {
@@ -119,6 +120,7 @@ app.get('/getActiveFloors', getActiveFloors);
 app.post('/setActiveFloors', setActiveFloors);
 app.get('/getActiveHeaters', getActiveHeaters);
 app.post('/setActiveHeaters', setActiveHeaters);
+app.get('/testclimate', testclimate);
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
