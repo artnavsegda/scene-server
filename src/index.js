@@ -92,9 +92,7 @@ app.get('/getHeaters', climate.getHeaters);
 app.post('/setHeaters', climate.setHeaters);
 app.get('/getFloors', climate.getFloors);
 app.post('/setFloors', climate.setFloors);
-app.get('/getActiveFloors', climate.getActiveFloors);
 app.post('/setActiveFloors', climate.setActiveFloors);
-app.get('/getActiveHeaters', climate.getActiveHeaters);
 app.post('/setActiveHeaters', climate.setActiveHeaters);
 app.get('/testclimate', climate.testclimate);
 

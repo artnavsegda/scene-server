@@ -16,7 +16,7 @@ const climateTemplate = {
 	daily: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
 }
 
-const climateFloors = new Map([
+const climateFloors = [
 	["[Climate][Hallway]Floor", {mode: "always", enable: true, join: 501}],
     ["[Climate][Hall]Floor", {mode: "always", enable: true, join: 502}],
     ["[Climate][Livingroom]Floor", {mode: "always", enable: true, join: 503}],
@@ -30,9 +30,9 @@ const climateFloors = new Map([
     ["[Climate][3rd_floor_stairs]Floor", {mode: "always", enable: true, join: 512}],
     ["[Climate][3rd_floor_Bathroom]Floor", {mode: "always", enable: true, join: 513}],
     ["[Climate][Workshop]Floor", {mode: "always", enable: true, join: 514}],
-])
+]
 
-const climateHeaters = new Map([
+const climateHeaters = [
     ["[Climate][Garage]Heater", {mode: "always", enable: true, join: 515}],
     ["[Climate][Boiler]Heater", {mode: "always", enable: true, join: 516}],
     ["[Climate][Technical_room]Heater", {mode: "always", enable: true, join: 517}],
@@ -44,13 +44,13 @@ const climateHeaters = new Map([
     ["[Climate][Cabinet]Heater", {mode: "always", enable: true, join: 524}],
     ["[Climate][3rd_floor_stairs]Heater", {mode: "always", enable: true, join: 525}],
     ["[Climate][Workshop]Heater", {mode: "always", enable: true, join: 526}],
-])
+]
 
 let floorsSchedule = tryRead('floors.json', climateTemplate);
 let heatersSchedule = tryRead('heaters.json', climateTemplate);
 
-let floorsActive = tryRead('floorsActive.json', climateFloors);
-let heatersActive = tryRead('heatersActive.json', climateHeaters);
+let floorsActive = new Map(tryRead('floorsActive.json', climateFloors))
+let heatersActive = new Map(tryRead('heatersActive.json', climateHeaters))
 
 export function getFloors(req, res) {
     res.send(floorsSchedule);
