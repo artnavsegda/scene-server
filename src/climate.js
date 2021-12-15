@@ -1,3 +1,4 @@
+import fs from "fs";
 import { cip } from "./index.js"
 import { tryRead } from "./utils.js";
 import { client } from "./media.js";
