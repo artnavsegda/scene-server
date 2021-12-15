@@ -249,8 +249,8 @@ export function getFloorClimate(req, res) {
 }
 
 export function switchFloorClimate(req, res) {
-    console.log('switch Floor Climate');
     var floor = floorsActive.get(req.query.floor);
+    console.log('switch '+floor+' Floor Climate');
     floor.enable = !floor.enable;
     floorsActive.set(req.query.floor, floor);
     client.publish('/climate/floor/' + req.query.floor +'/enable', floor.enable, {retain: true});
@@ -261,6 +261,7 @@ export function switchFloorClimate(req, res) {
 
 export function setFloorClimateMode(req, res) {
     var floor = floorsActive.get(req.query.floor);
+
     floor.mode = req.query.mode;
     floorsActive.set(req.query.floor, floor);
     client.publish('/climate/floor/' + req.query.floor +'/mode', modes[floor.mode], {retain: true});
@@ -274,8 +275,8 @@ export function getHeaterClimate(req, res) {
 }
 
 export function switchHeaterClimate(req, res) {
-    console.log('switch Heater Climate');
     var heater = heatersActive.get(req.query.heater);
+    console.log('switch '+heater+'Heater Climate');
     heater.enable = !heater.enable;
     heatersActive.set(req.query.heater, heater);
     client.publish('/climate/heater/' + req.query.heater +'/enable', heater.enable, {retain: true});
