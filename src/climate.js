@@ -231,7 +231,7 @@ const modes = {
 }
 
 export function getFloorClimate(req, res) {
-    res.send(floorsActive);
+    res.send(Array.from(floorsActive.entries()));
 }
 
 export function switchFloorClimate(req, res) {
@@ -255,7 +255,7 @@ export function setFloorClimateMode(req, res) {
 }
 
 export function getHeaterClimate(req, res) {
-    res.send(heatersActive);
+    res.send(Array.from(heatersActive.entries()));
 }
 
 export function switchHeaterClimate(req, res) {
