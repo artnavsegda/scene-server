@@ -1,6 +1,7 @@
 import fs from "fs";
 import express from "express";
 import cipclient from "crestron-cip";
+import { tryRead } from "./utils.js";
 import { digitalMap, feedbackDigitalMap } from "./joinMap.js";
 import { turn, query, multiroom } from "./media.js";
 import { 
@@ -24,15 +25,6 @@ import {
 const cip  = cipclient.connect({host:  "192.168.10.10",  ipid:  "\x03"},  ()  =>  {
   console.log('CIP connected')
 })
-
-const tryRead = (filename, template) => {
-  try {
-    return JSON.parse(fs.readFileSync(filename, 'utf8'));
-  } catch(err) {
-    console.log("no file " + filename);
-    return template;
-  }
-}
 
 let Scenarios = tryRead('scenes.json', []);
 
