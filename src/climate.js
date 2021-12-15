@@ -146,6 +146,7 @@ function processFloors()
 {
     console.log('process floors');
     floorsActive.forEach((value,key) => {
+        console.log('floors name ' + key);
         processFloor(value);
     })
 }
@@ -250,7 +251,7 @@ export function getFloorClimate(req, res) {
 
 export function switchFloorClimate(req, res) {
     var floor = floorsActive.get(req.query.floor);
-    console.log('switch '+floor+' Floor Climate');
+    console.log('switch '+req.query.floor+' Floor Climate');
     floor.enable = !floor.enable;
     floorsActive.set(req.query.floor, floor);
     client.publish('/climate/floor/' + req.query.floor +'/enable', floor.enable, {retain: true});
@@ -262,7 +263,7 @@ export function switchFloorClimate(req, res) {
 export function setFloorClimateMode(req, res) {
     var floor = floorsActive.get(req.query.floor);
     floor.mode = req.query.mode;
-    console.log('set '+floor+' Floor Climate mode ' + floor.mode);
+    console.log('set '+req.query.floor+' Floor Climate mode ' + floor.mode);
     floorsActive.set(req.query.floor, floor);
     client.publish('/climate/floor/' + req.query.floor +'/mode', modes[floor.mode], {retain: true});
     processFloor(floor);
@@ -276,7 +277,7 @@ export function getHeaterClimate(req, res) {
 
 export function switchHeaterClimate(req, res) {
     var heater = heatersActive.get(req.query.heater);
-    console.log('switch '+heater+' Heater Climate');
+    console.log('switch '+req.query.heater+' Heater Climate');
     heater.enable = !heater.enable;
     heatersActive.set(req.query.heater, heater);
     client.publish('/climate/heater/' + req.query.heater +'/enable', heater.enable, {retain: true});
@@ -288,7 +289,7 @@ export function switchHeaterClimate(req, res) {
 export function setHeaterClimateMode(req, res) {
     var heater = heatersActive.get(req.query.heater);
     heater.mode = req.query.mode;
-    console.log('set '+heater+' Heater Climate mode ' + heater.mode);
+    console.log('set '+req.query.heater+' Heater Climate mode ' + heater.mode);
     heatersActive.set(req.query.heater, heater);
     client.publish('/climate/heater/' + req.query.heater +'/mode', modes[heater.mode], {retain: true});
     processHeater(heater);
