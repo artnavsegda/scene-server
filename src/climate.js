@@ -74,19 +74,11 @@ export function setHeaters(req, res) {
     res.json(req.body);
 }
 
-export function getActiveFloors(req, res) {
-    res.send(floorsActive);
-}
-
 export function setActiveFloors(req, res) {
     console.log("data:" + JSON.stringify(req.body))
     floorsActive = req.body;
     fs.writeFile('floorsActive.json', JSON.stringify(floorsActive),(error) => {});
     res.json(req.body);
-}
-
-export function getActiveHeaters(req, res) {
-    res.send(heatersActive);
 }
 
 export function setActiveHeaters(req, res) {
