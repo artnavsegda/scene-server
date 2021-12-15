@@ -107,7 +107,6 @@ function processWeekly(elementList,schedule)
 export function testclimate(req, res) {
     res.send("test climate");
     processClimate();
-    processHeaters();
 }
 
 /* function processDaily(elementList, schedule)
@@ -140,10 +139,12 @@ function processClimate()
     console.log("heaters daily");
     processDaily(heatersActive.daily,heatersSchedule.daily); */
     processFloors();
+    processHeaters();
 }
 
 function processFloors()
 {
+    console.log('process floors');
     floorsActive.forEach((value,key) => {
         processFloor(value);
     })
