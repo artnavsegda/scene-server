@@ -261,8 +261,8 @@ export function switchFloorClimate(req, res) {
 
 export function setFloorClimateMode(req, res) {
     var floor = floorsActive.get(req.query.floor);
-
     floor.mode = req.query.mode;
+    console.log('set '+floor+' Floor Climate mode ' + floor.mode);
     floorsActive.set(req.query.floor, floor);
     client.publish('/climate/floor/' + req.query.floor +'/mode', modes[floor.mode], {retain: true});
     processFloor(floor);
@@ -288,6 +288,7 @@ export function switchHeaterClimate(req, res) {
 export function setHeaterClimateMode(req, res) {
     var heater = heatersActive.get(req.query.heater);
     heater.mode = req.query.mode;
+    console.log('set '+heater+' Heater Climate mode ' + heater.mode);
     heatersActive.set(req.query.heater, heater);
     client.publish('/climate/heater/' + req.query.heater +'/mode', modes[heater.mode], {retain: true});
     processHeater(heater);
