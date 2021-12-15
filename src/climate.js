@@ -237,7 +237,11 @@ const climateTimer = setInterval((w) => {
     processClimate();
 },100000)
 
-
+const modes = {
+    'always': 0,
+    'daily': 1,
+    'weekly': 2
+}
 
 app.get('/getFloorClimate', (req, res) => {
     res.send(floorsActive);
@@ -254,7 +258,12 @@ app.get('/switchFloorClimate', (req, res) => {
 })
 
 app.get('/setFloorClimateMode', (req, res) => {
-    req.query;
+    var floor = heatersActive.get(req.query.floor);
+    floor.mode = req.query.mode;
+    floorsActive.set(req.query.floor, floor);
+    client.publish('/climate/floor/' + req.query.floor +'/mode', modes[floor.mode], {retain: true});
+    processFloor(floor);
+    fs.writeFile('floorsActive.json', JSON.stringify(floorsActive),(error) => {});
     res.send("ok");
 })
 
@@ -273,6 +282,11 @@ app.get('/switchHeaterClimate', (req, res) => {
 })
 
 app.get('/setHeaterClimateMode', (req, res) => {
-    req.query;
+    var heater = heatersActive.get(req.query.heater);
+    heater.mode = req.query.mode;
+    heatersActive.set(req.query.heater, heater);
+    client.publish('/climate/heater/' + req.query.heater +'/mode', modes[heater.mode], {retain: true});
+    processHeater(heater);
+    fs.writeFile('heatersActive.json', JSON.stringify(heatersActive),(error) => {});
     res.send("ok");
 })
