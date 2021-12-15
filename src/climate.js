@@ -30,7 +30,7 @@ const climateFloors = [
     ["cabinet", {mode: "always", enable: true, join: 511}],
     ["3rdstairs", {mode: "always", enable: true, join: 512}],
     ["3rdbathroom", {mode: "always", enable: true, join: 513}],
-    ["Workshop", {mode: "always", enable: true, join: 514}],
+    ["workshop", {mode: "always", enable: true, join: 514}],
 ]
 
 const climateHeaters = [
