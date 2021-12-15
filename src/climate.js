@@ -238,9 +238,7 @@ export function getFloorClimate(req, res) {
 }
 
 export function switchFloorClimate(req, res) {
-    console.log('floor name ' + req.query.floor)
     var floor = floorsActive.get(req.query.floor);
-    console.log('floor ' + floor);
     floor.enable = !floor.enable;
     floorsActive.set(req.query.floor, floor);
     client.publish('/climate/floor/' + req.query.floor +'/enable', floor.enable, {retain: true});
