@@ -106,9 +106,10 @@ function processWeekly(elementList,schedule)
 export function testclimate(req, res) {
     res.send("test climate");
     processClimate();
+    processHeaters();
 }
 
-function processDaily(elementList, schedule)
+/* function processDaily(elementList, schedule)
 {
     var setValue = schedule[new Date().getHours()] ? 1 : 0;
     var invSetValue = schedule[new Date().getHours()] ? 0 : 1;
@@ -125,18 +126,19 @@ function processWeekly(elementList,schedule)
 {
     var dayWeekNumber = (new Date().getDay() + 6) % 7;
     processDaily(elementList, schedule[dayWeekNumber]);
-}
+} */
 
 function processClimate()
 {
-    console.log("floors weekly");
+/*     console.log("floors weekly");
     processWeekly(floorsActive.weekly,floorsSchedule.weekly);
     console.log("floors daily");
     processDaily(floorsActive.daily,floorsSchedule.daily)
     console.log("heaters weekly");
     processWeekly(heatersActive.weekly,heatersSchedule.weekly);
     console.log("heaters daily");
-    processDaily(heatersActive.daily,heatersSchedule.daily);
+    processDaily(heatersActive.daily,heatersSchedule.daily); */
+    processFloors();
 }
 
 function processFloors()
