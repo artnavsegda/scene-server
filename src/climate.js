@@ -240,7 +240,7 @@ export function switchFloorClimate(req, res) {
     floorsActive.set(req.query.floor, floor);
     client.publish('/climate/floor/' + req.query.floor +'/enable', floor.enable, {retain: true});
     processFloor(floor);
-    fs.writeFile('floorsActive.json', JSON.stringify(floorsActive),(error) => {});
+    fs.writeFile('floorsActive.json', JSON.stringify(Array.from(floorsActive.entries())),(error) => {});
     res.send("ok");
 }
 
@@ -250,7 +250,7 @@ export function setFloorClimateMode(req, res) {
     floorsActive.set(req.query.floor, floor);
     client.publish('/climate/floor/' + req.query.floor +'/mode', modes[floor.mode], {retain: true});
     processFloor(floor);
-    fs.writeFile('floorsActive.json', JSON.stringify(floorsActive),(error) => {});
+    fs.writeFile('floorsActive.json', JSON.stringify(Array.from(floorsActive.entries())),(error) => {});
     res.send("ok");
 }
 
@@ -264,7 +264,7 @@ export function switchHeaterClimate(req, res) {
     heatersActive.set(req.query.heater, heater);
     client.publish('/climate/heater/' + req.query.heater +'/enable', heater.enable, {retain: true});
     processHeater(heater);
-    fs.writeFile('heatersActive.json', JSON.stringify(heatersActive),(error) => {});
+    fs.writeFile('heatersActive.json', JSON.stringify(Array.from(heatersActive.entries())),(error) => {});
     res.send("ok");
 }
 
@@ -274,6 +274,6 @@ export function setHeaterClimateMode(req, res) {
     heatersActive.set(req.query.heater, heater);
     client.publish('/climate/heater/' + req.query.heater +'/mode', modes[heater.mode], {retain: true});
     processHeater(heater);
-    fs.writeFile('heatersActive.json', JSON.stringify(heatersActive),(error) => {});
+    fs.writeFile('heatersActive.json', JSON.stringify(Array.from(heatersActive.entries())),(error) => {});
     res.send("ok");
 }
