@@ -2,7 +2,7 @@ import fs from "fs";
 import express from "express";
 import cipclient from "crestron-cip";
 import { digitalMap, feedbackDigitalMap } from "./joinMap.js";
-import { client } from "./media.js";
+//import { client } from "./media.js";
 
 const cip  = cipclient.connect({host:  "192.168.10.10",  ipid:  "\x03"},  ()  =>  {
   console.log('CIP connected')
@@ -62,8 +62,6 @@ cip.subscribe((data)  =>  {
 
 const app = express();
 
-export {app, tryRead, cip};
-
 const port = 3000;
 
 app.use(express.json());
@@ -81,3 +79,4 @@ app.get('/getScen', (req, res) => {
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
+export {app, tryRead, cip};
