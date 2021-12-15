@@ -276,7 +276,7 @@ export function getHeaterClimate(req, res) {
 
 export function switchHeaterClimate(req, res) {
     var heater = heatersActive.get(req.query.heater);
-    console.log('switch '+heater+'Heater Climate');
+    console.log('switch '+heater+' Heater Climate');
     heater.enable = !heater.enable;
     heatersActive.set(req.query.heater, heater);
     client.publish('/climate/heater/' + req.query.heater +'/enable', heater.enable, {retain: true});
