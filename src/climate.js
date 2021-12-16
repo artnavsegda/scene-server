@@ -347,4 +347,6 @@ export function shutdownRoom(req, res) {
             floorsActive.set(req.query.room, floor);
             client.publish('/climate/floor/' + req.query.room +'/enable', '0', {retain: true});
     }
+    res.send("ok");
+    processClimate();
 }
