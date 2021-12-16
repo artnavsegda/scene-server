@@ -97,6 +97,7 @@ app.post('/setFloors', climate.setFloors);
 app.post('/setActiveFloors', climate.setActiveFloors);
 app.post('/setActiveHeaters', climate.setActiveHeaters);
 app.get('/testclimate', climate.testclimate);
+app.get('/shutdownRoom', climate.shutdownRoom);
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
