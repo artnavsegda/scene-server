@@ -84,9 +84,11 @@ app.get('/multiroom', (req, res) => {
 
 app.get('/getFloorClimate', climate.getFloorClimate);
 app.get('/switchFloorClimate', climate.switchFloorClimate);
+app.get('/turnFloorClimate', climate.turnFloorClimate);
 app.get('/setFloorClimateMode', climate.setFloorClimateMode);
 app.get('/getHeaterClimate', climate.getHeaterClimate);
 app.get('/switchHeaterClimate', climate.switchHeaterClimate);
+app.get('/turnHeaterClimate', climate.turnHeaterClimate);
 app.get('/setHeaterClimateMode', climate.setHeaterClimateMode);
 app.get('/getHeaters', climate.getHeaters);
 app.post('/setHeaters', climate.setHeaters);

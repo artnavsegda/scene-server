@@ -122,7 +122,19 @@ function processRooms()
 
     const bedroomEnable = climateHeaters.get('bedroom').enable
         || climateFloors.get('bedroom').enable;
-    client.publish('/climate/livingroom/enable', livingroomEnable, {retain: true});
+    client.publish('/climate/bedroom/enable', bedroomEnable, {retain: true});
+
+    const kidsroomEnable = climateHeaters.get('kidsroom').enable
+        || climateFloors.get('kidsroom').enable;
+    client.publish('/climate/kidsroom/enable', kidsroomEnable, {retain: true});
+
+    const cabinetEnable = climateHeaters.get('cabinet').enable
+        || climateFloors.get('cabinet').enable;
+    client.publish('/climate/cabinet/enable', cabinetEnable, {retain: true});
+
+    const workshopEnable = climateHeaters.get('workshop').enable
+        || climateFloors.get('workshop').enable;
+    client.publish('/climate/workshop/enable', workshopEnable, {retain: true});
 }
 
 function processFloors()
@@ -243,6 +255,17 @@ export function switchFloorClimate(req, res) {
     res.send("ok");
 }
 
+export function turnFloorClimate(req, res) {
+    var floor = floorsActive.get(req.query.floor);
+    console.log('turn '+req.query.floor+' Floor Climate' + req.query.turn);
+    floor.enable = (req.query.turn === 'true');
+    floorsActive.set(req.query.floor, floor);
+    client.publish('/climate/floor/' + req.query.floor +'/enable', floor.enable, {retain: true});
+    processFloor(floor);
+    fs.writeFile('floorsActive.json', JSON.stringify(Array.from(floorsActive.entries())),(error) => {});
+    res.send("ok");
+}
+
 export function setFloorClimateMode(req, res) {
     var floor = floorsActive.get(req.query.floor);
     floor.mode = req.query.mode;
@@ -256,6 +279,17 @@ export function setFloorClimateMode(req, res) {
 
 export function getHeaterClimate(req, res) {
     res.send(Array.from(heatersActive.entries()));
+}
+
+export function turnHeaterClimate(req, res) {
+    var heater = heatersActive.get(req.query.heater);
+    console.log('turn '+req.query.heater+' Heater Climate' + req.query.turn);
+    heater.enable = (req.query.turn === 'true');
+    heatersActive.set(req.query.heater, heater);
+    client.publish('/climate/heater/' + req.query.heater +'/enable', heater.enable, {retain: true});
+    processHeater(heater);
+    fs.writeFile('heatersActive.json', JSON.stringify(Array.from(heatersActive.entries())),(error) => {});
+    res.send("ok");
 }
 
 export function switchHeaterClimate(req, res) {
