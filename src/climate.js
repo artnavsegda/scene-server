@@ -313,3 +313,34 @@ export function setHeaterClimateMode(req, res) {
     fs.writeFile('heatersActive.json', JSON.stringify(Array.from(heatersActive.entries())),(error) => {});
     res.send("ok");
 }
+
+export function shutdownRoom(req, res) {
+    switch (req.query.room)
+    {
+        case 'basement':
+            ['garage', 'boiler', 'technical_room'].forEach((element) => {
+                var heater = heatersActive.get(element);
+                heater.mode = false;
+                heatersActive.set(element, heater);
+                client.publish('/climate/heater/' + element +'/enable', false, {retain: true});
+            })
+        break
+        case 'stairs':
+            ['2ndstairs', '3rdstairs'].forEach((element) => {
+                var heater = heatersActive.get(element);
+                heater.mode = false;
+                heatersActive.set(element, heater);
+                client.publish('/climate/heater/' + element +'/enable', false, {retain: true});
+            })
+        default:
+            var heater = heatersActive.get(req.query.room);
+            heater.mode = false;
+            heatersActive.set(req.query.room, heater);
+            client.publish('/climate/heater/' + req.query.room +'/enable', false, {retain: true});
+
+            var floor = floorsActive.get(req.query.room);
+            floor.mode = false;
+            floorsActive.set(req.query.room, floor);
+            client.publish('/climate/floor/' + req.query.room +'/enable', false, {retain: true});
+    }
+}
