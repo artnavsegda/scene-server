@@ -336,6 +336,7 @@ export function shutdownRoom(req, res) {
                 heatersActive.set(element, heater);
                 client.publish('/climate/heater/' + element +'/enable', '0', {retain: true});
             })
+        break
         default:
             var heater = heatersActive.get(req.query.room);
             heater.enable = false;
@@ -349,4 +350,6 @@ export function shutdownRoom(req, res) {
     }
     res.send("ok");
     processClimate();
+    fs.writeFile('heatersActive.json', JSON.stringify(Array.from(heatersActive.entries())),(error) => {});
+    fs.writeFile('floorsActive.json', JSON.stringify(Array.from(floorsActive.entries())),(error) => {});
 }
