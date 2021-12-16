@@ -103,37 +103,37 @@ function processClimate()
 
 function processRooms()
 {
-    const basementEnable = climateHeaters.get('garage').enable
-        || climateHeaters.get('boiler').enable
-        || climateHeaters.get('technical_room').enable;
+    const basementEnable = heatersActive.get('garage').enable
+        || heatersActive.get('boiler').enable
+        || heatersActive.get('technical_room').enable;
     client.publish('/climate/basement/enable', basementEnable, {retain: true});
 
-    const stairsEnable = climateHeaters.get('2ndstairs').enable
-        || climateHeaters.get('3rdstairs').enable;
+    const stairsEnable = heatersActive.get('2ndstairs').enable
+        || heatersActive.get('3rdstairs').enable;
     client.publish('/climate/stairs/enable', stairsEnable, {retain: true});
 
-    const livingroomEnable = climateHeaters.get('livingroom').enable
-        || climateFloors.get('livingroom').enable;
+    const livingroomEnable = heatersActive.get('livingroom').enable
+        || floorsActive.get('livingroom').enable;
     client.publish('/climate/livingroom/enable', livingroomEnable, {retain: true});
 
-    const kitchenEnable = climateHeaters.get('kitchen').enable
-        || climateFloors.get('kitchen').enable;
+    const kitchenEnable = heatersActive.get('kitchen').enable
+        || floorsActive.get('kitchen').enable;
     client.publish('/climate/kitchen/enable', kitchenEnable, {retain: true});
 
-    const bedroomEnable = climateHeaters.get('bedroom').enable
-        || climateFloors.get('bedroom').enable;
+    const bedroomEnable = heatersActive.get('bedroom').enable
+        || floorsActive.get('bedroom').enable;
     client.publish('/climate/bedroom/enable', bedroomEnable, {retain: true});
 
-    const kidsroomEnable = climateHeaters.get('kidsroom').enable
-        || climateFloors.get('kidsroom').enable;
+    const kidsroomEnable = heatersActive.get('kidsroom').enable
+        || floorsActive.get('kidsroom').enable;
     client.publish('/climate/kidsroom/enable', kidsroomEnable, {retain: true});
 
-    const cabinetEnable = climateHeaters.get('cabinet').enable
-        || climateFloors.get('cabinet').enable;
+    const cabinetEnable = heatersActive.get('cabinet').enable
+        || floorsActive.get('cabinet').enable;
     client.publish('/climate/cabinet/enable', cabinetEnable, {retain: true});
 
-    const workshopEnable = climateHeaters.get('workshop').enable
-        || climateFloors.get('workshop').enable;
+    const workshopEnable = heatersActive.get('workshop').enable
+        || floorsActive.get('workshop').enable;
     client.publish('/climate/workshop/enable', workshopEnable, {retain: true});
 }
 
