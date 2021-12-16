@@ -356,10 +356,10 @@ export function shutdownRoom(req, res) {
         break;
         case 'stairs':
             ['2ndstairs', '3rdstairs'].forEach((element) => {
-                var heater = heatersActive.get(element);
-                heater.enable = false;
-                heatersActive.set(element, heater);
-                client.publish('/climate/heater/' + element +'/enable', '0', {retain: true});
+                var floor = floorsActive.get(element);
+                floor.enable = false;
+                floorsActive.set(element, floor);
+                client.publish('/climate/floor/' + element +'/enable', '0', {retain: true});
             })
         break;
         case 'global':
