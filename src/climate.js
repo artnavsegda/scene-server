@@ -106,35 +106,35 @@ function processRooms()
     const basementEnable = heatersActive.get('garage').enable
         || heatersActive.get('boiler').enable
         || heatersActive.get('technical_room').enable;
-    client.publish('/climate/basement/enable', basementEnable | 0, {retain: true});
+    client.publish('/climate/basement/enable', basementEnable ? '1' : '0', {retain: true});
 
     const stairsEnable = heatersActive.get('2ndstairs').enable
         || heatersActive.get('3rdstairs').enable;
-    client.publish('/climate/stairs/enable', stairsEnable| 0, {retain: true});
+    client.publish('/climate/stairs/enable', stairsEnable ? '1' : '0', {retain: true});
 
     const livingroomEnable = heatersActive.get('livingroom').enable
         || floorsActive.get('livingroom').enable;
-    client.publish('/climate/livingroom/enable', livingroomEnable| 0, {retain: true});
+    client.publish('/climate/livingroom/enable', livingroomEnable ? '1' : '0', {retain: true});
 
     const kitchenEnable = heatersActive.get('kitchen').enable
         || floorsActive.get('kitchen').enable;
-    client.publish('/climate/kitchen/enable', kitchenEnable | 0, {retain: true});
+    client.publish('/climate/kitchen/enable', kitchenEnable ? '1' : '0', {retain: true});
 
     const bedroomEnable = heatersActive.get('bedroom').enable
         || floorsActive.get('bedroom').enable;
-    client.publish('/climate/bedroom/enable', bedroomEnable | 0, {retain: true});
+    client.publish('/climate/bedroom/enable', bedroomEnable ? '1' : '0', {retain: true});
 
     const kidsroomEnable = heatersActive.get('kidsroom').enable
         || floorsActive.get('kidsroom').enable;
-    client.publish('/climate/kidsroom/enable', kidsroomEnable | 0, {retain: true});
+    client.publish('/climate/kidsroom/enable', kidsroomEnable ? '1' : '0', {retain: true});
 
     const cabinetEnable = heatersActive.get('cabinet').enable
         || floorsActive.get('cabinet').enable;
-    client.publish('/climate/cabinet/enable', cabinetEnable | 0, {retain: true});
+    client.publish('/climate/cabinet/enable', cabinetEnable ? '1' : '0', {retain: true});
 
     const workshopEnable = heatersActive.get('workshop').enable
         || floorsActive.get('workshop').enable;
-    client.publish('/climate/workshop/enable', workshopEnable | 0, {retain: true});
+    client.publish('/climate/workshop/enable', workshopEnable ? '1' : '0', {retain: true});
 }
 
 function processFloors()
@@ -249,7 +249,7 @@ export function switchFloorClimate(req, res) {
     console.log('switch '+req.query.floor+' Floor Climate');
     floor.enable = !floor.enable;
     floorsActive.set(req.query.floor, floor);
-    client.publish('/climate/floor/' + req.query.floor +'/enable', floor.enable, {retain: true});
+    client.publish('/climate/floor/' + req.query.floor +'/enable', floor.enable ? '1' : '0', {retain: true});
     processFloor(floor);
     fs.writeFile('floorsActive.json', JSON.stringify(Array.from(floorsActive.entries())),(error) => {});
     res.send("ok");
@@ -261,7 +261,7 @@ export function turnFloorClimate(req, res) {
     console.log('turn '+req.query.floor+' Floor Climate' + req.query.turn);
     floor.enable = (req.query.turn === 'true');
     floorsActive.set(req.query.floor, floor);
-    client.publish('/climate/floor/' + req.query.floor +'/enable', floor.enable, {retain: true});
+    client.publish('/climate/floor/' + req.query.floor +'/enable', floor.enable ? '1' : '0', {retain: true});
     processFloor(floor);
     fs.writeFile('floorsActive.json', JSON.stringify(Array.from(floorsActive.entries())),(error) => {});
     res.send("ok");
@@ -273,7 +273,7 @@ export function setFloorClimateMode(req, res) {
     floor.mode = req.query.mode;
     console.log('set '+req.query.floor+' Floor Climate mode ' + floor.mode);
     floorsActive.set(req.query.floor, floor);
-    client.publish('/climate/floor/' + req.query.floor +'/mode', modes[floor.mode], {retain: true});
+    client.publish('/climate/floor/' + req.query.floor +'/mode', floor.mode, {retain: true});
     processFloor(floor);
     fs.writeFile('floorsActive.json', JSON.stringify(Array.from(floorsActive.entries())),(error) => {});
     res.send("ok");
@@ -288,7 +288,7 @@ export function turnHeaterClimate(req, res) {
     console.log('turn '+req.query.heater+' Heater Climate' + req.query.turn);
     heater.enable = (req.query.turn === 'true');
     heatersActive.set(req.query.heater, heater);
-    client.publish('/climate/heater/' + req.query.heater +'/enable', heater.enable, {retain: true});
+    client.publish('/climate/heater/' + req.query.heater +'/enable', heater.enable ? '1' : '0', {retain: true});
     processHeater(heater);
     fs.writeFile('heatersActive.json', JSON.stringify(Array.from(heatersActive.entries())),(error) => {});
     res.send("ok");
@@ -300,7 +300,7 @@ export function switchHeaterClimate(req, res) {
     console.log('switch '+req.query.heater+' Heater Climate');
     heater.enable = !heater.enable;
     heatersActive.set(req.query.heater, heater);
-    client.publish('/climate/heater/' + req.query.heater +'/enable', heater.enable, {retain: true});
+    client.publish('/climate/heater/' + req.query.heater +'/enable', heater.enable ? '1' : '0', {retain: true});
     processHeater(heater);
     fs.writeFile('heatersActive.json', JSON.stringify(Array.from(heatersActive.entries())),(error) => {});
     res.send("ok");
@@ -312,7 +312,7 @@ export function setHeaterClimateMode(req, res) {
     heater.mode = req.query.mode;
     console.log('set '+req.query.heater+' Heater Climate mode ' + heater.mode);
     heatersActive.set(req.query.heater, heater);
-    client.publish('/climate/heater/' + req.query.heater +'/mode', modes[heater.mode], {retain: true});
+    client.publish('/climate/heater/' + req.query.heater +'/mode', heater.mode, {retain: true});
     processHeater(heater);
     fs.writeFile('heatersActive.json', JSON.stringify(Array.from(heatersActive.entries())),(error) => {});
     res.send("ok");
