@@ -324,7 +324,7 @@ export function shutdownRoom(req, res) {
         case 'basement':
             ['garage', 'boiler', 'technical_room'].forEach((element) => {
                 var heater = heatersActive.get(element);
-                heater.mode = false;
+                heater.enable = false;
                 heatersActive.set(element, heater);
                 client.publish('/climate/heater/' + element +'/enable', '0', {retain: true});
             })
@@ -332,18 +332,18 @@ export function shutdownRoom(req, res) {
         case 'stairs':
             ['2ndstairs', '3rdstairs'].forEach((element) => {
                 var heater = heatersActive.get(element);
-                heater.mode = false;
+                heater.enable = false;
                 heatersActive.set(element, heater);
                 client.publish('/climate/heater/' + element +'/enable', '0', {retain: true});
             })
         default:
             var heater = heatersActive.get(req.query.room);
-            heater.mode = false;
+            heater.enable = false;
             heatersActive.set(req.query.room, heater);
             client.publish('/climate/heater/' + req.query.room +'/enable', '0', {retain: true});
 
             var floor = floorsActive.get(req.query.room);
-            floor.mode = false;
+            floor.enable = false;
             floorsActive.set(req.query.room, floor);
             client.publish('/climate/floor/' + req.query.room +'/enable', '0', {retain: true});
     }
