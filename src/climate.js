@@ -135,6 +135,31 @@ function processRooms()
     const workshopEnable = heatersActive.get('workshop').enable
         || floorsActive.get('workshop').enable;
     client.publish('/climate/workshop/enable', workshopEnable ? '1' : '0', {retain: true});
+
+    const globalEnable 
+    = heatersActive.get('garage').enable
+    || heatersActive.get('boiler').enable
+    || heatersActive.get('technical_room').enable
+    || heatersActive.get('livingroom').enable
+    || heatersActive.get('kitchen').enable
+    || heatersActive.get('bedroom').enable
+    || heatersActive.get('kidsroom').enable
+    || heatersActive.get('2ndstairs').enable
+    || heatersActive.get('cabinet').enable
+    || heatersActive.get('3rdstairs').enable
+    || heatersActive.get('workshop').enable
+    || floorsActive.get('hallway').enable
+    || floorsActive.get('hall').enable
+    || floorsActive.get('livingroom').enable
+    || floorsActive.get('kitchen').enable
+    || floorsActive.get('bathroom').enable
+    || floorsActive.get('bedroom').enable
+    || floorsActive.get('kidsroom').enable
+    || floorsActive.get('2ndbathroom').enable
+    || floorsActive.get('cabinet').enable
+    || floorsActive.get('3rdbathroom').enable
+    || floorsActive.get('workshop').enable;
+    client.publish('/climate/enable', globalEnable ? '1' : '0', {retain: true});
 }
 
 function processFloors()
@@ -328,7 +353,7 @@ export function shutdownRoom(req, res) {
                 heatersActive.set(element, heater);
                 client.publish('/climate/heater/' + element +'/enable', '0', {retain: true});
             })
-        break
+        break;
         case 'stairs':
             ['2ndstairs', '3rdstairs'].forEach((element) => {
                 var heater = heatersActive.get(element);
@@ -336,7 +361,19 @@ export function shutdownRoom(req, res) {
                 heatersActive.set(element, heater);
                 client.publish('/climate/heater/' + element +'/enable', '0', {retain: true});
             })
-        break
+        break;
+        case 'global':
+            heatersActive.forEach((heater,key) => {
+                heater.enable = false;
+                heatersActive.set(key, heater);
+                client.publish('/climate/heater/' + key +'/enable', '0', {retain: true});
+            })
+            floorsActive.forEach((floor,key) => {
+                floor.enable = false;
+                floorsActive.set(key, floor);
+                client.publish('/climate/floor/' + key +'/enable', '0', {retain: true});
+            })
+        break;
         default:
             var heater = heatersActive.get(req.query.room);
             heater.enable = false;
