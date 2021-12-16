@@ -253,6 +253,7 @@ export function switchFloorClimate(req, res) {
     processFloor(floor);
     fs.writeFile('floorsActive.json', JSON.stringify(Array.from(floorsActive.entries())),(error) => {});
     res.send("ok");
+    processRooms();
 }
 
 export function turnFloorClimate(req, res) {
@@ -264,6 +265,7 @@ export function turnFloorClimate(req, res) {
     processFloor(floor);
     fs.writeFile('floorsActive.json', JSON.stringify(Array.from(floorsActive.entries())),(error) => {});
     res.send("ok");
+    processRooms();
 }
 
 export function setFloorClimateMode(req, res) {
@@ -290,6 +292,7 @@ export function turnHeaterClimate(req, res) {
     processHeater(heater);
     fs.writeFile('heatersActive.json', JSON.stringify(Array.from(heatersActive.entries())),(error) => {});
     res.send("ok");
+    processRooms();
 }
 
 export function switchHeaterClimate(req, res) {
@@ -301,6 +304,7 @@ export function switchHeaterClimate(req, res) {
     processHeater(heater);
     fs.writeFile('heatersActive.json', JSON.stringify(Array.from(heatersActive.entries())),(error) => {});
     res.send("ok");
+    processRooms();
 }
 
 export function setHeaterClimateMode(req, res) {
