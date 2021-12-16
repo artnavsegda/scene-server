@@ -94,8 +94,8 @@ app.get('/getHeaters', climate.getHeaters);
 app.post('/setHeaters', climate.setHeaters);
 app.get('/getFloors', climate.getFloors);
 app.post('/setFloors', climate.setFloors);
-app.post('/setActiveFloors', climate.setActiveFloors);
-app.post('/setActiveHeaters', climate.setActiveHeaters);
+//app.post('/setActiveFloors', climate.setActiveFloors);
+//app.post('/setActiveHeaters', climate.setActiveHeaters);
 app.get('/testclimate', climate.testclimate);
 app.get('/shutdownRoom', climate.shutdownRoom);
 
