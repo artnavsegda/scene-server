@@ -326,7 +326,7 @@ export function shutdownRoom(req, res) {
                 var heater = heatersActive.get(element);
                 heater.mode = false;
                 heatersActive.set(element, heater);
-                client.publish('/climate/heater/' + element +'/enable', false, {retain: true});
+                client.publish('/climate/heater/' + element +'/enable', '0', {retain: true});
             })
         break
         case 'stairs':
@@ -334,17 +334,17 @@ export function shutdownRoom(req, res) {
                 var heater = heatersActive.get(element);
                 heater.mode = false;
                 heatersActive.set(element, heater);
-                client.publish('/climate/heater/' + element +'/enable', false, {retain: true});
+                client.publish('/climate/heater/' + element +'/enable', '0', {retain: true});
             })
         default:
             var heater = heatersActive.get(req.query.room);
             heater.mode = false;
             heatersActive.set(req.query.room, heater);
-            client.publish('/climate/heater/' + req.query.room +'/enable', false, {retain: true});
+            client.publish('/climate/heater/' + req.query.room +'/enable', '0', {retain: true});
 
             var floor = floorsActive.get(req.query.room);
             floor.mode = false;
             floorsActive.set(req.query.room, floor);
-            client.publish('/climate/floor/' + req.query.room +'/enable', false, {retain: true});
+            client.publish('/climate/floor/' + req.query.room +'/enable', '0', {retain: true});
     }
 }
