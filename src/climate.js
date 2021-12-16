@@ -39,7 +39,7 @@ const climateHeaters = [
     ["technical_room", {mode: "always", enable: true, join: 517}],
     ["livingroom", {mode: "always", enable: true, join: 518}],
     ["kitchen", {mode: "always", enable: true, join: 520}],
-    ["nedroom", {mode: "always", enable: true, join: 521}],
+    ["bedroom", {mode: "always", enable: true, join: 521}],
     ["kidsroom", {mode: "always", enable: true, join: 522}],
     ["2ndstairs", {mode: "always", enable: true, join: 523}],
     ["cabinet", {mode: "always", enable: true, join: 524}],
@@ -89,57 +89,40 @@ export function setActiveHeaters(req, res) {
     res.json(req.body);
 }
 
-/* function processDaily(elementList, schedule)
-{
-    var setValue = schedule[new Date().getHours()] ? 1 : 0;
-
-    elementList.forEach(element => {
-        cip.dset(elementList[element], setValue);
-    });
-}
-
-function processWeekly(elementList,schedule)
-{
-    var dayWeekNumber = (new Date().getDay() + 6) % 7;
-    processDaily(elementList, schedule[dayWeekNumber]);
-} */
-
 export function testclimate(req, res) {
     res.send("test climate");
     processClimate();
 }
 
-/* function processDaily(elementList, schedule)
-{
-    var setValue = schedule[new Date().getHours()] ? 1 : 0;
-    var invSetValue = schedule[new Date().getHours()] ? 0 : 1;
-
-    elementList.forEach(element => {
-        const cipnumber = new Map(climateDigitalMap).get(element + "[Enable]");
-        cip.dset(cipnumber, invSetValue);
-        cip.dset(cipnumber, setValue);
-        console.log("join " + element + " number " + cipnumber + " value " + setValue);
-    });
-}
-
-function processWeekly(elementList,schedule)
-{
-    var dayWeekNumber = (new Date().getDay() + 6) % 7;
-    processDaily(elementList, schedule[dayWeekNumber]);
-} */
-
 function processClimate()
 {
-/*     console.log("floors weekly");
-    processWeekly(floorsActive.weekly,floorsSchedule.weekly);
-    console.log("floors daily");
-    processDaily(floorsActive.daily,floorsSchedule.daily)
-    console.log("heaters weekly");
-    processWeekly(heatersActive.weekly,heatersSchedule.weekly);
-    console.log("heaters daily");
-    processDaily(heatersActive.daily,heatersSchedule.daily); */
     processFloors();
     processHeaters();
+    processRooms();
+}
+
+function processRooms()
+{
+    const basementEnable = climateHeaters.get('garage').enable
+        || climateHeaters.get('boiler').enable
+        || climateHeaters.get('technical_room').enable;
+    client.publish('/climate/basement/enable', basementEnable, {retain: true});
+
+    const stairsEnable = climateHeaters.get('2ndstairs').enable
+        || climateHeaters.get('3rdstairs').enable;
+    client.publish('/climate/stairs/enable', stairsEnable, {retain: true});
+
+    const livingroomEnable = climateHeaters.get('livingroom').enable
+        || climateFloors.get('livingroom').enable;
+    client.publish('/climate/livingroom/enable', livingroomEnable, {retain: true});
+
+    const kitchenEnable = climateHeaters.get('kitchen').enable
+        || climateFloors.get('kitchen').enable;
+    client.publish('/climate/kitchen/enable', kitchenEnable, {retain: true});
+
+    const bedroomEnable = climateHeaters.get('bedroom').enable
+        || climateFloors.get('bedroom').enable;
+    client.publish('/climate/livingroom/enable', livingroomEnable, {retain: true});
 }
 
 function processFloors()
