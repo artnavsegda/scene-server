@@ -108,8 +108,8 @@ function processRooms()
         || heatersActive.get('technical_room').enable;
     client.publish('/climate/basement/enable', basementEnable ? '1' : '0', {retain: true});
 
-    const stairsEnable = heatersActive.get('2ndstairs').enable
-        || heatersActive.get('3rdstairs').enable;
+    const stairsEnable = floorsActive.get('2ndstairs').enable
+        || floorsActive.get('3rdstairs').enable;
     client.publish('/climate/stairs/enable', stairsEnable ? '1' : '0', {retain: true});
 
     const livingroomEnable = heatersActive.get('livingroom').enable
