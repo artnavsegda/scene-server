@@ -15,7 +15,7 @@ let Scenarios = tryRead('scenes.json', []);
 function activateScene(scene)
 {
   console.log("Start scene " + scene.name)
-  scene.forEach(function(elementToActivate)
+  scene.payload.forEach(function(elementToActivate)
   {
       switch (elementToActivate.type)
       {
