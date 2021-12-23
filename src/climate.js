@@ -178,7 +178,7 @@ function processFloor(floor)
         if (floor.mode == 'always')
         {
             console.log('switch on');
-            cip.dset(floor.join, 0);
+            //cip.dset(floor.join, 0);
             cip.dset(floor.join, 1);
         }
         else if (floor.mode == 'daily')
@@ -186,7 +186,7 @@ function processFloor(floor)
             var setValue = floorsSchedule.daily[new Date().getHours()] ? 1 : 0;
             console.log('daily value is ' + setValue);
             var invSetValue = floorsSchedule.daily[new Date().getHours()] ? 0 : 1;
-            cip.dset(floor.join, invSetValue);
+            //cip.dset(floor.join, invSetValue);
             cip.dset(floor.join, setValue);
         }
         else if (floor.mode == 'weekly')
@@ -195,7 +195,7 @@ function processFloor(floor)
             var setValue = floorsSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 1 : 0;
             console.log('weekly value is ' + setValue);
             var invSetValue = floorsSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 0 : 1;
-            cip.dset(floor.join, invSetValue);
+            //cip.dset(floor.join, invSetValue);
             cip.dset(floor.join, setValue);
         }
     }
@@ -203,7 +203,7 @@ function processFloor(floor)
     {
         //disable
         console.log('switch off');
-        cip.dset(floor.join, 1);
+        //cip.dset(floor.join, 1);
         cip.dset(floor.join, 0);
     }
 }
@@ -216,7 +216,7 @@ function processHeater(heater)
         {
             //enable
             console.log('switch on');
-            cip.dset(heater.join, 0);
+            //cip.dset(heater.join, 0);
             cip.dset(heater.join, 1);
         }
         else if (heater.mode == 'daily')
@@ -224,7 +224,7 @@ function processHeater(heater)
             var setValue = heatersSchedule.daily[new Date().getHours()] ? 1 : 0;
             console.log('daily value is ' + setValue);
             var invSetValue = heatersSchedule.daily[new Date().getHours()] ? 0 : 1;
-            cip.dset(heater.join, invSetValue);
+            //cip.dset(heater.join, invSetValue);
             cip.dset(heater.join, setValue);
         }
         else if (heater.mode == 'weekly')
@@ -233,7 +233,7 @@ function processHeater(heater)
             var setValue = heatersSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 1 : 0;
             console.log('weekly value is ' + setValue);
             var invSetValue = heatersSchedule.weekly[dayWeekNumber][new Date().getHours()] ? 0 : 1;
-            cip.dset(heater.join, invSetValue);
+            //cip.dset(heater.join, invSetValue);
             cip.dset(heater.join, setValue);
         }
     }
@@ -241,7 +241,7 @@ function processHeater(heater)
     {
         //disable
         console.log('switch off');
-        cip.dset(heater.join, 1);
+        //cip.dset(heater.join, 1);
         cip.dset(heater.join, 0);
     }
 }
