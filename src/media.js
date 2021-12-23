@@ -435,11 +435,15 @@ export function turn(parameters)
 
     if (parameters.power == "on")
     {
-      if (multiroomStatus == true && selectedMultiroomDriver == parameters.source)
+      if (multiroomStatus == true)
       {
-        result = "busy";
-        details = {
-          prompt: "Устройство занято мультирумом"
+        if ((selectedMultiroomDriver == "yamaha1" && parameters.source == "yamaha") 
+          || (selectedMultiroomDriver == "yamaha2" && parameters.source == "yamaha2"))
+          {
+          result = "busy";
+          details = {
+            prompt: "Устройство занято мультирумом"
+          }
         }
       }
       else
