@@ -64,7 +64,7 @@ app.use(express.json());
 
 app.get('/actScene', (req, res) => {
   Scenarios.forEach(element => {
-    if (element.join == Number(jeq.query.join))
+    if (element.join == Number(req.query.join))
     {
       activateScene(element);
     }
