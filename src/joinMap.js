@@ -189,3 +189,7 @@ export const feedbackDigitalMap = new Map([
 	[61, "[Light][1st_level]Bra[L14-4][Is_On]"],
 	[62, "[Light][Balcony]Lamp[L15-1][Is_On]"]
 ]);
+
+export const analogMap = new Map([
+	["[Light][Living_room]Luster[L3-1][Level]", 9],
+])

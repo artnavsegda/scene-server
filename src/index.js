@@ -2,7 +2,7 @@ import fs from "fs";
 import express from "express";
 import cipclient from "crestron-cip";
 import { tryRead } from "./utils.js";
-import { digitalMap, feedbackDigitalMap } from "./joinMap.js";
+import { analogMap, digitalMap, feedbackDigitalMap } from "./joinMap.js";
 import { turn, query, multiroom } from "./media.js";
 import * as climate from "./climate.js";
 
@@ -14,30 +14,31 @@ let Scenarios = tryRead('scenes.json', []);
 
 function activateScene(scene)
 {
-    scene.forEach(function(elementToActivate)
-    {
-        switch (elementToActivate.type)
-        {
-            case "rgblights"://color           
-                if (elementToActivate.hue)
-                    if (elementToActivate.set_Hue)
-                        IR.GetDevice("Crestron").Set(elementToActivate.set_Hue, elementToActivate.hue);
-            case "dimmerlights"://dimmer 
-            case "rgblights":
-                if (elementToActivate.brightness)
-                    if (elementToActivate.set_Brightness)
-                        IR.GetDevice("Crestron").Set(elementToActivate.set_Brightness, elementToActivate.brightness);
-            case "lights"://switch
-            case "dimmerlights":
-            case "rgblights":
-                if (elementToActivate.value == 1)
-                    if (elementToActivate.set_On)
-                        Pulse(elementToActivate.set_On);
-                if (elementToActivate.value == 0)
-                    if (elementToActivate.set_Off)
-                        Pulse(elementToActivate.set_Off);
-        }
-    });
+  console.log("Start scene " + scene.name)
+  scene.forEach(function(elementToActivate)
+  {
+      switch (elementToActivate.type)
+      {
+          case "dimmerlights"://dimmer 
+              if (elementToActivate.brightness)
+                  if (elementToActivate.set_Brightness)
+                  {
+                    cip.aset(analogMap.get(elementToActivate.set_Brightness), elementToActivate.brightness)
+                  }
+          case "lights"://switch
+          case "dimmerlights":
+              if (elementToActivate.value == 1)
+                  if (elementToActivate.set_On)
+                  {
+                    cip.pulse(digitalMap.get(elementToActivate.set_On))
+                  }
+              if (elementToActivate.value == 0)
+                  if (elementToActivate.set_Off)
+                  {
+                    cip.pulse(digitalMap.get(elementToActivate.set_Off))
+                  }
+      }
+  });
 }
 
 cip.subscribe((data)  =>  {
@@ -46,10 +47,12 @@ cip.subscribe((data)  =>  {
 	{
 	  case "digital":
 		//console.log("digital decode: " + feedbackDigitalMap.get(data.join))
-		if (data.join == 228)
-		{
-			activateScene(Scenarios)
-		}
+    Scenarios.forEach(element => {
+      if (element.join == data.join)
+      {
+        activateScene(element);
+      }
+    })
 	}
   })
 
