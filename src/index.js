@@ -62,6 +62,15 @@ const port = 3000;
 
 app.use(express.json());
 
+app.get('/actScene', (req, res) => {
+  Scenarios.forEach(element => {
+    if (element.join == Number(jeq.query.join))
+    {
+      activateScene(element);
+    }
+  })
+})
+
 app.post('/setScen', (req, res) => {
     console.log("data:" + JSON.stringify(req.body))
     Scenarios = req.body;
