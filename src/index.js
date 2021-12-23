@@ -69,6 +69,7 @@ app.get('/actScene', (req, res) => {
       activateScene(element);
     }
   })
+  res.send("OK");
 })
 
 app.post('/setScen', (req, res) => {
