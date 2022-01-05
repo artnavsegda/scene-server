@@ -122,7 +122,25 @@ export const digitalMap = new Map([
 	["[Light][1st_level]Lamp[L14-2][Off]", 159],
 	["[Light][1st_level]Bra[L14-3][Off]", 160],
 	["[Light][1st_level]Bra[L14-4][Off]", 161],
-	["[Light][Balcony]Lamp[L15-1][Off]", 162]
+	["[Light][Balcony]Lamp[L15-1][Off]", 162],
+	["[Shade][Living_room]S3-1[Open]", 441],
+	["[Shade][Living_room]S3-2[Open]", 442],
+	["[Shade][Kitchen]All[Open]", 443],
+	["[Shade][Bedroom]S6-1[Open]", 446],
+	["[Shade][Bedroom]S6-2[Open]", 447],
+	["[Shade][Kids_room]S7-1[Open]", 448],
+	["[Shade][Kids_room]S7-2[Open]", 449],
+	["[Shade][Cabinet]S11-1[Open]", 452],
+	["[Shade][Workshop]All[Open]", 453],
+	["[Shade][Living_room]S3-1[Close]", 461],
+	["[Shade][Living_room]S3-2[Close]", 462],
+	["[Shade][Kitchen]All[Close]", 463],
+	["[Shade][Bedroom]S6-1[Close]", 466],
+	["[Shade][Bedroom]S6-2[Close]", 467],
+	["[Shade][Kids_room]S7-1[Close]", 468],
+	["[Shade][Kids_room]S7-2[Close]", 469],
+	["[Shade][Cabinet]S11-1[Close]", 472],
+	["[Shade][Workshop]All[Close]", 473],
 ])
 
 export const feedbackDigitalMap = new Map([
