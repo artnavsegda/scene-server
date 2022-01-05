@@ -37,6 +37,14 @@ function activateScene(scene)
                   {
                     cip.pulse(digitalMap.get(elementToActivate.set_Off))
                   }
+          break;
+          case "shades":
+              if (elementToActivate.value == 1)
+                  if (elementToActivate.set_Open)
+                      cip.pulse(digitalMap.get(elementToActivate.set_Open))
+              if (elementToActivate.value == 0)
+                  if (elementToActivate.set_Close)
+                      cip.pulse(digitalMap.get(elementToActivate.set_Close))
       }
   });
 }
