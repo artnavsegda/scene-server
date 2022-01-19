@@ -19,7 +19,8 @@ function activateScene(scene)
   {
       switch (elementToActivate.type)
       {
-          case "dimmerlights"://dimmer 
+          case "dimmerlights"://dimmer
+          if (elementToActivate.value == 1)
               if (elementToActivate.brightness)
                   if (elementToActivate.set_Brightness)
                   {
